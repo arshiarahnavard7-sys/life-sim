@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:title" content="Status — The Nightlife Operating System" />
+<meta property="og:description" content="Events, guestlists, attribution, and analytics — unified for the first time." />
+<title>Status — Marketing Deck</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
+  body { background: #000; color: #fff; font-family: 'Inter', -apple-system, system-ui, sans-serif; overflow-x: hidden; }
+  
+  /* Slide */
+  .slide { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 60px 40px; position: relative; scroll-snap-align: start; overflow: hidden; }
+  
+  /* Navigation dots */
+  .nav-dots { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); z-index: 100; display: flex; flex-direction: column; gap: 12px; }
+  .nav-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.15); cursor: pointer; transition: all 0.3s; border: none; }
+  .nav-dot.active { background: #fff; transform: scale(1.3); }
+  .nav-dot:hover { background: rgba(255,255,255,0.5); }
+  
+  /* Typography */
+  .slide-tag { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
+  .slide-title { font-size: clamp(36px, 6vw, 72px); font-weight: 900; line-height: 1.05; letter-spacing: -2px; max-width: 900px; text-align: center; }
+  .slide-subtitle { font-size: clamp(16px, 2.5vw, 22px); font-weight: 300; color: rgba(255,255,255,0.6); max-width: 600px; text-align: center; margin-top: 20px; line-height: 1.5; }
+  .gradient-text { background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .accent { background: linear-gradient(135deg, #8b5cf6, #3b82f6, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  
+  /* Slide 1: Hero */
+  .slide-hero { background: radial-gradient(ellipse at 50% 0%, rgba(139,92,246,0.15) 0%, transparent 60%), #000; }
+  .logo { font-size: 18px; font-weight: 800; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 40px; }
+  .logo span { background: linear-gradient(135deg, #8b5cf6, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero-cta { margin-top: 40px; display: flex; gap: 16px; }
+  .cta-btn { padding: 14px 32px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; }
+  .cta-primary { background: #fff; color: #000; border: none; }
+  .cta-primary:hover { transform: scale(1.03); opacity: 0.9; }
+  .cta-secondary { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.2); }
+  
+  /* Slide 2: Problem */
+  .slide-problem { background: radial-gradient(ellipse at 30% 80%, rgba(239,68,68,0.08) 0%, transparent 50%), #000; }
+  .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 900px; margin-top: 48px; }
+  .problem-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 28px; text-align: left; }
+  .problem-card .icon { font-size: 28px; margin-bottom: 12px; }
+  .problem-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+  .problem-card p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+  
+  /* Slide 3: Solution */
+  .slide-solution { background: radial-gradient(ellipse at 70% 30%, rgba(139,92,246,0.1) 0%, transparent 50%), #000; }
+  .solution-row { display: flex; gap: 40px; max-width: 1000px; margin-top: 48px; align-items: center; flex-wrap: wrap; justify-content: center; }
+  .solution-features { display: flex; flex-direction: column; gap: 20px; max-width: 400px; }
+  .feature { display: flex; gap: 16px; align-items: flex-start; }
+  .feature-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(139,92,246,0.12); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .feature h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+  .feature p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.4; }
+  .phone-mockup { width: 260px; height: 520px; border-radius: 36px; background: linear-gradient(160deg, rgba(139,92,246,0.2), rgba(59,130,246,0.1)); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative; overflow: hidden; }
+  .phone-mockup::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 28px; background: #000; border-radius: 0 0 16px 16px; }
+  .phone-screen { font-size: 13px; color: rgba(255,255,255,0.4); text-align: center; padding: 20px; }
+  .phone-screen .app-name { font-size: 24px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+  
+  /* Slide 4: How It Works */
+  .slide-how { background: radial-gradient(ellipse at 50% 50%, rgba(6,182,212,0.08) 0%, transparent 50%), #000; }
+  .steps { display: flex; gap: 24px; max-width: 1000px; margin-top: 48px; flex-wrap: wrap; justify-content: center; }
+  .step-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 20px; padding: 32px 28px; text-align: center; width: 220px; position: relative; }
+  .step-num { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #8b5cf6, #3b82f6); font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+  .step-card .step-icon { font-size: 36px; margin-bottom: 16px; }
+  .step-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .step-card p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+  .step-arrow { font-size: 24px; color: rgba(255,255,255,0.15); display: flex; align-items: center; }
+  
+  /* Slide 5: Numbers */
+  .slide-numbers { background: radial-gradient(ellipse at 50% 50%, rgba(34,197,94,0.08) 0%, transparent 50%), #000; }
+  .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; max-width: 800px; margin-top: 48px; text-align: center; }
+  .metric .metric-value { font-size: clamp(40px, 6vw, 64px); font-weight: 900; letter-spacing: -2px; }
+  .metric .metric-label { font-size: 14px; color: rgba(255,255,255,0.4); margin-top: 4px; font-weight: 500; }
+  .metric .metric-sub { font-size: 12px; color: rgba(255,255,255,0.25); margin-top: 2px; }
+  
+  /* Slide 6: Comparison */
+  .slide-compare { background: #000; }
+  .compare-table { max-width: 800px; margin-top: 48px; width: 100%; }
+  .compare-row { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 2px; margin-bottom: 2px; }
+  .compare-header { background: rgba(255,255,255,0.04); padding: 14px 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.5); }
+  .compare-header.status-col { color: #8b5cf6; }
+  .compare-cell { padding: 14px 20px; font-size: 14px; background: rgba(255,255,255,0.02); }
+  .compare-cell.feature { color: rgba(255,255,255,0.7); font-weight: 500; }
+  .check { color: #22c55e; font-weight: 700; }
+  .cross { color: rgba(255,255,255,0.15); }
+  .partial { color: #f59e0b; }
+  .compare-row:first-child .compare-header:first-child { border-radius: 12px 0 0 0; }
+  .compare-row:first-child .compare-header:last-child { border-radius: 0 12px 0 0; }
+
+  /* Slide 7: Revenue Model */
+  .slide-revenue { background: radial-gradient(ellipse at 50% 30%, rgba(139,92,246,0.1) 0%, transparent 50%), #000; }
+  .revenue-cards { display: flex; gap: 20px; max-width: 800px; margin-top: 48px; flex-wrap: wrap; justify-content: center; }
+  .rev-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 20px; padding: 32px; text-align: center; flex: 1; min-width: 200px; }
+  .rev-card .rev-price { font-size: 36px; font-weight: 900; margin: 12px 0 4px; }
+  .rev-card .rev-label { font-size: 14px; color: rgba(255,255,255,0.5); }
+  .rev-card .rev-detail { font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 8px; line-height: 1.5; }
+  .rev-card.highlighted { border-color: rgba(139,92,246,0.3); background: rgba(139,92,246,0.05); }
+  .rev-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  
+  /* Slide 8: CTA */
+  .slide-cta { background: radial-gradient(ellipse at 50% 50%, rgba(139,92,246,0.15) 0%, transparent 60%), #000; }
+  .cta-big { margin-top: 32px; padding: 18px 48px; border-radius: 14px; font-size: 18px; font-weight: 700; background: #fff; color: #000; border: none; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block; }
+  .cta-big:hover { transform: scale(1.03); }
+  .contact-info { margin-top: 24px; color: rgba(255,255,255,0.4); font-size: 14px; }
+  .contact-info a { color: rgba(255,255,255,0.6); text-decoration: none; }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .slide { padding: 40px 24px; }
+    .compare-row { grid-template-columns: 1.2fr 0.8fr 0.8fr 0.8fr; }
+    .compare-cell, .compare-header { padding: 10px 12px; font-size: 12px; }
+    .solution-row { flex-direction: column-reverse; }
+    .phone-mockup { width: 200px; height: 400px; }
+    .steps { flex-direction: column; align-items: center; }
+    .step-arrow { transform: rotate(90deg); }
+    .nav-dots { right: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav Dots -->
+<div class="nav-dots" id="navDots"></div>
+
+<!-- SLIDE 1: Hero -->
+<div class="slide slide-hero" data-slide="0">
+  <div class="logo"><span>STATUS</span></div>
+  <div class="slide-title gradient-text">The Nightlife<br>Operating System</div>
+  <div class="slide-subtitle">Events. Guestlists. Door ops. Bar analytics. Guest attribution.<br>Everything a venue needs — unified for the first time.</div>
+  <div class="hero-cta">
+    <a class="cta-btn cta-primary" href="#slide-how">See How It Works</a>
+    <a class="cta-btn cta-secondary" href="#slide-cta">Get Started</a>
+  </div>
+</div>
+
+<!-- SLIDE 2: Problem -->
+<div class="slide slide-problem" data-slide="1">
+  <div class="slide-tag">The Problem</div>
+  <div class="slide-title gradient-text" style="font-size: clamp(28px, 4.5vw, 52px);">Venues run on 6 different<br>systems that don't talk to each other</div>
+  <div class="problem-grid">
+    <div class="problem-card">
+      <div class="icon">📋</div>
+      <h3>Guestlists in spreadsheets</h3>
+      <p>Promoters text names to managers. Managers type them into Google Sheets. Names get lost. No accountability.</p>
+    </div>
+    <div class="problem-card">
+      <div class="icon">🎫</div>
+      <h3>Tickets on one platform</h3>
+      <p>Eventbrite, Posh, or Dice handles tickets but has zero integration with what happens inside the venue.</p>
+    </div>
+    <div class="problem-card">
+      <div class="icon">🍸</div>
+      <h3>Bar POS is a black box</h3>
+      <p>Aloha or Toast tracks drinks sold, but you can't connect a $200 bar tab to the promoter who brought that guest.</p>
+    </div>
+    <div class="problem-card">
+      <div class="icon">📊</div>
+      <h3>No real analytics</h3>
+      <p>You know total revenue. You don't know which nights, which promoters, which guests actually drive your business.</p>
+    </div>
+    <div class="problem-card">
+      <div class="icon">💬</div>
+      <h3>Marketing is manual</h3>
+      <p>SMS blasts from personal phones. No segmentation. No tracking. No idea what's working.</p>
+    </div>
+    <div class="problem-card">
+      <div class="icon">🔌</div>
+      <h3>Nothing connects</h3>
+      <p>Door count ≠ bar sales ≠ ticket sales ≠ guestlist ≠ promoter performance. You're flying blind.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 3: Solution -->
+<div class="slide slide-solution" data-slide="2">
+  <div class="slide-tag">The Solution</div>
+  <div class="slide-title gradient-text" style="font-size: clamp(28px, 4.5vw, 52px);">One platform.<br>Every touchpoint. <span class="accent">Connected.</span></div>
+  <div class="solution-row">
+    <div class="solution-features">
+      <div class="feature">
+        <div class="feature-icon">🎫</div>
+        <div>
+          <h4>Events & Ticketing</h4>
+          <p>Create events, sell tickets, manage guestlists — all in one place. Guests discover your venue through the Status app.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🚪</div>
+        <div>
+          <h4>Door Operations</h4>
+          <p>ID scanning, cover charge collection, guestlist check-in, real-time capacity tracking. Your door team runs on Status.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🍹</div>
+        <div>
+          <h4>Bar Analytics</h4>
+          <p>See what's selling, when the rush hits, which bartenders perform. Attribution connects bar spend back to the guest who walked in.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">👤</div>
+        <div>
+          <h4>Guest Profiles</h4>
+          <p>Every guest builds a profile over time — visit frequency, average spend, preferences. Your CRM, built automatically.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📱</div>
+        <div>
+          <h4>Marketing & Blasts</h4>
+          <p>SMS and push notifications to your guest database. Segment by spend level, visit frequency, or event history.</p>
+        </div>
+      </div>
+    </div>
+    <div class="phone-mockup">
+      <div class="phone-screen">
+        <div class="app-name">STATUS</div>
+        <div style="margin-top: 24px; font-size: 11px; color: rgba(255,255,255,0.3);">Live Dashboard</div>
+        <div style="margin-top: 16px; font-size: 32px; font-weight: 800; color: #22c55e;">$14,280</div>
+        <div style="font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 4px;">Tonight's Revenue</div>
+        <div style="margin-top: 24px; display: flex; justify-content: center; gap: 20px;">
+          <div><div style="font-size: 22px; font-weight: 700;">347</div><div style="font-size: 10px; color: rgba(255,255,255,0.3);">Inside</div></div>
+          <div><div style="font-size: 22px; font-weight: 700;">23</div><div style="font-size: 10px; color: rgba(255,255,255,0.3);">In Line</div></div>
+          <div><div style="font-size: 22px; font-weight: 700;">$41</div><div style="font-size: 10px; color: rgba(255,255,255,0.3);">Avg Spend</div></div>
+        </div>
+        <div style="margin-top: 24px; text-align: left; padding: 0 8px;">
+          <div style="font-size: 10px; color: rgba(255,255,255,0.3); margin-bottom: 8px;">TOP PROMOTERS TONIGHT</div>
+          <div style="font-size: 12px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between;"><span>Marcus J.</span><span style="color: #22c55e;">42 guests</span></div>
+          <div style="font-size: 12px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between;"><span>Sophia C.</span><span style="color: #22c55e;">31 guests</span></div>
+          <div style="font-size: 12px; padding: 6px 0; display: flex; justify-content: space-between;"><span>Tyler R.</span><span style="color: #22c55e;">28 guests</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 4: How It Works -->
+<div class="slide slide-how" data-slide="3" id="slide-how">
+  <div class="slide-tag">How It Works</div>
+  <div class="slide-title gradient-text" style="font-size: clamp(28px, 4.5vw, 48px);">Three touchpoints. Total visibility.</div>
+  <div class="steps">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <div class="step-icon">🚪</div>
+      <h4>Door</h4>
+      <p>Guest arrives → ID scanned → cover charged → card saved → enters venue. Status captures who they are and how they paid.</p>
+    </div>
+    <div class="step-arrow">→</div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <div class="step-icon">🍸</div>
+      <h4>Bar</h4>
+      <p>Guest opens a tab → Status recognizes them by saved card. Every drink, every tip, every order — attributed to a real person.</p>
+    </div>
+    <div class="step-arrow">→</div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <div class="step-icon">📊</div>
+      <h4>Dashboard</h4>
+      <p>See everything in real-time. Which promoters drive revenue. Which guests are VIPs. Which nights perform. All connected.</p>
+    </div>
+  </div>
+  <div class="slide-subtitle" style="margin-top: 40px; font-size: 16px; max-width: 700px;">
+    The guest never downloads an app. The bartender never changes their workflow.<br>Status works invisibly — you just see the data.
+  </div>
+</div>
+
+<!-- SLIDE 5: Numbers -->
+<div class="slide slide-numbers" data-slide="4">
+  <div class="slide-tag">The Opportunity</div>
+  <div class="slide-title gradient-text" style="font-size: clamp(28px, 4.5vw, 48px);">Nightlife is a $36B industry<br>running on paper and gut instinct</div>
+  <div class="metrics">
+    <div class="metric">
+      <div class="metric-value gradient-text">$36B</div>
+      <div class="metric-label">US Nightlife Industry</div>
+      <div class="metric-sub">Bars, clubs, lounges (IBIS 2024)</div>
+    </div>
+    <div class="metric">
+      <div class="metric-value gradient-text">65K+</div>
+      <div class="metric-label">Nightclubs & Lounges</div>
+      <div class="metric-sub">in the United States alone</div>
+    </div>
+    <div class="metric">
+      <div class="metric-value gradient-text">0%</div>
+      <div class="metric-label">Guest Attribution</div>
+      <div class="metric-sub">No one connects door to bar spend</div>
+    </div>
+  </div>
+  <div class="slide-subtitle" style="margin-top: 32px;">
+    Restaurants have Toast. Hotels have Opera. Retail has Shopify.<br><strong style="color:#fff">Nightlife has nothing.</strong> Until now.
+  </div>
+</div>
+
+<!-- SLIDE 6: Comparison -->
+<div class="slide slide-compare" data-slide="5">
+  <div class="slide-tag">Why Status</div>
+  <div class="slide-title gradient-text" style="font-size: clamp(24px, 3.5vw, 40px);">Built for nightlife. Not adapted from restaurants.</div>
+  <div class="compare-table">
+    <div class="compare-row">
+      <div class="compare-header">Feature</div>
+      <div class="compare-header status-col">Status</div>
+      <div class="compare-header">Posh</div>
+      <div class="compare-header">Toast</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell feature">Event creation & ticketing</div>
+      <div class="compare-cell"><span class="check">✓</span></div>
+      <div class="compare-cell"><span class="check">✓</span></div>
+      <div class="compare-cell"><span class="cross">✕</span></div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell feature">Guestlist management</div>
+      <div class="compare-cell"><span class="check">✓</span></div>
+      <div class="compare-cell"><span class="check">✓</span></div>
+      <div class="compare-cell"><span class="cross">✕</span></div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell feature">Door operations (ID scan + cover)</div>
+      <div class="compare-cell"><span class="check">✓</span></div>
+      <div class="compare-cell"><span class="partial">~</span></div>
+      <div class="compare-cell"><span class="cross">✕</span></div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell feature">Bar POS + tab management</div>
+      <div class="compare-cell"><span class="check">✓</span></div>
+      <div class="compare-cell"><span class="cross">✕</span></div>
+      <div class="compare-cell"><span class="check">✓</span></div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell feature">Guest-level spend attribution</div>
+      <div class="compare-cell"><span class="check">✓</span></div>
+      <div class="compare-cell"><span class="cross">✕</span></div>
+      <div class="compare-cell"><span class="cross">✕</span></div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell feature">Promoter performance tracking</div>
+      <div class="compare-cell"><span class="check">✓</span></div>
+      <div class="compare-cell"><span class="cross">✕</span></div>
+      <div class="compare-cell"><span class="cross">✕</span></div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell feature">Real-time capacity + analytics</div>
+      <div class="compare-cell"><span class="check">✓</span></div>
+      <div class="compare-cell"><span class="cross">✕</span></div>
+      <div class="compare-cell"><span class="partial">~</span></div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell feature">Guest CRM (auto-built)</div>
+      <div class="compare-cell"><span class="check">✓</span></div>
+      <div class="compare-cell"><span class="cross">✕</span></div>
+      <div class="compare-cell"><span class="cross">✕</span></div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell feature">SMS / push marketing</div>
+      <div class="compare-cell"><span class="check">✓</span></div>
+      <div class="compare-cell"><span class="partial">~</span></div>
+      <div class="compare-cell"><span class="partial">~</span></div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell feature">Zero venue cost</div>
+      <div class="compare-cell"><span class="check">✓ Free</span></div>
+      <div class="compare-cell"><span class="check">✓</span></div>
+      <div class="compare-cell"><span class="cross">$165+/mo</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 7: Pricing -->
+<div class="slide slide-revenue" data-slide="6">
+  <div class="slide-tag">Pricing</div>
+  <div class="slide-title gradient-text" style="font-size: clamp(28px, 4.5vw, 48px);">Free for venues.<br>We make money when you do.</div>
+  <div class="revenue-cards">
+    <div class="rev-card highlighted">
+      <div class="rev-badge" style="background: rgba(139,92,246,0.2); color: #8b5cf6;">CORE PLATFORM</div>
+      <div class="rev-price gradient-text">$0</div>
+      <div class="rev-label">per month</div>
+      <div class="rev-detail">Events, guestlists, door ops, analytics dashboard, guest CRM, marketing tools. All included. No monthly fees. Ever.</div>
+    </div>
+    <div class="rev-card">
+      <div class="rev-badge" style="background: rgba(34,197,94,0.15); color: #22c55e;">REVENUE SHARE</div>
+      <div class="rev-price" style="color: #22c55e;">5%</div>
+      <div class="rev-label">service fee on door payments</div>
+      <div class="rev-detail">Charged to the customer, not the venue. Applied automatically when Status processes cover charges. Your take stays the same.</div>
+    </div>
+    <div class="rev-card">
+      <div class="rev-badge" style="background: rgba(59,130,246,0.15); color: #3b82f6;">TICKETING</div>
+      <div class="rev-price" style="color: #3b82f6;">$0.99</div>
+      <div class="rev-label">per ticket + 3%</div>
+      <div class="rev-detail">Industry-standard ticketing fees, passed to the buyer. Lower than Eventbrite. Competitive with Posh.</div>
+    </div>
+  </div>
+  <div class="slide-subtitle" style="margin-top: 32px; font-size: 14px;">
+    No hardware costs. No setup fees. No contracts. Cancel anytime.
+  </div>
+</div>
+
+<!-- SLIDE 8: CTA -->
+<div class="slide slide-cta" data-slide="7" id="slide-cta">
+  <div class="slide-title gradient-text" style="font-size: clamp(28px, 5vw, 56px);">Ready to see<br>what you've been missing?</div>
+  <div class="slide-subtitle">We'll set you up with a free pilot — see Status in action at your venue with zero risk.</div>
+  <a class="cta-big" href="mailto:admin@status.inc?subject=Status%20Pilot%20Interest">Let's Talk →</a>
+  <div class="contact-info">
+    <a href="mailto:admin@status.inc">admin@status.inc</a> · <a href="https://status.inc">status.inc</a>
+  </div>
+  <div style="margin-top: 48px; color: rgba(255,255,255,0.15); font-size: 12px;">© 2026 Status Digital, Inc.</div>
+</div>
+
+<script>
+// Nav dots
+const slides = document.querySelectorAll('.slide');
+const dotsContainer = document.getElementById('navDots');
+
+slides.forEach((_, i) => {
+  const dot = document.createElement('button');
+  dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+  dot.onclick = () => slides[i].scrollIntoView({ behavior: 'smooth' });
+  dotsContainer.appendChild(dot);
+});
+
+// Track scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const idx = parseInt(entry.target.dataset.slide);
+      document.querySelectorAll('.nav-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === idx);
+      });
+    }
+  });
+}, { threshold: 0.5 });
+
+slides.forEach(s => observer.observe(s));
+
+// Fade-in animation on scroll
+const fadeObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.problem-card, .feature, .step-card, .metric, .compare-row, .rev-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  fadeObserver.observe(el);
+});
+
+// Stagger animations
+document.querySelectorAll('.problem-grid, .solution-features, .steps, .metrics, .compare-table, .revenue-cards').forEach(container => {
+  const children = container.children;
+  Array.from(children).forEach((child, i) => {
+    child.style.transitionDelay = (i * 0.1) + 's';
+  });
+});
+</script>
+</body>
+</html>
