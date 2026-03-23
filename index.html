@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LifeSim — Personal Future Simulator</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0f; color: #fff; font-family: -apple-system, system-ui, 'SF Pro', sans-serif; overflow-x: hidden; min-height: 100vh; }
+  
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+
+  .header { padding: 24px 24px 8px; text-align: center; }
+  .header h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; }
+  .header h1 .accent { background: linear-gradient(135deg, #8b5cf6, #3b82f6, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .header .subtitle { font-size: 13px; color: #666; margin-top: 4px; }
+
+  /* Steps */
+  .step { display: none; animation: fadeUp 0.4s ease; }
+  .step.active { display: block; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* Step 1: Profile Input */
+  .profile-section { padding: 16px 24px; }
+  .section-title { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; font-weight: 600; }
+  
+  .input-grid { display: flex; flex-direction: column; gap: 10px; }
+  .input-row { display: flex; gap: 10px; }
+  .input-row > * { flex: 1; }
+  
+  .field { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 12px 16px; }
+  .field label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 4px; }
+  .field input, .field select, .field textarea { background: none; border: none; color: #fff; font-size: 15px; width: 100%; outline: none; font-family: inherit; }
+  .field textarea { resize: none; height: 60px; }
+  .field select option { background: #1a1a2e; }
+
+  /* Slider */
+  .slider-field { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 12px 16px; }
+  .slider-field .slider-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .slider-field label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+  .slider-field .slider-value { font-size: 14px; font-weight: 600; color: #8b5cf6; }
+  .slider-field input[type="range"] { width: 100%; -webkit-appearance: none; background: rgba(255,255,255,0.1); height: 4px; border-radius: 2px; outline: none; }
+  .slider-field input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #8b5cf6; cursor: pointer; }
+
+  /* Belief chips */
+  .belief-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .belief-chip { background: rgba(139,92,246,0.12); border: 1px solid rgba(139,92,246,0.25); color: #c4b5fd; border-radius: 20px; padding: 8px 16px; font-size: 13px; cursor: pointer; transition: all 0.2s; user-select: none; }
+  .belief-chip.selected { background: rgba(139,92,246,0.35); border-color: #8b5cf6; color: #fff; }
+  .belief-chip.negative { background: rgba(239,68,68,0.12); border-color: rgba(239,68,68,0.25); color: #fca5a5; }
+  .belief-chip.negative.selected { background: rgba(239,68,68,0.35); border-color: #ef4444; color: #fff; }
+
+  /* Versions */
+  .version-cards { padding: 0 24px; display: flex; flex-direction: column; gap: 10px; }
+  .version-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 16px; cursor: pointer; transition: all 0.2s; position: relative; }
+  .version-card:hover { background: rgba(255,255,255,0.07); }
+  .version-card.selected { border-color: #8b5cf6; background: rgba(139,92,246,0.08); }
+  .version-card .version-label { font-size: 11px; color: #8b5cf6; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+  .version-card h3 { font-size: 17px; font-weight: 700; margin: 4px 0; }
+  .version-card p { font-size: 13px; color: #999; line-height: 1.4; }
+  .version-check { position: absolute; top: 16px; right: 16px; width: 22px; height: 22px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 12px; }
+  .version-card.selected .version-check { background: #8b5cf6; border-color: #8b5cf6; }
+
+  /* Custom version input */
+  .custom-version { margin-top: 8px; }
+  .custom-version input { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 12px 16px; color: #fff; font-size: 14px; width: 100%; outline: none; }
+  .custom-version input::placeholder { color: #555; }
+
+  /* Buttons */
+  .btn-row { padding: 20px 24px; display: flex; gap: 10px; }
+  .btn { flex: 1; padding: 16px; border-radius: 14px; font-size: 16px; font-weight: 700; border: none; cursor: pointer; transition: all 0.2s; }
+  .btn-primary { background: linear-gradient(135deg, #8b5cf6, #3b82f6); color: #fff; }
+  .btn-primary:hover { opacity: 0.9; transform: scale(0.98); }
+  .btn-primary:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
+  .btn-secondary { background: rgba(255,255,255,0.06); color: #ccc; }
+  .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+
+  /* Step 3: Simulation Running */
+  .sim-running { padding: 40px 24px; text-align: center; }
+  .sim-running h2 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .sim-running p { color: #888; font-size: 14px; }
+  
+  .progress-container { margin: 32px auto; max-width: 400px; }
+  .progress-bar { height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, #8b5cf6, #3b82f6); border-radius: 3px; transition: width 0.3s ease; width: 0%; }
+  .progress-label { font-size: 13px; color: #666; margin-top: 8px; }
+
+  .sim-log { max-width: 500px; margin: 24px auto; text-align: left; max-height: 200px; overflow-y: auto; }
+  .log-entry { padding: 6px 0; font-size: 13px; color: #888; border-bottom: 1px solid rgba(255,255,255,0.04); animation: fadeIn 0.3s ease; }
+  .log-entry .log-time { color: #555; font-size: 11px; margin-right: 8px; }
+  .log-entry .log-version { color: #8b5cf6; font-weight: 600; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  /* Step 4: Results */
+  .results-header { padding: 24px 24px 8px; text-align: center; }
+  .results-header h2 { font-size: 24px; font-weight: 800; }
+  .results-header p { color: #888; font-size: 14px; margin-top: 4px; }
+
+  /* Timeline */
+  .timeline-container { padding: 16px 24px; }
+  .timeline-canvas-wrap { background: rgba(255,255,255,0.03); border-radius: 16px; padding: 16px; border: 1px solid rgba(255,255,255,0.06); }
+  #timelineCanvas { width: 100%; height: 280px; }
+  .timeline-legend { display: flex; gap: 16px; justify-content: center; margin-top: 12px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #999; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+  /* Feeling scores */
+  .feelings-section { padding: 16px 24px; }
+  .feeling-row { display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .feeling-row:last-child { border-bottom: none; }
+  .feeling-label { width: 100px; font-size: 13px; color: #999; }
+  .feeling-bars { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+  .feeling-bar-row { display: flex; align-items: center; gap: 8px; }
+  .feeling-bar-label { font-size: 10px; color: #666; width: 20px; }
+  .feeling-bar-track { flex: 1; height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; }
+  .feeling-bar-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
+  .feeling-bar-value { font-size: 11px; color: #888; width: 30px; text-align: right; font-variant-numeric: tabular-nums; }
+
+  /* Version results cards */
+  .result-cards { padding: 0 24px; display: flex; flex-direction: column; gap: 12px; }
+  .result-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 20px; }
+  .result-card .rc-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .result-card .rc-version { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+  .result-card .rc-title { font-size: 18px; font-weight: 700; }
+  .result-card .rc-score { font-size: 32px; font-weight: 800; }
+  .result-card .rc-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0; }
+  .rc-metric { text-align: center; }
+  .rc-metric .rc-metric-value { font-size: 18px; font-weight: 700; }
+  .rc-metric .rc-metric-label { font-size: 10px; color: #888; text-transform: uppercase; margin-top: 2px; }
+  
+  /* Letter */
+  .letter-section { padding: 16px 24px; }
+  .letter-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; position: relative; }
+  .letter-card::before { content: '"'; position: absolute; top: 8px; left: 16px; font-size: 60px; color: rgba(139,92,246,0.2); font-family: Georgia, serif; }
+  .letter-from { font-size: 11px; color: #8b5cf6; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; font-weight: 600; }
+  .letter-body { font-size: 15px; line-height: 1.7; color: #ccc; white-space: pre-wrap; }
+
+  /* Inflection points */
+  .inflections { padding: 16px 24px 40px; }
+  .inflection-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .inflection-item:last-child { border-bottom: none; }
+  .inflection-time { font-size: 13px; color: #8b5cf6; font-weight: 600; width: 80px; flex-shrink: 0; }
+  .inflection-text { font-size: 14px; color: #ccc; line-height: 1.5; }
+
+  /* Tab selector for results */
+  .result-tabs { display: flex; gap: 6px; padding: 12px 24px; overflow-x: auto; }
+  .result-tab { padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.2s; background: rgba(255,255,255,0.06); color: #888; }
+  .result-tab.active { color: #fff; }
+
+  .result-panel { display: none; }
+  .result-panel.active { display: block; }
+
+  /* Responsive */
+  @media (max-width: 500px) {
+    .input-row { flex-direction: column; }
+    .result-card .rc-metrics { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- STEP 1: Profile Input -->
+<div class="step active" id="step1">
+  <div class="header">
+    <h1>🔮 Life<span class="accent">Sim</span></h1>
+    <div class="subtitle">Simulate your parallel futures</div>
+  </div>
+
+  <div class="profile-section">
+    <div class="section-title">About You</div>
+    <div class="input-grid">
+      <div class="input-row">
+        <div class="field"><label>Name</label><input type="text" id="userName" value="Arshia" /></div>
+        <div class="field"><label>Age</label><input type="number" id="userAge" value="21" /></div>
+      </div>
+      <div class="field"><label>Current situation</label><textarea id="currentSituation" placeholder="What does your day-to-day look like?">Doing Instacart to pay bills, going to gym, have a tech startup (Status) with a business partner, living in basement apartment</textarea></div>
+    </div>
+  </div>
+
+  <div class="profile-section">
+    <div class="section-title">Monthly Finances</div>
+    <div class="input-grid">
+      <div class="input-row">
+        <div class="field"><label>Income ($)</label><input type="number" id="income" value="2800" /></div>
+        <div class="field"><label>Expenses ($)</label><input type="number" id="expenses" value="2400" /></div>
+      </div>
+      <div class="input-row">
+        <div class="field"><label>Savings ($)</label><input type="number" id="savings" value="1500" /></div>
+        <div class="field"><label>Debt ($)</label><input type="number" id="debt" value="0" /></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-section">
+    <div class="section-title">Daily Hours</div>
+    <div class="input-grid">
+      <div class="input-row">
+        <div class="slider-field">
+          <div class="slider-header"><label>Work (Instacart etc.)</label><span class="slider-value" id="workHoursVal">6</span></div>
+          <input type="range" id="workHours" min="0" max="14" value="6" oninput="document.getElementById('workHoursVal').textContent=this.value" />
+        </div>
+        <div class="slider-field">
+          <div class="slider-header"><label>Building / Creating</label><span class="slider-value" id="buildHoursVal">2</span></div>
+          <input type="range" id="buildHours" min="0" max="14" value="2" oninput="document.getElementById('buildHoursVal').textContent=this.value" />
+        </div>
+      </div>
+      <div class="input-row">
+        <div class="slider-field">
+          <div class="slider-header"><label>Gym / Health</label><span class="slider-value" id="gymHoursVal">1.5</span></div>
+          <input type="range" id="gymHours" min="0" max="4" step="0.5" value="1.5" oninput="document.getElementById('gymHoursVal').textContent=this.value" />
+        </div>
+        <div class="slider-field">
+          <div class="slider-header"><label>Learning / Reading</label><span class="slider-value" id="learnHoursVal">0.5</span></div>
+          <input type="range" id="learnHours" min="0" max="6" step="0.5" value="0.5" oninput="document.getElementById('learnHoursVal').textContent=this.value" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-section">
+    <div class="section-title">Skills (rate yourself 1-10)</div>
+    <div class="input-grid">
+      <div class="input-row">
+        <div class="slider-field">
+          <div class="slider-header"><label>Technical</label><span class="slider-value" id="skillTechVal">5</span></div>
+          <input type="range" id="skillTech" min="1" max="10" value="5" oninput="document.getElementById('skillTechVal').textContent=this.value" />
+        </div>
+        <div class="slider-field">
+          <div class="slider-header"><label>Social / Networking</label><span class="slider-value" id="skillSocialVal">7</span></div>
+          <input type="range" id="skillSocial" min="1" max="10" value="7" oninput="document.getElementById('skillSocialVal').textContent=this.value" />
+        </div>
+      </div>
+      <div class="input-row">
+        <div class="slider-field">
+          <div class="slider-header"><label>Sales / Persuasion</label><span class="slider-value" id="skillSalesVal">6</span></div>
+          <input type="range" id="skillSales" min="1" max="10" value="6" oninput="document.getElementById('skillSalesVal').textContent=this.value" />
+        </div>
+        <div class="slider-field">
+          <div class="slider-header"><label>Discipline</label><span class="slider-value" id="skillDisciplineVal">4</span></div>
+          <input type="range" id="skillDiscipline" min="1" max="10" value="4" oninput="document.getElementById('skillDisciplineVal').textContent=this.value" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-section">
+    <div class="section-title">Current Beliefs (select what resonates)</div>
+    <div class="belief-chips" id="beliefChips">
+      <div class="belief-chip" data-belief="figure-it-out" onclick="toggleChip(this)">I figure things out</div>
+      <div class="belief-chip" data-belief="smart-enough" onclick="toggleChip(this)">I'm smart enough</div>
+      <div class="belief-chip" data-belief="people-like-me" onclick="toggleChip(this)">People naturally like me</div>
+      <div class="belief-chip" data-belief="good-with-money" onclick="toggleChip(this)">I'm good with money</div>
+      <div class="belief-chip" data-belief="lucky" onclick="toggleChip(this)">Things tend to work out for me</div>
+      <div class="belief-chip negative" data-belief="stuck" onclick="toggleChip(this)">I feel stuck</div>
+      <div class="belief-chip negative" data-belief="behind" onclick="toggleChip(this)">I'm behind in life</div>
+      <div class="belief-chip negative" data-belief="dont-know" onclick="toggleChip(this)">I don't know what I'm doing</div>
+      <div class="belief-chip negative" data-belief="not-enough" onclick="toggleChip(this)">I'm not doing enough</div>
+      <div class="belief-chip negative" data-belief="waste-time" onclick="toggleChip(this)">I waste too much time</div>
+      <div class="belief-chip" data-belief="ambitious" onclick="toggleChip(this)">I'm more ambitious than most people</div>
+      <div class="belief-chip" data-belief="vision" onclick="toggleChip(this)">I can see what others can't</div>
+    </div>
+  </div>
+
+  <div class="profile-section">
+    <div class="section-title">What does your ideal life feel like?</div>
+    <div class="field"><textarea id="idealLife" placeholder="Describe the feeling, not the stuff...">Feeling confident and in-shape, driving a convertible on a perfect day with good music, feeling wanted and respected, knowing everything I say or do is the right move</textarea></div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-primary" onclick="goToStep2()">Choose Your Futures →</button>
+  </div>
+</div>
+
+<!-- STEP 2: Choose Versions -->
+<div class="step" id="step2">
+  <div class="header">
+    <h1>Fork Your <span class="accent">Timeline</span></h1>
+    <div class="subtitle">Select 2-4 paths to simulate</div>
+  </div>
+
+  <div class="version-cards" id="versionCards">
+    <div class="version-card selected" data-version="current" onclick="toggleVersion(this)">
+      <div class="version-check">✓</div>
+      <div class="version-label">Version A</div>
+      <h3>Stay the Course</h3>
+      <p>Keep doing exactly what you're doing. Instacart, gym, dabble in projects. See where inertia takes you.</p>
+    </div>
+    <div class="version-card selected" data-version="startup" onclick="toggleVersion(this)">
+      <div class="version-check">✓</div>
+      <div class="version-label">Version B</div>
+      <h3>All-In on Status</h3>
+      <p>4+ hours/day on Status. Ship MVP in 8 weeks. Get one pilot venue. Reduce Instacart to minimum survival income.</p>
+    </div>
+    <div class="version-card" data-version="nih" onclick="toggleVersion(this)">
+      <div class="version-check"></div>
+      <div class="version-label">Version C</div>
+      <h3>NIH Tool for Mom</h3>
+      <p>Build project management software for NIH research coordinators. Start with your mom as first user. Potential gov tech play.</p>
+    </div>
+    <div class="version-card" data-version="brand" onclick="toggleVersion(this)">
+      <div class="version-check"></div>
+      <div class="version-label">Version D</div>
+      <h3>Personal Brand + Network</h3>
+      <p>Go all in on gym, appearance, content creation, networking. Build social capital first, monetize later.</p>
+    </div>
+    <div class="version-card" data-version="job" onclick="toggleVersion(this)">
+      <div class="version-check"></div>
+      <div class="version-label">Version E</div>
+      <h3>Tech Job (Stability)</h3>
+      <p>Grind LeetCode for 3 months, land a $75-120K dev job. Stable income, benefits, build on the side.</p>
+    </div>
+    <div class="version-card" data-version="custom" onclick="toggleVersion(this)">
+      <div class="version-check"></div>
+      <div class="version-label">Version F</div>
+      <h3>Custom Path</h3>
+      <p>Define your own alternative future.</p>
+      <div class="custom-version"><input type="text" id="customPath" placeholder="Describe this path..." onclick="event.stopPropagation()" /></div>
+    </div>
+  </div>
+
+  <div class="profile-section">
+    <div class="section-title">Simulation Length</div>
+    <div class="input-row">
+      <div class="slider-field">
+        <div class="slider-header"><label>Years to simulate</label><span class="slider-value" id="simYearsVal">5</span></div>
+        <input type="range" id="simYears" min="1" max="10" value="5" oninput="document.getElementById('simYearsVal').textContent=this.value" />
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-secondary" onclick="goToStep1()">← Back</button>
+    <button class="btn btn-primary" id="runSimBtn" onclick="runSimulation()">Run Simulation 🚀</button>
+  </div>
+</div>
+
+<!-- STEP 3: Running -->
+<div class="step" id="step3">
+  <div class="sim-running">
+    <h2>Simulating Your Futures</h2>
+    <p>Running <span id="simCount">0</span> parallel timelines across <span id="simYearsDisplay">5</span> years</p>
+    <div class="progress-container">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-label" id="progressLabel">Initializing...</div>
+    </div>
+    <div class="sim-log" id="simLog"></div>
+  </div>
+</div>
+
+<!-- STEP 4: Results -->
+<div class="step" id="step4">
+  <div class="results-header">
+    <h2>Your Parallel Lives</h2>
+    <p id="resultsSubtitle">5-year simulation complete</p>
+  </div>
+
+  <!-- Timeline Chart -->
+  <div class="timeline-container">
+    <div class="timeline-canvas-wrap">
+      <canvas id="timelineCanvas"></canvas>
+    </div>
+    <div class="timeline-legend" id="timelineLegend"></div>
+  </div>
+
+  <!-- Result tabs -->
+  <div class="result-tabs" id="resultTabs"></div>
+
+  <!-- Result panels (generated dynamically) -->
+  <div id="resultPanels"></div>
+
+  <div class="btn-row" style="padding-bottom: 40px;">
+    <button class="btn btn-secondary" onclick="goToStep1()">← Start Over</button>
+    <button class="btn btn-primary" onclick="shareResults()">Share Results</button>
+  </div>
+</div>
+
+<script>
+// ─── State ───────────────────────────────────────────
+let selectedVersions = new Set(['current', 'startup']);
+let selectedBeliefs = new Set();
+let simulationResults = null;
+
+const VERSION_COLORS = {
+  current: '#ef4444',
+  startup: '#8b5cf6',
+  nih: '#3b82f6',
+  brand: '#f59e0b',
+  job: '#22c55e',
+  custom: '#06b6d4'
+};
+
+const VERSION_NAMES = {
+  current: 'Stay the Course',
+  startup: 'All-In on Status',
+  nih: 'NIH Tool',
+  brand: 'Personal Brand',
+  job: 'Tech Job',
+  custom: 'Custom Path'
+};
+
+// ─── UI Helpers ──────────────────────────────────────
+function toggleChip(el) {
+  el.classList.toggle('selected');
+  const belief = el.dataset.belief;
+  if (selectedBeliefs.has(belief)) selectedBeliefs.delete(belief);
+  else selectedBeliefs.add(belief);
+}
+
+function toggleVersion(el) {
+  const version = el.dataset.version;
+  if (selectedVersions.has(version)) {
+    if (selectedVersions.size <= 2) return; // minimum 2
+    selectedVersions.delete(version);
+    el.classList.remove('selected');
+    el.querySelector('.version-check').textContent = '';
+  } else {
+    if (selectedVersions.size >= 4) return; // maximum 4
+    selectedVersions.add(version);
+    el.classList.add('selected');
+    el.querySelector('.version-check').textContent = '✓';
+  }
+}
+
+function goToStep1() {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step1').classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function goToStep2() {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step2').classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ─── Simulation Engine ───────────────────────────────
+
+function getProfile() {
+  return {
+    name: document.getElementById('userName').value,
+    age: parseInt(document.getElementById('userAge').value),
+    situation: document.getElementById('currentSituation').value,
+    income: parseInt(document.getElementById('income').value),
+    expenses: parseInt(document.getElementById('expenses').value),
+    savings: parseInt(document.getElementById('savings').value),
+    debt: parseInt(document.getElementById('debt').value),
+    workHours: parseFloat(document.getElementById('workHours').value),
+    buildHours: parseFloat(document.getElementById('buildHours').value),
+    gymHours: parseFloat(document.getElementById('gymHours').value),
+    learnHours: parseFloat(document.getElementById('learnHours').value),
+    skills: {
+      tech: parseInt(document.getElementById('skillTech').value),
+      social: parseInt(document.getElementById('skillSocial').value),
+      sales: parseInt(document.getElementById('skillSales').value),
+      discipline: parseInt(document.getElementById('skillDiscipline').value)
+    },
+    beliefs: Array.from(selectedBeliefs),
+    idealLife: document.getElementById('idealLife').value,
+    simYears: parseInt(document.getElementById('simYears').value)
+  };
+}
+
+// Belief multiplier: positive beliefs accelerate, negative beliefs decay
+function beliefMultiplier(beliefs) {
+  const positive = ['figure-it-out', 'smart-enough', 'people-like-me', 'good-with-money', 'lucky', 'ambitious', 'vision'];
+  const negative = ['stuck', 'behind', 'dont-know', 'not-enough', 'waste-time'];
+  let score = 1.0;
+  beliefs.forEach(b => {
+    if (positive.includes(b)) score += 0.06;
+    if (negative.includes(b)) score -= 0.08;
+  });
+  return Math.max(0.5, Math.min(1.5, score));
+}
+
+// Discipline decay: low discipline means momentum drops over time
+function disciplineFactor(discipline, month) {
+  // Higher discipline = less decay
+  const decayRate = (10 - discipline) * 0.008;
+  return Math.max(0.3, 1 - decayRate * Math.sqrt(month));
+}
+
+// Compound growth with noise
+function compound(base, monthlyRate, months, noise = 0.15) {
+  let value = base;
+  const series = [value];
+  for (let m = 1; m <= months; m++) {
+    const n = 1 + (Math.random() - 0.5) * noise * 2;
+    value = value * (1 + monthlyRate * n);
+    series.push(Math.round(value));
+  }
+  return series;
+}
+
+// Monte Carlo: run N simulations and return median + range
+function monteCarlo(simFn, runs = 50) {
+  const allSeries = [];
+  for (let i = 0; i < runs; i++) {
+    allSeries.push(simFn());
+  }
+  const months = allSeries[0].length;
+  const median = [];
+  const p10 = [];
+  const p90 = [];
+  for (let m = 0; m < months; m++) {
+    const values = allSeries.map(s => s[m]).sort((a, b) => a - b);
+    median.push(values[Math.floor(values.length * 0.5)]);
+    p10.push(values[Math.floor(values.length * 0.1)]);
+    p90.push(values[Math.floor(values.length * 0.9)]);
+  }
+  return { median, p10, p90 };
+}
+
+function simulateVersion(version, profile) {
+  const months = profile.simYears * 12;
+  const bm = beliefMultiplier(profile.beliefs);
+  const disc = profile.skills.discipline;
+
+  const versionParams = {
+    current: {
+      incomeGrowth: 0.002, // barely grows
+      savingsRate: (profile.income - profile.expenses) / profile.income,
+      skillGrowth: 0.003,
+      networkGrowth: 0.005,
+      confidenceGrowth: 0.001,
+      startupChance: 0, // no startup equity event
+      breakoutMonth: null,
+      description: 'Inertia path',
+      beliefShift: -0.01 // beliefs slowly worsen
+    },
+    startup: {
+      incomeGrowth: -0.01, // income drops initially (less Instacart)
+      savingsRate: -0.1, // burning savings
+      skillGrowth: 0.02, // learning fast
+      networkGrowth: 0.015,
+      confidenceGrowth: 0.008,
+      startupChance: 0.15, // 15% chance of revenue event per quarter
+      breakoutMonth: Math.floor(8 + Math.random() * 16),
+      description: 'Startup grind',
+      beliefShift: 0.005
+    },
+    nih: {
+      incomeGrowth: 0.008,
+      savingsRate: 0.05,
+      skillGrowth: 0.015,
+      networkGrowth: 0.008,
+      confidenceGrowth: 0.006,
+      startupChance: 0.08,
+      breakoutMonth: Math.floor(12 + Math.random() * 12),
+      description: 'Gov tech play',
+      beliefShift: 0.004
+    },
+    brand: {
+      incomeGrowth: 0.005,
+      savingsRate: 0.02,
+      skillGrowth: 0.008,
+      networkGrowth: 0.03, // network grows fastest
+      confidenceGrowth: 0.015, // confidence grows fastest
+      startupChance: 0.05,
+      breakoutMonth: Math.floor(6 + Math.random() * 18),
+      description: 'Brand building',
+      beliefShift: 0.008
+    },
+    job: {
+      incomeGrowth: 0.01,
+      savingsRate: 0.2,
+      skillGrowth: 0.012,
+      networkGrowth: 0.01,
+      confidenceGrowth: 0.004,
+      startupChance: 0,
+      breakoutMonth: 3, // job offer at ~month 3
+      description: 'Stability path',
+      beliefShift: 0.002
+    },
+    custom: {
+      incomeGrowth: 0.008,
+      savingsRate: 0.05,
+      skillGrowth: 0.012,
+      networkGrowth: 0.012,
+      confidenceGrowth: 0.006,
+      startupChance: 0.08,
+      breakoutMonth: Math.floor(10 + Math.random() * 14),
+      description: 'Custom path',
+      beliefShift: 0.004
+    }
+  };
+
+  const params = versionParams[version];
+  
+  // Run Monte Carlo for income
+  const incomeMC = monteCarlo(() => {
+    let income = profile.income;
+    let series = [income];
+    let hadBreakout = false;
+    
+    for (let m = 1; m <= months; m++) {
+      const df = disciplineFactor(disc, m);
+      const noise = (Math.random() - 0.5) * 0.15;
+      
+      // Breakout event (startup revenue, job offer, viral moment, etc.)
+      if (!hadBreakout && params.breakoutMonth && m >= params.breakoutMonth) {
+        if (Math.random() < 0.6 * bm) {
+          if (version === 'startup') income = income + 3000 + Math.random() * 5000;
+          else if (version === 'job') income = 6000 + Math.random() * 3000;
+          else if (version === 'brand') income = income + 1500 + Math.random() * 3000;
+          else income = income + 2000 + Math.random() * 3000;
+          hadBreakout = true;
+        }
+      }
+      
+      // Quarterly startup revenue events
+      if (params.startupChance > 0 && m % 3 === 0 && hadBreakout) {
+        if (Math.random() < params.startupChance * bm * df) {
+          income += 1000 + Math.random() * 4000;
+        }
+      }
+      
+      income = income * (1 + params.incomeGrowth * bm * df + noise * 0.05);
+      income = Math.max(800, income); // floor
+      series.push(Math.round(income));
+    }
+    return series;
+  }, 80);
+
+  // Simulate net worth
+  const netWorthMC = monteCarlo(() => {
+    let netWorth = profile.savings - profile.debt;
+    let series = [netWorth];
+    let monthlyIncome = profile.income;
+    let hadBreakout = false;
+    
+    for (let m = 1; m <= months; m++) {
+      const df = disciplineFactor(disc, m);
+      
+      if (!hadBreakout && params.breakoutMonth && m >= params.breakoutMonth && Math.random() < 0.6 * bm) {
+        if (version === 'job') monthlyIncome = 7000;
+        else if (version === 'startup') monthlyIncome += 4000;
+        else monthlyIncome += 2000;
+        hadBreakout = true;
+      }
+      
+      const savings = monthlyIncome * Math.max(-0.3, params.savingsRate * df) + (Math.random() - 0.5) * 500;
+      netWorth += savings;
+      
+      // Startup equity event
+      if (version === 'startup' && m > 24 && Math.random() < 0.02 * bm) {
+        netWorth += 50000 + Math.random() * 200000; // funding/exit event
+      }
+      if (version === 'job' && m > 6) {
+        netWorth += 400 * df; // steady 401k/savings
+      }
+      
+      series.push(Math.round(netWorth));
+    }
+    return series;
+  }, 80);
+
+  // Feeling scores (0-100)
+  const feelings = {
+    confidence: Math.min(100, Math.round((30 + profile.skills.discipline * 3) * bm + params.confidenceGrowth * months * 100 * bm)),
+    freedom: 0,
+    aesthetics: Math.min(100, Math.round(20 + profile.gymHours * 8 * Math.min(months / 12, 3))),
+    validation: Math.min(100, Math.round(20 + params.networkGrowth * months * 80 * bm)),
+    selfTrust: Math.min(100, Math.round(15 + params.skillGrowth * months * 60 * bm + (params.beliefShift > 0 ? 15 : -5)))
+  };
+  
+  // Freedom depends on income vs expenses ratio at endpoint
+  const endIncome = incomeMC.median[months];
+  feelings.freedom = Math.min(100, Math.round(10 + (endIncome / profile.expenses) * 25));
+  
+  const overallScore = Math.round((feelings.confidence + feelings.freedom + feelings.aesthetics + feelings.validation + feelings.selfTrust) / 5);
+
+  // Inflection points
+  const inflections = [];
+  if (params.breakoutMonth) {
+    const breakMonth = params.breakoutMonth;
+    const breakYear = (breakMonth / 12).toFixed(1);
+    if (version === 'startup') inflections.push({ time: `Month ${breakMonth}`, text: `First paying venue signs up. Revenue begins. Belief model shifts from "building" to "growing." Momentum accelerates.` });
+    else if (version === 'job') inflections.push({ time: `Month ${breakMonth}`, text: `Job offer lands. Income jumps to $75-90K. Stress drops. But creative energy now goes to someone else's vision.` });
+    else if (version === 'brand') inflections.push({ time: `Month ${breakMonth}`, text: `Content gains traction. First brand deal or collaboration. Social proof compounds. Confidence spikes.` });
+    else if (version === 'nih') inflections.push({ time: `Month ${breakMonth}`, text: `Mom's team adopts the tool. Word spreads to adjacent NIH departments. First external interest.` });
+  }
+  
+  if (version === 'current') {
+    inflections.push({ time: 'Month 8', text: `Motivation dip. The gap between where you are and where you want to be becomes painful. Risk of depression or reckless pivot.` });
+    inflections.push({ time: `Month ${Math.round(months * 0.6)}`, text: `Friends start hitting milestones — promotions, startups, relationships. Comparison intensifies. This is the danger zone.` });
+  }
+  
+  if (version === 'startup') {
+    inflections.push({ time: `Month ${Math.min(months, 24)}`, text: `If no revenue by now, fork: pivot the product, find a co-founder, or take a job to fund the runway. This is where most founders quit.` });
+    if (months > 36) inflections.push({ time: `Month 36+`, text: `If still alive, you're in the top 10% of startups. Network effects and reputation compound. Fundraising becomes possible.` });
+  }
+
+  // Generate letter from future self
+  const letter = generateLetter(version, profile, feelings, overallScore, incomeMC.median[months], netWorthMC.median[months], months);
+
+  return {
+    version,
+    name: VERSION_NAMES[version],
+    color: VERSION_COLORS[version],
+    overallScore,
+    feelings,
+    incomeMC,
+    netWorthMC,
+    inflections,
+    letter,
+    endIncome: incomeMC.median[months],
+    endNetWorth: netWorthMC.median[months],
+    months
+  };
+}
+
+function generateLetter(version, profile, feelings, score, endIncome, endNetWorth, months) {
+  const endAge = profile.age + Math.round(months / 12);
+  const name = profile.name;
+  
+  const letters = {
+    current: `Hey ${name}. I'm you at ${endAge}.
+
+I kept doing what we were doing. Instacart. Gym sometimes. Thinking about building things but never fully committing. 
+
+The honest truth? I'm not in a bad place. But I'm not in the place we imagined either. I make about $${Math.round(endIncome).toLocaleString()}/month now. I have $${Math.round(endNetWorth).toLocaleString()} saved. I'm okay.
+
+But "okay" is the most dangerous word in our vocabulary. It's comfortable enough to not change but uncomfortable enough to never feel at peace. I watch people we knew build things and I think "I could've done that." And I could have. That's the part that keeps me up.
+
+The gym kept me sane. That was real. But the rest? I was running in place and calling it progress.
+
+If you're reading this, you're still at the fork. Take the other road. Any of them. Just pick one and go. The worst version of commitment beats the best version of "maybe tomorrow."
+
+— You, ${months / 12} years from now`,
+
+    startup: `Hey ${name}. I'm you at ${endAge}.
+
+The first 6 months were brutal. Like, genuinely dark. Instacart income dropped because I was spending every free hour on Status. Savings bled. There were weeks I questioned everything.
+
+Month ${Math.min(12, Math.round(months * 0.3))} is when it shifted. Not because the product was perfect — it wasn't. But because I'd shipped enough that someone said "yeah, I'd pay for this." One venue. That's all it took. One real customer made the whole thing feel different.
+
+I'm making $${Math.round(endIncome).toLocaleString()}/month now. Net worth is $${Math.round(endNetWorth).toLocaleString()}. ${endNetWorth > 50000 ? "We're actually building something with real value." : "It's not millions yet. But the trajectory is clear."}
+
+The feeling score matters more than the money though. I trust myself now. When I say I'm going to do something, I do it. That changed everything — relationships, opportunities, how people treat me. Self-trust is the real currency.
+
+The convertible? ${endIncome > 8000 ? "Yeah, I got it. But honestly the best part isn't the car. It's knowing I earned the right to enjoy it." : "Not yet. But I'm closer than any other version of me would be. And I'll get there."}
+
+Bet on yourself. The math works out.
+
+— You, ${months / 12} years from now`,
+
+    nih: `Hey ${name}. I'm you at ${endAge}.
+
+Building for Mom was the right call. Not because it made us rich (it didn't, at least not yet) — but because it taught me what real product development looks like. Building for one user who you can talk to every day is a cheat code.
+
+The tool spread from Mom's team to two other departments within the first year. By month 18, I had NIH people I'd never met asking for access. Government moves slow, but once you're in, you're IN.
+
+Making $${Math.round(endIncome).toLocaleString()}/month now. The gov tech market is massive and unsexy — which means less competition. Net worth: $${Math.round(endNetWorth).toLocaleString()}.
+
+The best part? Mom is proud. Not in the abstract "I support whatever you do" way. In the "I use my son's software every day and it makes my job better" way. That hit different.
+
+— You, ${months / 12} years from now`,
+
+    brand: `Hey ${name}. I'm you at ${endAge}.
+
+I went all in on becoming the person I wanted to be on the outside. Gym twice a day for the first three months. Content every day. Networking events every week.
+
+Here's what I learned: personal brand without a product is just vanity. The confidence is real — I look good, I feel good, people respect me. But "influencer" without substance has a ceiling.
+
+The good news: the network I built opened doors I never expected. I met people building real things, and they wanted me involved because I was visible and credible.
+
+Income: $${Math.round(endIncome).toLocaleString()}/month. Net worth: $${Math.round(endNetWorth).toLocaleString()}. The money came from unexpected places — partnerships, consulting, deals that found me because I was visible.
+
+Confidence score is the highest of any version of me. But self-trust? That comes from shipping, not from followers.
+
+— You, ${months / 12} years from now`,
+
+    job: `Hey ${name}. I'm you at ${endAge}.
+
+I took the stable path. Studied for 3 months, landed a dev job at $${Math.round(75000 + Math.random() * 40000).toLocaleString()}/year. Benefits. 401K. Predictable.
+
+The relief was immediate. First steady paycheck in years. No more worrying about rent. Started saving real money for the first time.
+
+But here's what they don't tell you: stability can become a cage. By month 12, I was comfortable. By month 18, I was bored. By month 24, I was scared — not of losing the job, but of realizing I'd traded my most creative years for safety.
+
+Income: $${Math.round(endIncome).toLocaleString()}/month. Net worth: $${Math.round(endNetWorth).toLocaleString()}. Financially, this is probably the safest version of me. ${endNetWorth > 40000 ? "I have real savings. Emergency fund. Starting to invest." : ""}
+
+But the convertible feeling? The confidence of being on YOUR path? That doesn't live here. It's security without fire.
+
+I still think about Status sometimes.
+
+— You, ${months / 12} years from now`,
+
+    custom: `Hey ${name}. I'm you at ${endAge}.
+
+I chose my own path. It wasn't any of the obvious ones, and that made it harder to explain to people. But it was mine.
+
+Income: $${Math.round(endIncome).toLocaleString()}/month. Net worth: $${Math.round(endNetWorth).toLocaleString()}. The numbers are what they are.
+
+What I know now that I didn't know then: the path matters less than the commitment to it. Every version of me that fully committed ended up somewhere interesting. Every version that half-committed ended up in the same place.
+
+Pick something. Go all in. The "what" is less important than the "how hard."
+
+— You, ${months / 12} years from now`
+  };
+
+  return letters[version] || letters.custom;
+}
+
+// ─── Run Simulation ──────────────────────────────────
+
+async function runSimulation() {
+  const profile = getProfile();
+  const versions = Array.from(selectedVersions);
+  
+  // Switch to step 3
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step3').classList.add('active');
+  document.getElementById('simCount').textContent = versions.length;
+  document.getElementById('simYearsDisplay').textContent = profile.simYears;
+  window.scrollTo(0, 0);
+  
+  const logEl = document.getElementById('simLog');
+  const progressFill = document.getElementById('progressFill');
+  const progressLabel = document.getElementById('progressLabel');
+  logEl.innerHTML = '';
+  
+  const results = [];
+  
+  for (let i = 0; i < versions.length; i++) {
+    const v = versions[i];
+    const pct = ((i) / versions.length) * 100;
+    progressFill.style.width = pct + '%';
+    progressLabel.textContent = `Simulating ${VERSION_NAMES[v]}...`;
+    
+    addLog(logEl, `⚡ Forking timeline: ${VERSION_NAMES[v]}`, v);
+    await sleep(300);
+    
+    addLog(logEl, `📊 Running 80 Monte Carlo iterations...`, v);
+    await sleep(200);
+    
+    const result = simulateVersion(v, profile);
+    results.push(result);
+    
+    addLog(logEl, `✅ ${VERSION_NAMES[v]}: Score ${result.overallScore}/100 | $${result.endIncome.toLocaleString()}/mo`, v);
+    await sleep(400);
+  }
+  
+  progressFill.style.width = '100%';
+  progressLabel.textContent = 'Generating letters from your future selves...';
+  await sleep(800);
+  
+  progressLabel.textContent = 'Complete.';
+  await sleep(500);
+  
+  simulationResults = results;
+  showResults(results, profile);
+}
+
+function addLog(el, text, version) {
+  const entry = document.createElement('div');
+  entry.className = 'log-entry';
+  entry.innerHTML = `<span class="log-version" style="color:${VERSION_COLORS[version]}">[${version.toUpperCase()}]</span> ${text}`;
+  el.prepend(entry);
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+// ─── Render Results ──────────────────────────────────
+
+function showResults(results, profile) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step4').classList.add('active');
+  document.getElementById('resultsSubtitle').textContent = `${profile.simYears}-year simulation • ${results.length} parallel timelines • 80 Monte Carlo runs each`;
+  window.scrollTo(0, 0);
+  
+  drawTimeline(results);
+  renderTabs(results);
+  renderPanels(results);
+}
+
+function drawTimeline(results) {
+  const canvas = document.getElementById('timelineCanvas');
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.parentElement.getBoundingClientRect();
+  canvas.width = (rect.width - 32) * dpr;
+  canvas.height = 280 * dpr;
+  canvas.style.width = (rect.width - 32) + 'px';
+  canvas.style.height = '280px';
+  ctx.scale(dpr, dpr);
+  
+  const w = rect.width - 32;
+  const h = 280;
+  const pad = { top: 20, right: 20, bottom: 30, left: 60 };
+  const plotW = w - pad.left - pad.right;
+  const plotH = h - pad.top - pad.bottom;
+  
+  // Find global min/max across all series
+  let allValues = [];
+  results.forEach(r => {
+    allValues = allValues.concat(r.netWorthMC.median);
+    allValues = allValues.concat(r.netWorthMC.p10);
+    allValues = allValues.concat(r.netWorthMC.p90);
+  });
+  const minVal = Math.min(...allValues);
+  const maxVal = Math.max(...allValues);
+  const range = maxVal - minVal || 1;
+  
+  // Grid lines
+  ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) {
+    const y = pad.top + (plotH / 4) * i;
+    ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(w - pad.right, y); ctx.stroke();
+    const val = maxVal - (range / 4) * i;
+    ctx.fillStyle = '#666';
+    ctx.font = '11px -apple-system, system-ui';
+    ctx.textAlign = 'right';
+    ctx.fillText('$' + Math.round(val / 1000) + 'K', pad.left - 8, y + 4);
+  }
+  
+  // Year labels
+  const months = results[0].months;
+  ctx.fillStyle = '#555';
+  ctx.textAlign = 'center';
+  for (let y = 0; y <= months / 12; y++) {
+    const x = pad.left + (y / (months / 12)) * plotW;
+    ctx.fillText('Year ' + y, x, h - 5);
+  }
+  
+  // Draw each version
+  results.forEach(r => {
+    const data = r.netWorthMC;
+    const color = r.color;
+    const n = data.median.length;
+    
+    // P10-P90 range (shaded)
+    ctx.fillStyle = color + '15';
+    ctx.beginPath();
+    for (let i = 0; i < n; i++) {
+      const x = pad.left + (i / (n - 1)) * plotW;
+      const y = pad.top + (1 - (data.p90[i] - minVal) / range) * plotH;
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    for (let i = n - 1; i >= 0; i--) {
+      const x = pad.left + (i / (n - 1)) * plotW;
+      const y = pad.top + (1 - (data.p10[i] - minVal) / range) * plotH;
+      ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    ctx.fill();
+    
+    // Median line
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    for (let i = 0; i < n; i++) {
+      const x = pad.left + (i / (n - 1)) * plotW;
+      const y = pad.top + (1 - (data.median[i] - minVal) / range) * plotH;
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    
+    // End label
+    const endY = pad.top + (1 - (data.median[n - 1] - minVal) / range) * plotH;
+    ctx.fillStyle = color;
+    ctx.font = 'bold 11px -apple-system, system-ui';
+    ctx.textAlign = 'left';
+    ctx.fillText('$' + Math.round(data.median[n - 1] / 1000) + 'K', w - pad.right + 4, endY + 4);
+  });
+  
+  // Legend
+  const legendEl = document.getElementById('timelineLegend');
+  legendEl.innerHTML = results.map(r => 
+    `<div class="legend-item"><div class="legend-dot" style="background:${r.color}"></div>${r.name}</div>`
+  ).join('');
+}
+
+function renderTabs(results) {
+  const tabsEl = document.getElementById('resultTabs');
+  tabsEl.innerHTML = '<div class="result-tab active" data-tab="overview" onclick="switchTab(\'overview\')">Overview</div>' +
+    results.map((r, i) => 
+      `<div class="result-tab" data-tab="${r.version}" onclick="switchTab('${r.version}')" style="--tab-color:${r.color}">${r.name}</div>`
+    ).join('') +
+    '<div class="result-tab" data-tab="feelings" onclick="switchTab(\'feelings\')">Feeling Scores</div>';
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('.result-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.tab === tab);
+    if (t.dataset.tab === tab && t.style.getPropertyValue('--tab-color')) {
+      t.style.background = t.style.getPropertyValue('--tab-color') + '30';
+    } else {
+      t.style.background = '';
+    }
+  });
+  document.querySelectorAll('.result-panel').forEach(p => {
+    p.classList.toggle('active', p.dataset.panel === tab);
+  });
+}
+
+function renderPanels(results) {
+  const panelsEl = document.getElementById('resultPanels');
+  let html = '';
+  
+  // Overview panel
+  html += `<div class="result-panel active" data-panel="overview">
+    <div class="result-cards">
+      ${results.sort((a, b) => b.overallScore - a.overallScore).map((r, i) => `
+        <div class="result-card" style="border-color: ${i === 0 ? r.color : 'rgba(255,255,255,0.08)'}">
+          <div class="rc-header">
+            <div>
+              <div class="rc-version" style="color:${r.color}">${r.name} ${i === 0 ? '👑' : ''}</div>
+              <div class="rc-title">${i === 0 ? 'Best Overall Path' : i === 1 ? 'Runner Up' : 'Alternative'}</div>
+            </div>
+            <div class="rc-score" style="color:${r.color}">${r.overallScore}</div>
+          </div>
+          <div class="rc-metrics">
+            <div class="rc-metric"><div class="rc-metric-value" style="color:#22c55e">$${r.endIncome.toLocaleString()}</div><div class="rc-metric-label">Monthly Income</div></div>
+            <div class="rc-metric"><div class="rc-metric-value" style="color:${r.endNetWorth >= 0 ? '#3b82f6' : '#ef4444'}">$${Math.abs(r.endNetWorth).toLocaleString()}</div><div class="rc-metric-label">Net Worth</div></div>
+            <div class="rc-metric"><div class="rc-metric-value">${r.feelings.selfTrust}</div><div class="rc-metric-label">Self-Trust</div></div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  </div>`;
+  
+  // Individual version panels
+  results.forEach(r => {
+    html += `<div class="result-panel" data-panel="${r.version}">
+      <div class="letter-section">
+        <div class="letter-card">
+          <div class="letter-from">Letter from Future ${r.name} You</div>
+          <div class="letter-body">${r.letter}</div>
+        </div>
+      </div>
+      <div class="inflections">
+        <div class="section-title" style="padding: 0 0 8px;">Key Inflection Points</div>
+        ${r.inflections.map(inf => `
+          <div class="inflection-item">
+            <div class="inflection-time">${inf.time}</div>
+            <div class="inflection-text">${inf.text}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>`;
+  });
+  
+  // Feelings panel
+  const feelingNames = ['confidence', 'freedom', 'aesthetics', 'validation', 'selfTrust'];
+  const feelingLabels = { confidence: 'Confidence', freedom: 'Freedom', aesthetics: 'Aesthetics', validation: 'Validation', selfTrust: 'Self-Trust' };
+  
+  html += `<div class="result-panel" data-panel="feelings">
+    <div class="feelings-section">
+      <div class="section-title" style="margin-bottom: 16px;">Experience Score by Path (0-100)</div>
+      ${feelingNames.map(f => `
+        <div class="feeling-row">
+          <div class="feeling-label">${feelingLabels[f]}</div>
+          <div class="feeling-bars">
+            ${results.map(r => `
+              <div class="feeling-bar-row">
+                <div class="feeling-bar-label" style="color:${r.color}">${r.version.charAt(0).toUpperCase()}</div>
+                <div class="feeling-bar-track">
+                  <div class="feeling-bar-fill" style="width:${r.feelings[f]}%; background:${r.color}"></div>
+                </div>
+                <div class="feeling-bar-value">${r.feelings[f]}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  </div>`;
+  
+  panelsEl.innerHTML = html;
+  
+  // Animate feeling bars
+  setTimeout(() => {
+    document.querySelectorAll('.feeling-bar-fill').forEach(el => {
+      el.style.width = el.style.width; // trigger reflow
+    });
+  }, 100);
+}
+
+function shareResults() {
+  if (!simulationResults) return;
+  const best = simulationResults.sort((a, b) => b.overallScore - a.overallScore)[0];
+  const text = `🔮 LifeSim Results\n\nBest path: ${best.name} (Score: ${best.overallScore}/100)\nProjected income: $${best.endIncome.toLocaleString()}/mo\nNet worth: $${best.endNetWorth.toLocaleString()}\n\nSimulated ${simulationResults.length} parallel timelines.\n\nTry it: ${window.location.href}`;
+  
+  if (navigator.share) {
+    navigator.share({ title: 'LifeSim Results', text });
+  } else {
+    navigator.clipboard.writeText(text).then(() => {
+      alert('Results copied to clipboard!');
+    });
+  }
+}
+</script>
+</body>
+</html>
