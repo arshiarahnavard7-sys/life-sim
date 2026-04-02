@@ -65,22 +65,14 @@
   .nav-dot.active{background:#fff;transform:scale(1.5);}
 
   /* ---- Competitor Grid ---- */
-  .comp-grid{display:grid;grid-template-columns:1fr auto 1fr;grid-template-rows:repeat(3,1fr);gap:3px;width:min(90vw,640px);height:260px;margin:0 auto;}
-  .comp-shard{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:rgba(255,255,255,0.04);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.08);padding:10px 8px;position:relative;opacity:0.85;transition:opacity 0.4s;}
-  .comp-shard:hover{opacity:1;}
-  .comp-shard img{width:24px;height:24px;border-radius:4px;object-fit:contain;opacity:0.35;filter:grayscale(100%);margin-bottom:4px;}
-  .comp-shard .sn{font-size:11px;font-weight:600;color:rgba(255,255,255,0.4);}
-  .comp-shard .sr{font-size:8px;color:rgba(255,255,255,0.25);margin-top:1px;}
-  /* Outer corners rounded, inner edges straight */
-  .comp-tl{border-radius:16px 0 0 0;}.comp-ml{border-radius:0;}.comp-bl{border-radius:0 0 0 16px;}
-  .comp-tr{border-radius:0 16px 0 0;}.comp-mr{border-radius:0;}.comp-br{border-radius:0 0 16px 0;}
-  /* Light bleed — inner edges facing STATUS */
-  .comp-l::after,.comp-r::after{content:'';position:absolute;top:8%;height:84%;width:28px;pointer-events:none;opacity:0.7;}
-  .comp-l::after{right:0;background:linear-gradient(90deg,transparent,rgba(99,220,255,0.07),rgba(139,92,246,0.04));}
-  .comp-r::after{left:0;background:linear-gradient(270deg,transparent,rgba(99,220,255,0.07),rgba(139,92,246,0.04));}
+  .comp-grid{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:16px;width:min(90vw,560px);height:240px;margin:0 auto;}
+  .comp-shard{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:rgba(255,255,255,0.06);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:16px 12px;opacity:0.5;}
+  .comp-shard img{width:32px;height:32px;border-radius:6px;object-fit:contain;opacity:0.5;filter:grayscale(100%);margin-bottom:6px;}
+  .comp-shard .sn{font-size:13px;font-weight:600;color:rgba(255,255,255,0.55);}
+  .comp-shard .sr{font-size:11px;color:rgba(255,255,255,0.3);margin-top:2px;}
   /* STATUS center hub */
-  .status-hub{grid-column:2;grid-row:1/span 3;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(#0f0f1a,#0f0f1a) padding-box,linear-gradient(135deg,#63dcff,#5856d6,#8b5cf6) border-box;border:2px solid transparent;border-radius:20px;padding:24px 32px;position:relative;z-index:10;margin:0 14px;box-shadow:0 0 60px 20px rgba(99,220,255,0.25),0 0 120px 40px rgba(139,92,246,0.15);min-width:130px;}
-  @media(max-width:500px){.comp-grid{height:200px;gap:2px;}.status-hub{min-width:80px;padding:16px;margin:0 6px;font-size:18px;}.comp-shard .sn{font-size:9px;}.comp-shard img{width:18px;height:18px;}}
+  .status-hub{grid-column:2;grid-row:1/span 2;display:flex;align-items:center;justify-content:center;background:#0d0d1f;border:2px solid transparent;background-clip:padding-box;border-radius:20px;position:relative;z-index:10;box-shadow:0 0 0 2px rgba(99,220,255,0.6),0 0 40px 10px rgba(99,220,255,0.3),0 0 80px 30px rgba(139,92,246,0.2);}
+  @media(max-width:500px){.comp-grid{height:180px;gap:10px;}.comp-shard .sn{font-size:11px;}.comp-shard img{width:24px;height:24px;}}
 
   /* ---- Steps ---- */
   .steps{display:flex;gap:16px;margin-top:40px;flex-wrap:wrap;justify-content:center;}
@@ -136,17 +128,15 @@
   
   <div class="glass-panel reveal" style="text-align:center;">
     <div class="comp-grid">
-      <div class="comp-shard comp-l comp-tl" style="grid-column:1;grid-row:1;"><img src="https://www.google.com/s2/favicons?domain=toasttab.com&sz=64" alt=""><span class="sn">Toast</span><span class="sr">Bar POS</span></div>
-      <div class="comp-shard comp-l comp-ml" style="grid-column:1;grid-row:2;margin-top:3px;"><img src="https://www.google.com/s2/favicons?domain=lineleap.com&sz=64" alt=""><span class="sn">LineLeap</span><span class="sr">Line Skip</span></div>
-      <div class="comp-shard comp-l comp-bl" style="grid-column:1;grid-row:3;margin-bottom:4px;"><img src="https://www.google.com/s2/favicons?domain=eventbrite.com&sz=64" alt=""><span class="sn">Eventbrite</span><span class="sr">Events</span></div>
+      <div class="comp-shard" style="grid-column:1;grid-row:1;"><img src="https://www.google.com/s2/favicons?domain=toasttab.com&sz=64" alt=""><span class="sn">Toast</span><span class="sr">Bar POS</span></div>
       <div class="status-hub">
         <div style="font-size:28px;font-weight:800;color:#fff;letter-spacing:-0.02em;">STATUS</div>
       </div>
-      <div class="comp-shard comp-r comp-tr" style="grid-column:3;grid-row:1;margin-top:5px;"><img src="https://www.google.com/s2/favicons?domain=posh.vip&sz=64" alt=""><span class="sn">Posh</span><span class="sr">Ticketing</span></div>
-      <div class="comp-shard comp-r comp-mr" style="grid-column:3;grid-row:2;margin-bottom:2px;"><img src="https://www.google.com/s2/favicons?domain=sevenrooms.com&sz=64" alt=""><span class="sn">SevenRooms</span><span class="sr">Reservations</span></div>
-      <div class="comp-shard comp-r comp-br" style="grid-column:3;grid-row:3;margin-top:4px;"><img src="https://www.google.com/s2/favicons?domain=tablelistpro.com&sz=64" alt=""><span class="sn">TablelistPro</span><span class="sr">VIP & Tables</span></div>
+      <div class="comp-shard" style="grid-column:3;grid-row:1;"><img src="https://www.google.com/s2/favicons?domain=posh.vip&sz=64" alt=""><span class="sn">Posh</span><span class="sr">Ticketing</span></div>
+      <div class="comp-shard" style="grid-column:1;grid-row:2;"><img src="https://www.google.com/s2/favicons?domain=eventbrite.com&sz=64" alt=""><span class="sn">Eventbrite</span><span class="sr">Events</span></div>
+      <div class="comp-shard" style="grid-column:3;grid-row:2;"><img src="https://www.google.com/s2/favicons?domain=sevenrooms.com&sz=64" alt=""><span class="sn">SevenRooms</span><span class="sr">Reservations</span></div>
     </div>
-    <div class="title" style="margin-top:24px;">The all-in-one<br><span class="grad">nightlife platform.</span></div>
+    <div class="title" style="margin-top:32px;">The all-in-one<br><span class="grad">nightlife platform.</span></div>
     <div class="subtitle">Status connects your door, your bar, and your guest data — so you see exactly where every dollar comes from.</div>
   </div>
 </div>
