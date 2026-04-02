@@ -196,48 +196,76 @@
   <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:100%;">
     <div class="slide-title reveal" style="font-size:clamp(36px,5vw,64px);">Nightlife is <span style="color:var(--red);">fragmented.</span></div>
     <div class="slide-subtitle reveal" style="margin-top:16px;margin-bottom:48px;">You're duct-taping 6 tools together. None of them talk to each other.</div>
-    <div style="position:relative;width:100%;max-width:820px;height:420px;">
-      <div class="glass-card reveal" style="position:absolute;padding:14px 20px;transform:rotate(-7deg);top:5%;left:2%;opacity:0.85;">
-        <div style="font-size:15px;font-weight:700;">TablelistPro</div>
-        <div style="font-size:11px;color:var(--text-tertiary);margin-top:2px;">VIP & Tables</div>
-      </div>
-      <div class="glass-card reveal" style="position:absolute;padding:14px 20px;transform:rotate(4deg);top:2%;left:38%;opacity:0.9;">
-        <div style="font-size:15px;font-weight:700;">Toast</div>
-        <div style="font-size:11px;color:var(--text-tertiary);margin-top:2px;">Bar POS</div>
-      </div>
-      <div class="glass-card reveal" style="position:absolute;padding:14px 20px;transform:rotate(-3deg);top:8%;right:5%;opacity:0.8;">
-        <div style="font-size:15px;font-weight:700;">LineLeap</div>
-        <div style="font-size:11px;color:var(--text-tertiary);margin-top:2px;">Skip the Line</div>
-      </div>
-      <div class="glass-card reveal" style="position:absolute;padding:14px 20px;transform:rotate(6deg);top:30%;left:8%;opacity:0.75;">
-        <div style="font-size:15px;font-weight:700;">Posh</div>
-        <div style="font-size:11px;color:var(--text-tertiary);margin-top:2px;">Ticketing</div>
-      </div>
-      <div class="glass-card reveal" style="position:absolute;padding:14px 20px;transform:rotate(-5deg);top:28%;left:42%;opacity:0.9;">
-        <div style="font-size:15px;font-weight:700;">Eventbrite</div>
-        <div style="font-size:11px;color:var(--text-tertiary);margin-top:2px;">Events</div>
-      </div>
-      <div class="glass-card reveal" style="position:absolute;padding:14px 20px;transform:rotate(8deg);top:25%;right:8%;opacity:0.7;">
-        <div style="font-size:15px;font-weight:700;">Aloha / Simphony</div>
-        <div style="font-size:11px;color:var(--text-tertiary);margin-top:2px;">Legacy POS</div>
-      </div>
-      <div class="glass-card reveal" style="position:absolute;padding:14px 20px;transform:rotate(-9deg);top:52%;left:3%;opacity:0.85;">
-        <div style="font-size:15px;font-weight:700;">Discotech</div>
-        <div style="font-size:11px;color:var(--text-tertiary);margin-top:2px;">Guestlists</div>
-      </div>
-      <div class="glass-card reveal" style="position:absolute;padding:14px 20px;transform:rotate(3deg);top:55%;left:35%;opacity:0.8;">
-        <div style="font-size:15px;font-weight:700;">SevenRooms</div>
-        <div style="font-size:11px;color:var(--text-tertiary);margin-top:2px;">Reservations</div>
-      </div>
-      <div class="glass-card reveal" style="position:absolute;padding:14px 20px;transform:rotate(-4deg);top:50%;right:6%;opacity:0.9;">
-        <div style="font-size:15px;font-weight:700;">UrVenue</div>
-        <div style="font-size:11px;color:var(--text-tertiary);margin-top:2px;">VIP Booking</div>
-      </div>
-      <div class="glass-card reveal" style="position:absolute;padding:14px 20px;transform:rotate(7deg);top:76%;left:25%;opacity:0.75;">
-        <div style="font-size:15px;font-weight:700;">Mailchimp</div>
-        <div style="font-size:11px;color:var(--text-tertiary);margin-top:2px;">Email Blasts</div>
-      </div>
-    </div>
+    <svg viewBox="0 0 800 500" style="max-width:820px;width:100%;" class="reveal">
+      <defs>
+        <filter id="glass-frag">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="0.5"/>
+        </filter>
+        <linearGradient id="frag-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:rgba(255,255,255,0.45)"/>
+          <stop offset="100%" style="stop-color:rgba(255,255,255,0.15)"/>
+        </linearGradient>
+      </defs>
+      <!-- Top row - 3 triangles pointing down -->
+      <g>
+        <polygon points="130,20 260,20 195,160" fill="url(#frag-grad)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+        <text x="195" y="80" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-primary)">TablelistPro</text>
+        <text x="195" y="98" text-anchor="middle" font-size="10" fill="var(--text-tertiary)">VIP & Tables</text>
+      </g>
+      <g>
+        <polygon points="335,20 465,20 400,160" fill="url(#frag-grad)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+        <text x="400" y="80" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-primary)">Toast</text>
+        <text x="400" y="98" text-anchor="middle" font-size="10" fill="var(--text-tertiary)">Bar POS</text>
+      </g>
+      <g>
+        <polygon points="540,20 670,20 605,160" fill="url(#frag-grad)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+        <text x="605" y="80" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-primary)">LineLeap</text>
+        <text x="605" y="98" text-anchor="middle" font-size="10" fill="var(--text-tertiary)">Skip the Line</text>
+      </g>
+      <!-- Middle row - 4 triangles pointing up -->
+      <g>
+        <polygon points="60,170 195,170 128,310" fill="url(#frag-grad)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+        <text x="128" y="240" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-primary)">Posh</text>
+        <text x="128" y="258" text-anchor="middle" font-size="10" fill="var(--text-tertiary)">Ticketing</text>
+      </g>
+      <g>
+        <polygon points="195,170 335,170 265,310" fill="url(#frag-grad)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+        <text x="265" y="240" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-primary)">Eventbrite</text>
+        <text x="265" y="258" text-anchor="middle" font-size="10" fill="var(--text-tertiary)">Events</text>
+      </g>
+      <g>
+        <polygon points="465,170 605,170 535,310" fill="url(#frag-grad)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+        <text x="535" y="240" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-primary)">Aloha</text>
+        <text x="535" y="258" text-anchor="middle" font-size="10" fill="var(--text-tertiary)">Legacy POS</text>
+      </g>
+      <g>
+        <polygon points="605,170 740,170 672,310" fill="url(#frag-grad)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+        <text x="672" y="240" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-primary)">Discotech</text>
+        <text x="672" y="258" text-anchor="middle" font-size="10" fill="var(--text-tertiary)">Guestlists</text>
+      </g>
+      <!-- Bottom row - 3 triangles pointing down -->
+      <g>
+        <polygon points="130,320 260,320 195,460" fill="url(#frag-grad)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+        <text x="195" y="380" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-primary)">SevenRooms</text>
+        <text x="195" y="398" text-anchor="middle" font-size="10" fill="var(--text-tertiary)">Reservations</text>
+      </g>
+      <g>
+        <polygon points="335,320 465,320 400,460" fill="url(#frag-grad)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+        <text x="400" y="380" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-primary)">UrVenue</text>
+        <text x="400" y="398" text-anchor="middle" font-size="10" fill="var(--text-tertiary)">VIP Booking</text>
+      </g>
+      <g>
+        <polygon points="540,320 670,320 605,460" fill="url(#frag-grad)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+        <text x="605" y="380" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-primary)">Mailchimp</text>
+        <text x="605" y="398" text-anchor="middle" font-size="10" fill="var(--text-tertiary)">Email Blasts</text>
+      </g>
+      <!-- Gap lines between fragments -->
+      <line x1="260" y1="20" x2="335" y2="20" stroke="var(--text-tertiary)" stroke-width="0.5" stroke-dasharray="4,4" opacity="0.3"/>
+      <line x1="465" y1="20" x2="540" y2="20" stroke="var(--text-tertiary)" stroke-width="0.5" stroke-dasharray="4,4" opacity="0.3"/>
+      <line x1="335" y1="170" x2="465" y2="170" stroke="var(--text-tertiary)" stroke-width="0.5" stroke-dasharray="4,4" opacity="0.3"/>
+      <line x1="260" y1="320" x2="335" y2="320" stroke="var(--text-tertiary)" stroke-width="0.5" stroke-dasharray="4,4" opacity="0.3"/>
+      <line x1="465" y1="320" x2="540" y2="320" stroke="var(--text-tertiary)" stroke-width="0.5" stroke-dasharray="4,4" opacity="0.3"/>
+    </svg>
     <div class="slide-subtitle reveal" style="margin-top:40px;font-size:clamp(18px,2vw,22px);font-weight:600;color:var(--text-primary);">Status replaces all of them.</div>
   </div>
 </div>
