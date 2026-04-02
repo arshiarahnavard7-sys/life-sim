@@ -41,7 +41,7 @@
     background:var(--glass);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
     border:0.5px solid var(--glass-border);border-radius:28px;
     box-shadow:0 32px 80px rgba(0,0,0,0.6),0 8px 24px rgba(0,0,0,0.4),var(--glass-highlight);
-    padding:56px 48px;max-width:900px;width:100%;margin:0 auto;display:flex;flex-direction:column;justify-content:center;
+    padding:56px 48px;max-width:900px;width:100%;margin:0 auto;display:flex;flex-direction:column;justify-content:center;overflow:hidden;
   }
   .glass-panel-sm{padding:36px 32px;border-radius:20px;}
 
@@ -65,14 +65,14 @@
   .nav-dot.active{background:#fff;transform:scale(1.5);}
 
   /* ---- Shattered Rectangle ---- */
-  .shatter{position:relative;width:min(90vw,700px);height:400px;margin:0 auto;}
+  .shatter{position:relative;width:min(90vw,700px);height:260px;margin:0 auto;}
   .shard{position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:rgba(255,255,255,0.03);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:all 0.4s cubic-bezier(.23,1,.32,1);}
   .shard:hover{background:rgba(255,255,255,0.06);}
   .shard img{width:22px;height:22px;border-radius:4px;object-fit:contain;margin-bottom:5px;opacity:0.6;}
   .shard .sn{font-size:10px;font-weight:600;color:rgba(255,255,255,0.6);}
   .shard .sr{font-size:8px;color:rgba(255,255,255,0.3);margin-top:1px;}
   /* Center — Status */
-  .shard-c{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10;width:150px;height:140px;border-radius:18px;background:rgba(88,86,214,0.15);border:1px solid rgba(255,255,255,0.15);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 60px rgba(88,86,214,0.4),0 0 120px rgba(0,122,255,0.12),0 16px 48px rgba(0,0,0,0.5);}
+  .shard-c{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10;width:120px;height:110px;border-radius:16px;background:rgba(88,86,214,0.15);border:1px solid rgba(255,255,255,0.15);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 60px rgba(88,86,214,0.4),0 0 120px rgba(0,122,255,0.12),0 16px 48px rgba(0,0,0,0.5);}
   /* Crack borders between shards */
   .crack-v{position:absolute;top:0;width:2px;height:100%;background:linear-gradient(180deg,transparent,rgba(255,255,255,0.06),transparent);}
   .crack-h{position:absolute;left:0;height:2px;width:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent);}
@@ -86,7 +86,7 @@
   /* Top-right and bottom-left diagonal shards */
   .s7{top:0;left:0;width:100%;height:50%;pointer-events:none;} /* placeholder */
   .s8{bottom:0;right:0;width:100%;height:50%;pointer-events:none;}
-  @media(max-width:500px){.shatter{height:340px;}.shard .sn{font-size:9px;}.shard-c{width:110px;height:100px;}}
+  @media(max-width:500px){.shatter{height:200px;}.shard .sn{font-size:8px;}.shard-c{width:90px;height:80px;}}
 
   /* ---- Steps ---- */
   .steps{display:flex;gap:16px;margin-top:40px;flex-wrap:wrap;justify-content:center;}
@@ -108,9 +108,9 @@
   .feat p{font-size:13px;color:var(--text2);line-height:1.45;}
 
   /* ---- Device ---- */
-  .device{width:260px;height:530px;border-radius:44px;flex-shrink:0;position:relative;overflow:hidden;background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);box-shadow:0 20px 60px rgba(0,0,0,0.4);}
+  .device{width:200px;height:360px;border-radius:36px;flex-shrink:0;position:relative;overflow:hidden;background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);box-shadow:0 20px 60px rgba(0,0,0,0.4);}
   .device::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:110px;height:30px;background:#000;border-radius:0 0 20px 20px;z-index:2;}
-  .device-screen{width:100%;height:100%;padding:50px 18px 18px;position:relative;z-index:1;}
+  .device-screen{width:100%;height:100%;padding:40px 14px 14px;position:relative;z-index:1;}
 
   /* ---- Grid ---- */
   .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:36px;}
@@ -298,9 +298,9 @@ document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 <script>lucide.createIcons();</script>
 <script>
 window.addEventListener('load',()=>{
-  const ref=document.querySelector('[data-slide="1"] .glass-panel');
+  const ref=document.querySelector('[data-slide="2"] .glass-panel');
   const h=ref.offsetHeight;
-  document.querySelectorAll('.glass-panel').forEach(p=>{p.style.minHeight=h+'px';});
+  document.querySelectorAll('.glass-panel').forEach(p=>{p.style.height=h+'px';});
 });
 </script>
 </body>
