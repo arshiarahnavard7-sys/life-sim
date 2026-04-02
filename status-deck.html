@@ -3,170 +3,128 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Status — Marketing Deck</title>
+<title>Status — Sales Deck</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
   :root {
-    --glass-bg: rgba(255,255,255,0.32);
-    --glass-border: rgba(255,255,255,0.55);
-    --glass-highlight: inset 0 0.5px 0 0 rgba(255,255,255,0.9), inset 0 -0.5px 0 0 rgba(255,255,255,0.3);
-    --glass-shadow: 0 8px 40px rgba(0,0,0,0.06);
-    --glass-blur: blur(48px) saturate(200%);
-    --text-primary: #1d1d1f;
-    --text-secondary: rgba(0,0,0,0.5);
-    --text-tertiary: rgba(0,0,0,0.3);
-    --accent: #0071e3;
-    --accent-gradient: linear-gradient(135deg, #007aff, #5856d6, #af52de);
-    --green: #34c759;
-    --red: #ff3b30;
-    --orange: #ff9500;
-    --purple: #af52de;
-    --surface: #fbfbfd;
+    --glass: rgba(20,20,22,0.72);
+    --glass-border: rgba(255,255,255,0.08);
+    --glass-highlight: inset 0 0.5px 0 0 rgba(255,255,255,0.12);
+    --glass-blur: blur(60px) saturate(180%);
+    --text: #f5f5f7;
+    --text2: rgba(255,255,255,0.55);
+    --text3: rgba(255,255,255,0.3);
+    --accent: #007aff;
+    --accent-grad: linear-gradient(135deg, #007aff, #5856d6, #af52de);
+    --green: #30d158;
+    --red: #ff453a;
+    --orange: #ff9f0a;
   }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;scroll-snap-type:y mandatory;}
+  body{background:#000;color:var(--text);font-family:-apple-system,'SF Pro Display','Inter','Helvetica Neue',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
-  body {
-    background: var(--surface); color: var(--text-primary);
-    font-family: -apple-system, 'SF Pro Display', 'SF Pro Text', 'Inter', 'Helvetica Neue', sans-serif;
-    overflow-x: hidden; -webkit-font-smoothing: antialiased;
+  /* ---- Slide ---- */
+  .slide{min-height:100vh;display:flex;justify-content:center;align-items:center;padding:60px 32px;position:relative;scroll-snap-align:start;overflow:hidden;}
+  .slide-bg{position:absolute;inset:0;background-size:cover;background-position:center;z-index:0;}
+  .slide-bg::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.35);}
+
+  /* ---- Dark Glass Panel ---- */
+  .glass-panel{
+    position:relative;z-index:2;
+    background:var(--glass);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+    border:0.5px solid var(--glass-border);border-radius:28px;
+    box-shadow:0 24px 80px rgba(0,0,0,0.4),var(--glass-highlight);
+    padding:56px 48px;max-width:900px;width:100%;
   }
+  .glass-panel-sm{padding:36px 32px;border-radius:20px;}
 
-  .slide {
-    min-height: 100vh; display: flex; flex-direction: column;
-    justify-content: center; align-items: center;
-    padding: 100px 56px; position: relative;
-    scroll-snap-align: start; overflow: hidden;
+  /* ---- Inner glass card ---- */
+  .g-card{
+    background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.08);border-radius:16px;
+    padding:24px;box-shadow:var(--glass-highlight);
+    transition:transform 0.4s cubic-bezier(.23,1,.32,1),background 0.4s;
   }
+  .g-card:hover{transform:translateY(-4px);background:rgba(255,255,255,0.07);}
 
-  /* Glass */
-  .glass {
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
-    border: 0.5px solid var(--glass-border); border-radius: 20px;
-    box-shadow: var(--glass-shadow), var(--glass-highlight);
-  }
-  .glass-card {
-    background: rgba(255,255,255,0.28);
-    backdrop-filter: blur(32px) saturate(180%); -webkit-backdrop-filter: blur(32px) saturate(180%);
-    border: 0.5px solid rgba(255,255,255,0.5); border-radius: 18px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.04), var(--glass-highlight);
-    transition: transform 0.5s cubic-bezier(0.23,1,0.32,1), box-shadow 0.5s cubic-bezier(0.23,1,0.32,1);
-  }
-  .glass-card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 12px 40px rgba(0,0,0,0.08), var(--glass-highlight); }
-  .glass-pill {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 10px 22px; border-radius: 980px;
-    background: rgba(255,255,255,0.4); backdrop-filter: blur(24px) saturate(160%); -webkit-backdrop-filter: blur(24px) saturate(160%);
-    border: 0.5px solid rgba(255,255,255,0.6);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.03), var(--glass-highlight);
-    font-size: 14px; font-weight: 500; color: var(--text-secondary);
-  }
-  .glass-pill strong { color: var(--text-primary); font-weight: 700; }
+  /* ---- Typography ---- */
+  .title{font-size:clamp(36px,5vw,60px);font-weight:700;line-height:1.08;letter-spacing:-0.04em;color:var(--text);}
+  .subtitle{font-size:clamp(16px,1.6vw,20px);font-weight:400;color:var(--text2);line-height:1.5;margin-top:16px;letter-spacing:-0.01em;}
+  .tag{font-size:13px;font-weight:600;letter-spacing:0.02em;margin-bottom:12px;text-transform:uppercase;}
+  .grad{background:var(--accent-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 
-  /* Nav */
-  .nav-dots {
-    position: fixed; right: 24px; top: 50%; transform: translateY(-50%); z-index: 100;
-    display: flex; flex-direction: column; gap: 8px;
-    background: rgba(255,255,255,0.3); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    border: 0.5px solid rgba(255,255,255,0.5); border-radius: 980px; padding: 8px 6px;
-  }
-  .nav-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(0,0,0,0.12); cursor: pointer; transition: all 0.4s cubic-bezier(0.23,1,0.32,1); border: none; }
-  .nav-dot.active { background: var(--text-primary); transform: scale(1.5); }
+  /* ---- Nav dots ---- */
+  .nav-dots{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:8px;background:rgba(20,20,22,0.5);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:0.5px solid rgba(255,255,255,0.06);border-radius:980px;padding:8px 6px;}
+  .nav-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.15);cursor:pointer;border:none;transition:all 0.4s;}
+  .nav-dot.active{background:#fff;transform:scale(1.5);}
 
-  /* Typography */
-  .slide-tag { font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 12px; letter-spacing: -0.01em; }
-  .slide-title { font-size: clamp(40px,5.5vw,68px); font-weight: 700; line-height: 1.06; letter-spacing: -0.04em; max-width: 820px; text-align: center; }
-  .slide-subtitle { font-size: clamp(17px,1.8vw,21px); font-weight: 400; color: var(--text-secondary); max-width: 520px; text-align: center; margin-top: 16px; line-height: 1.5; letter-spacing: -0.01em; }
-  .accent-text { background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  /* ---- Solar system ---- */
+  .solar{position:relative;width:500px;height:500px;margin:0 auto;}
+  @media(max-width:560px){.solar{width:85vw;height:85vw;}}
+  .sun{position:absolute;top:50%;left:50%;width:110px;height:110px;margin:-55px 0 0 -55px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#6e8efb,#5856d6 40%,#3a1c71);box-shadow:0 0 50px rgba(88,86,214,0.6),0 0 100px rgba(88,86,214,0.2);z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .track{position:absolute;top:50%;left:50%;border:1px solid rgba(255,255,255,0.06);border-radius:50%;transform:translate(-50%,-50%);}
+  .t1{width:220px;height:220px;}.t2{width:340px;height:340px;}.t3{width:460px;height:460px;}
+  .ring{position:absolute;top:50%;left:50%;width:0;height:0;}
+  .r1{animation:orb 28s linear infinite;}
+  .r2{animation:orb 42s linear infinite reverse;}
+  .r3{animation:orb 58s linear infinite;}
+  @keyframes orb{to{transform:rotate(360deg)}}
+  .planet{position:absolute;width:56px;height:56px;background:rgba(255,255,255,0.1);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:0.5px solid rgba(255,255,255,0.15);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.3);}
+  .planet img{width:20px;height:20px;border-radius:3px;margin-bottom:2px;object-fit:contain;}
+  .planet .pn{font-size:7px;font-weight:700;color:rgba(255,255,255,0.85);}
+  .planet .pr{font-size:6px;color:rgba(255,255,255,0.4);}
+  .r1 .planet{animation:corb 28s linear infinite;}
+  .r2 .planet{animation:corb 42s linear infinite reverse;}
+  .r3 .planet{animation:corb 58s linear infinite;}
+  @keyframes corb{to{transform:rotate(-360deg)}}
+  /* positions */
+  .r1 .a{top:-28px;left:-28px;margin-top:-110px;}
+  .r1 .b{top:-28px;left:-28px;margin-top:55px;margin-left:95px;}
+  .r1 .c{top:-28px;left:-28px;margin-top:55px;margin-left:-95px;}
+  .r2 .d{top:-28px;left:-28px;margin-top:-170px;}
+  .r2 .e{top:-28px;left:-28px;margin-left:170px;}
+  .r2 .f{top:-28px;left:-28px;margin-top:170px;}
+  .r2 .g{top:-28px;left:-28px;margin-left:-170px;}
+  .r3 .h{top:-28px;left:-28px;margin-top:-230px;}
+  .r3 .i{top:-28px;left:-28px;margin-left:199px;margin-top:115px;}
+  .r3 .j{top:-28px;left:-28px;margin-left:-199px;margin-top:115px;}
 
-  /* Mesh */
-  .mesh-bg { position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; z-index: 0; }
-  .mesh-blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4; animation: meshFloat 20s ease-in-out infinite; }
-  @keyframes meshFloat {
-    0%,100% { transform: translate(0,0) scale(1); }
-    25% { transform: translate(30px,-40px) scale(1.05); }
-    50% { transform: translate(-20px,20px) scale(0.95); }
-    75% { transform: translate(40px,30px) scale(1.03); }
-  }
+  /* ---- Steps ---- */
+  .steps{display:flex;gap:16px;margin-top:40px;flex-wrap:wrap;justify-content:center;}
+  .step{flex:1;min-width:200px;text-align:center;padding:28px 20px;}
+  .step-num{width:28px;height:28px;border-radius:50%;background:var(--accent-grad);color:#fff;font-size:13px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;margin-bottom:14px;}
+  .step-icon{font-size:32px;margin-bottom:12px;}
+  .step h4{font-size:16px;font-weight:600;margin-bottom:6px;}
+  .step p{font-size:13px;color:var(--text2);line-height:1.5;}
 
-  /* Icon */
-  .sf-icon {
-    width: 44px; height: 44px; border-radius: 12px;
-    display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;
-    background: rgba(255,255,255,0.35); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-    border: 0.5px solid rgba(255,255,255,0.5);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.03), var(--glass-highlight);
-  }
+  /* ---- Feature list ---- */
+  .feat{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:0.5px solid rgba(255,255,255,0.06);}
+  .feat:last-child{border:none;}
+  .feat-icon{width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+  .feat h4{font-size:15px;font-weight:600;margin-bottom:2px;}
+  .feat p{font-size:13px;color:var(--text2);line-height:1.45;}
 
-  /* Feature */
-  .feature-row { display: flex; gap: 52px; max-width: 1000px; margin-top: 52px; align-items: center; flex-wrap: wrap; justify-content: center; }
-  .feature-list { display: flex; flex-direction: column; gap: 28px; max-width: 400px; }
-  .feature { display: flex; gap: 16px; align-items: flex-start; }
-  .feature h4 { font-size: 16px; font-weight: 600; margin-bottom: 2px; letter-spacing: -0.02em; }
-  .feature p { font-size: 14px; color: var(--text-secondary); line-height: 1.45; letter-spacing: -0.01em; }
+  /* ---- Device ---- */
+  .device{width:260px;height:530px;border-radius:44px;flex-shrink:0;position:relative;overflow:hidden;background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);box-shadow:0 20px 60px rgba(0,0,0,0.4);}
+  .device::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:110px;height:30px;background:#000;border-radius:0 0 20px 20px;z-index:2;}
+  .device-screen{width:100%;height:100%;padding:50px 18px 18px;position:relative;z-index:1;}
 
-  /* Device */
-  .device {
-    width: 280px; height: 570px; border-radius: 48px; flex-shrink: 0;
-    position: relative; overflow: hidden;
-    background: rgba(255,255,255,0.25);
-    backdrop-filter: blur(60px) saturate(220%); -webkit-backdrop-filter: blur(60px) saturate(220%);
-    border: 0.5px solid rgba(255,255,255,0.6);
-    box-shadow: 0 24px 60px rgba(0,0,0,0.1), 0 4px 16px rgba(0,0,0,0.05), inset 0 0.5px 0 rgba(255,255,255,0.95), inset 0 -0.5px 0 rgba(255,255,255,0.4);
-  }
-  .device::before { content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:120px; height:34px; background:rgba(0,0,0,0.85); border-radius:0 0 22px 22px; z-index:2; }
-  .device::after { content:''; position:absolute; top:0; left:0; right:0; height:50%; background:linear-gradient(180deg,rgba(255,255,255,0.15) 0%,transparent 100%); pointer-events:none; border-radius:48px 48px 0 0; }
-  .device-screen { width:100%; height:100%; padding:54px 20px 20px; position:relative; z-index:1; }
+  /* ---- Grid ---- */
+  .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:36px;}
 
-  /* CTA */
-  .cta-btn-big {
-    margin-top: 36px; padding: 18px 52px; border-radius: 980px;
-    font-size: 17px; font-weight: 600; letter-spacing: -0.01em;
-    background: var(--accent); color: #fff; border: none;
-    cursor: pointer; text-decoration: none; display: inline-block;
-    box-shadow: 0 4px 16px rgba(0,113,227,0.3);
-    transition: all 0.4s cubic-bezier(0.23,1,0.32,1);
-  }
-  .cta-btn-big:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 8px 28px rgba(0,113,227,0.35); }
+  /* ---- Pill ---- */
+  .pill{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:980px;background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.08);font-size:14px;font-weight:500;color:var(--text2);}
+  .pill strong{color:var(--text);font-weight:700;}
 
-  /* Reveal */
-  .reveal { opacity:0; transform:translateY(24px); transition: opacity 0.7s cubic-bezier(0.23,1,0.32,1), transform 0.7s cubic-bezier(0.23,1,0.32,1); }
-  .reveal.visible { opacity:1; transform:translateY(0); }
+  /* ---- Reveal ---- */
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.6s cubic-bezier(.23,1,.32,1),transform 0.6s cubic-bezier(.23,1,.32,1);}
+  .reveal.visible{opacity:1;transform:translateY(0);}
 
-  /* One-liner callout */
-  .callout {
-    font-size: clamp(20px,3vw,32px); font-weight: 600; letter-spacing: -0.03em;
-    text-align: center; max-width: 700px; line-height: 1.35; color: var(--text-primary);
-  }
-
-  /* Pricing row */
-  .pricing-row { display: flex; gap: 14px; max-width: 840px; margin-top: 44px; flex-wrap: wrap; justify-content: center; }
-  .price-card { padding: 36px 28px; text-align: center; flex: 1; min-width: 230px; }
-  .price-card .badge { display:inline-block; padding:5px 14px; border-radius:980px; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.03em; margin-bottom:10px; }
-  .price-card .amount { font-size:44px; font-weight:800; margin:8px 0 4px; letter-spacing:-0.04em; }
-  .price-card .per { font-size:14px; color:var(--text-secondary); font-weight:500; }
-  .price-card .desc { font-size:13px; color:var(--text-tertiary); margin-top:12px; line-height:1.55; }
-  .price-card.featured { background:rgba(255,255,255,0.5); border-color:rgba(0,122,255,0.15); box-shadow:0 8px 40px rgba(0,122,255,0.06), var(--glass-highlight); }
-
-  /* Steps */
-  .steps-row { display:flex; gap:16px; max-width:920px; margin-top:52px; flex-wrap:wrap; justify-content:center; align-items:stretch; }
-  .step { padding:36px 28px; text-align:center; width:250px; position:relative; }
-  .step-badge { position:absolute; top:-10px; left:50%; transform:translateX(-50%); width:24px; height:24px; border-radius:50%; background:var(--accent-gradient); color:#fff; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,122,255,0.25); }
-  .step .step-icon { font-size:36px; margin-bottom:16px; }
-  .step h4 { font-size:17px; font-weight:600; margin-bottom:8px; letter-spacing:-0.02em; }
-  .step p { font-size:13px; color:var(--text-secondary); line-height:1.55; }
-  .step-connector { color:var(--text-tertiary); font-size:18px; display:flex; align-items:center; }
-
-  @media (max-width:768px) {
-    .slide { padding:60px 20px; }
-    .feature-row { flex-direction:column-reverse; gap:32px; }
-    .device { width:240px; height:480px; border-radius:40px; }
-    .steps-row { flex-direction:column; align-items:center; }
-    .step-connector { transform:rotate(90deg); }
-    .nav-dots { right:10px; }
-    .pricing-row { flex-direction:column; align-items:center; }
+  @media(max-width:768px){
+    .slide{padding:40px 16px;}
+    .glass-panel{padding:36px 20px;border-radius:20px;}
+    .steps{flex-direction:column;align-items:center;}
+    .feat-row{flex-direction:column-reverse;}
   }
 </style>
 </head>
@@ -174,265 +132,142 @@
 
 <div class="nav-dots" id="navDots"></div>
 
-<!-- ===== 1. HERO — Status at center, fragments orbiting ===== -->
+<!-- ===== 1. HERO — Solar System ===== -->
 <div class="slide" data-slide="0">
-  <div class="mesh-bg">
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(0,122,255,0.25),transparent 70%);width:600px;height:600px;top:-15%;left:10%;"></div>
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(175,82,222,0.2),transparent 70%);width:500px;height:500px;top:30%;right:-5%;animation-delay:-5s;animation-duration:18s;"></div>
-  </div>
-  <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;">
-    <!-- Solar system orbital animation -->
-    <style>
-      .solar{position:relative;width:680px;height:680px;margin:0 auto 24px;}
-      @media(max-width:650px){.solar{width:92vw;height:92vw;}}
-      /* Sun — Status */
-      .sun{position:absolute;top:50%;left:50%;width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#6e8efb,#5856d6 40%,#3a1c71 100%);box-shadow:0 0 40px rgba(88,86,214,0.5),0 0 80px rgba(88,86,214,0.25),0 0 120px rgba(88,86,214,0.1);z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-      .sun-name{font-size:22px;font-weight:800;color:#fff;letter-spacing:-0.02em;}
-      .sun-sub{font-size:8px;font-weight:600;color:rgba(255,255,255,0.7);letter-spacing:0.12em;margin-top:2px;}
-      /* Orbit tracks */
-      .track{position:absolute;top:50%;left:50%;border:1px solid rgba(100,100,140,0.08);border-radius:50%;transform:translate(-50%,-50%);}
-      .track-1{width:280px;height:280px;}
-      .track-2{width:430px;height:430px;}
-      .track-3{width:580px;height:580px;}
-      /* Rotating wrappers */
-      .ring{position:absolute;top:50%;left:50%;width:0;height:0;}
-      .ring-1{animation:orbit 30s linear infinite;}
-      .ring-2{animation:orbit 45s linear infinite reverse;}
-      .ring-3{animation:orbit 60s linear infinite;}
-      @keyframes orbit{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-      /* Planets — counter-rotate to stay upright */
-      .planet{position:absolute;background:rgba(255,255,255,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.9);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,0.08),inset 0 1px 0 rgba(255,255,255,0.9);text-align:center;}
-      .planet-sm{width:64px;height:64px;}
-      .planet-md{width:72px;height:72px;}
-      .planet-lg{width:78px;height:78px;}
-      .planet img.p-logo{width:24px;height:24px;border-radius:4px;object-fit:contain;margin-bottom:3px;}
-      .planet .p-name{font-size:8px;font-weight:700;color:#1d1d1f;line-height:1.15;}
-      .planet .p-role{font-size:7px;color:rgba(0,0,0,0.4);margin-top:1px;}
-      /* Counter-rotation */
-      .ring-1 .planet{animation:counter-orbit 30s linear infinite;}
-      .ring-2 .planet{animation:counter-orbit 45s linear infinite reverse;}
-      .ring-3 .planet{animation:counter-orbit 60s linear infinite;}
-      @keyframes counter-orbit{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}
-      /* Positions: offset from center of ring by orbit radius */
-      .ring-1 .p1{top:-32px;left:-32px;margin-top:-140px;}
-      .ring-1 .p2{top:-32px;left:-32px;margin-top:70px;margin-left:121px;}
-      .ring-1 .p3{top:-32px;left:-32px;margin-top:70px;margin-left:-121px;}
-      .ring-2 .p4{top:-36px;left:-36px;margin-top:-215px;}
-      .ring-2 .p5{top:-36px;left:-36px;margin-left:215px;}
-      .ring-2 .p6{top:-36px;left:-36px;margin-top:215px;}
-      .ring-2 .p7{top:-36px;left:-36px;margin-left:-215px;}
-      .ring-3 .p8{top:-39px;left:-39px;margin-top:-290px;}
-      .ring-3 .p9{top:-39px;left:-39px;margin-left:251px;margin-top:145px;}
-      .ring-3 .p10{top:-39px;left:-39px;margin-left:-251px;margin-top:145px;}
-    </style>
-    <div class="solar reveal">
-      <!-- Tracks -->
-      <div class="track track-1"></div>
-      <div class="track track-2"></div>
-      <div class="track track-3"></div>
-      <!-- Sun -->
+  <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1566737236500-c8ac43014a67?w=1920&q=80');"></div>
+  <div class="glass-panel reveal" style="text-align:center;">
+    <div class="solar">
+      <div class="track t1"></div><div class="track t2"></div><div class="track t3"></div>
       <div class="sun">
-        <div class="sun-name">STATUS</div>
-        <div class="sun-sub">ALL-IN-ONE</div>
+        <div style="font-size:20px;font-weight:800;color:#fff;">STATUS</div>
+        <div style="font-size:8px;font-weight:600;color:rgba(255,255,255,0.7);letter-spacing:0.1em;margin-top:2px;">ALL-IN-ONE</div>
       </div>
-      <!-- Inner orbit — 3 planets -->
-      <div class="ring ring-1">
-        <div class="planet planet-sm p1"><img class="p-logo" src="https://www.google.com/s2/favicons?domain=toasttab.com&sz=64" alt=""><span class="p-name">Toast</span><span class="p-role">Bar POS</span></div>
-        <div class="planet planet-sm p2"><img class="p-logo" src="https://www.google.com/s2/favicons?domain=posh.vip&sz=64" alt=""><span class="p-name">Posh</span><span class="p-role">Ticketing</span></div>
-        <div class="planet planet-sm p3"><img class="p-logo" src="https://www.google.com/s2/favicons?domain=lineleap.com&sz=64" alt=""><span class="p-name">LineLeap</span><span class="p-role">Line Skip</span></div>
+      <div class="ring r1">
+        <div class="planet a"><img src="https://www.google.com/s2/favicons?domain=toasttab.com&sz=64" alt=""><span class="pn">Toast</span><span class="pr">Bar POS</span></div>
+        <div class="planet b"><img src="https://www.google.com/s2/favicons?domain=posh.vip&sz=64" alt=""><span class="pn">Posh</span><span class="pr">Ticketing</span></div>
+        <div class="planet c"><img src="https://www.google.com/s2/favicons?domain=lineleap.com&sz=64" alt=""><span class="pn">LineLeap</span><span class="pr">Line Skip</span></div>
       </div>
-      <!-- Middle orbit — 4 planets -->
-      <div class="ring ring-2">
-        <div class="planet planet-md p4"><img class="p-logo" src="https://www.google.com/s2/favicons?domain=ncr.com&sz=64" alt=""><span class="p-name">Aloha</span><span class="p-role">Legacy POS</span></div>
-        <div class="planet planet-md p5"><img class="p-logo" src="https://www.google.com/s2/favicons?domain=discotech.me&sz=64" alt=""><span class="p-name">Discotech</span><span class="p-role">Guestlists</span></div>
-        <div class="planet planet-md p6"><img class="p-logo" src="https://www.google.com/s2/favicons?domain=eventbrite.com&sz=64" alt=""><span class="p-name">Eventbrite</span><span class="p-role">Events</span></div>
-        <div class="planet planet-md p7"><img class="p-logo" src="https://www.google.com/s2/favicons?domain=tablelistpro.com&sz=64" alt=""><span class="p-name">TablelistPro</span><span class="p-role">VIP & Tables</span></div>
+      <div class="ring r2">
+        <div class="planet d"><img src="https://www.google.com/s2/favicons?domain=ncr.com&sz=64" alt=""><span class="pn">Aloha</span><span class="pr">Legacy POS</span></div>
+        <div class="planet e"><img src="https://www.google.com/s2/favicons?domain=discotech.me&sz=64" alt=""><span class="pn">Discotech</span><span class="pr">Guestlists</span></div>
+        <div class="planet f"><img src="https://www.google.com/s2/favicons?domain=eventbrite.com&sz=64" alt=""><span class="pn">Eventbrite</span><span class="pr">Events</span></div>
+        <div class="planet g"><img src="https://www.google.com/s2/favicons?domain=tablelistpro.com&sz=64" alt=""><span class="pn">TablelistPro</span><span class="pr">VIP</span></div>
       </div>
-      <!-- Outer orbit — 3 planets -->
-      <div class="ring ring-3">
-        <div class="planet planet-lg p8"><img class="p-logo" src="https://www.google.com/s2/favicons?domain=sevenrooms.com&sz=64" alt=""><span class="p-name">SevenRooms</span><span class="p-role">Reservations</span></div>
-        <div class="planet planet-lg p9"><img class="p-logo" src="https://www.google.com/s2/favicons?domain=mailchimp.com&sz=64" alt=""><span class="p-name">Mailchimp</span><span class="p-role">Blasts</span></div>
-        <div class="planet planet-lg p10"><img class="p-logo" src="https://www.google.com/s2/favicons?domain=urvenue.com&sz=64" alt=""><span class="p-name">UrVenue</span><span class="p-role">VIP Booking</span></div>
+      <div class="ring r3">
+        <div class="planet h"><img src="https://www.google.com/s2/favicons?domain=sevenrooms.com&sz=64" alt=""><span class="pn">SevenRooms</span><span class="pr">Reservations</span></div>
+        <div class="planet i"><img src="https://www.google.com/s2/favicons?domain=mailchimp.com&sz=64" alt=""><span class="pn">Mailchimp</span><span class="pr">Blasts</span></div>
+        <div class="planet j"><img src="https://www.google.com/s2/favicons?domain=urvenue.com&sz=64" alt=""><span class="pn">UrVenue</span><span class="pr">VIP Booking</span></div>
       </div>
     </div>
-    <div class="slide-title reveal" style="font-size:clamp(28px,4vw,48px);line-height:1.12;">The all-in-one<br><span class="accent-text">nightlife platform.</span></div>
-    <div class="slide-subtitle reveal" style="margin-top:16px;">Status connects your door, your bar, and your guest data — so you see exactly where every dollar comes from.</div>
+    <div class="title" style="margin-top:24px;">The all-in-one<br><span class="grad">nightlife platform.</span></div>
+    <div class="subtitle">Status connects your door, your bar, and your guest data — so you see exactly where every dollar comes from.</div>
   </div>
 </div>
 
-<!-- ===== 2. MONEY YOU'RE LOSING — The bleed ===== -->
+<!-- ===== 2. HOW WE SAVE YOU MONEY ===== -->
+<div class="slide" data-slide="1">
+  <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=1920&q=80');"></div>
+  <div class="glass-panel reveal">
+    <div class="title" style="text-align:center;">How we <span class="grad">save</span> you money.</div>
+    <div class="card-grid">
+      <div class="g-card"><div style="font-size:22px;margin-bottom:8px;">💳</div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">0% Processing Fees</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">That 2-3% you're eating on every swipe? <strong style="color:var(--green);">Gone. You keep 100%.</strong></p></div>
+      <div class="g-card"><div style="font-size:22px;margin-bottom:8px;">🛡️</div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">100% Chargeback Protection</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">ID scan + EMV + itemized receipt. <strong style="color:var(--green);">We handle it. You keep your money.</strong></p></div>
+      <div class="g-card"><div style="font-size:22px;margin-bottom:8px;">🤷</div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Dead-Weight Promoters</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">See revenue per promoter. <strong style="color:var(--green);">Cut the ones costing you money.</strong></p></div>
+      <div class="g-card"><div style="font-size:22px;margin-bottom:8px;">⛔</div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Cross-Venue Blacklist</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Banned at one venue? <strong style="color:var(--green);">Banned at all Status venues.</strong></p></div>
+      <div class="g-card"><div style="font-size:22px;margin-bottom:8px;">📉</div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Slow Nights</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Track <strong style="color:var(--green);">performance trends across every night</strong> — double down on winners.</p></div>
+      <div class="g-card"><div style="font-size:22px;margin-bottom:8px;">👻</div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Walkouts & Open Tabs</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Card on file from the door. <strong style="color:var(--green);">Every tab gets closed automatically.</strong></p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 3. HOW WE MAKE YOU MONEY ===== -->
 <div class="slide" data-slide="2">
-  <div class="mesh-bg">
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(255,59,48,0.2),transparent 70%);width:500px;height:500px;top:10%;left:-5%;"></div>
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(255,149,0,0.15),transparent 70%);width:400px;height:400px;bottom:10%;right:10%;animation-delay:-6s;"></div>
-  </div>
-  <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:100%;">
-    <div class="slide-title reveal" style="font-size:clamp(36px,5vw,64px);">How we <span class="accent-text">save</span> you money.</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;max-width:880px;margin-top:48px;width:100%;">
-      <div class="glass-card reveal" style="padding:24px;text-align:left;">
-        <div style="font-size:24px;margin-bottom:10px;">💳</div>
-        <h3 style="font-size:16px;font-weight:600;margin-bottom:4px;">0% Processing Fees</h3>
-        <p style="font-size:14px;color:var(--text-secondary);line-height:1.5;">Credit card fees passed to the customer, not you. That 2-3% you're eating on every swipe? <strong style="color:var(--green);">Gone. You keep 100%.</strong></p>
-      </div>
-      <div class="glass-card reveal" style="padding:24px;text-align:left;">
-        <div style="font-size:24px;margin-bottom:10px;">🛡️</div>
-        <h3 style="font-size:16px;font-weight:600;margin-bottom:4px;">100% Chargeback Protection</h3>
-        <p style="font-size:14px;color:var(--text-secondary);line-height:1.5;">Never worry about chargebacks again. Status guarantees every dispute is covered — ID scan + EMV data + itemized receipt on every transaction. <strong style="color:var(--green);">We handle it. You keep your money.</strong></p>
-      </div>
-      <div class="glass-card reveal" style="padding:24px;text-align:left;">
-        <div style="font-size:24px;margin-bottom:10px;">🤷</div>
-        <h3 style="font-size:16px;font-weight:600;margin-bottom:4px;">Dead-Weight Promoters</h3>
-        <p style="font-size:14px;color:var(--text-secondary);line-height:1.5;">See exactly how much revenue each promoter actually brings in. <strong style="color:var(--green);">Cut the ones costing you money.</strong></p>
-      </div>
-      <div class="glass-card reveal" style="padding:24px;text-align:left;">
-        <div style="font-size:24px;margin-bottom:10px;">⛔</div>
-        <h3 style="font-size:16px;font-weight:600;margin-bottom:4px;">Cross-Venue Blacklist</h3>
-        <p style="font-size:14px;color:var(--text-secondary);line-height:1.5;">Problem guest banned at one venue? <strong style="color:var(--green);">Banned at all Status venues.</strong> Fewer fights, fewer liabilities, fewer insurance claims.</p>
-      </div>
-      <div class="glass-card reveal" style="padding:24px;text-align:left;">
-        <div style="font-size:24px;margin-bottom:10px;">📉</div>
-        <h3 style="font-size:16px;font-weight:600;margin-bottom:4px;">Slow Nights</h3>
-        <p style="font-size:14px;color:var(--text-secondary);line-height:1.5;">No data on which events work, which don't, or why. Status tracks <strong style="color:var(--green);">performance trends across every night</strong> so you double down on winners.</p>
-      </div>
-      <div class="glass-card reveal" style="padding:24px;text-align:left;">
-        <div style="font-size:24px;margin-bottom:10px;">👻</div>
-        <h3 style="font-size:16px;font-weight:600;margin-bottom:4px;">Walkouts & Open Tabs</h3>
-        <p style="font-size:14px;color:var(--text-secondary);line-height:1.5;">Guests leave without closing. Card on file from the door means <strong style="color:var(--green);">every tab gets closed automatically.</strong> No more chasing people down.</p>
-      </div>
+  <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=1920&q=80');"></div>
+  <div class="glass-panel reveal">
+    <div class="title" style="text-align:center;">How we <span class="grad">make</span> you money.</div>
+    <div class="card-grid">
+      <div class="g-card"><div style="font-size:22px;margin-bottom:8px;">🔁</div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Repeat Guests Spend 2-3x More</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Guest profiles = VIP treatment = they come back and spend more.</p></div>
+      <div class="g-card"><div style="font-size:22px;margin-bottom:8px;">📲</div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Targeted SMS Fills Slow Nights</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Blast top spenders. Segmented by spend, frequency, location.</p></div>
+      <div class="g-card"><div style="font-size:22px;margin-bottom:8px;">🏆</div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Double Down on Winners</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Know which promoters drive real revenue. Invest in the best.</p></div>
+      <div class="g-card"><div style="font-size:22px;margin-bottom:8px;">🍾</div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Upsell With Data</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">"Your usual?" — bigger tab, loyal customer.</p></div>
+      <div class="g-card"><div style="font-size:22px;margin-bottom:8px;">🎂</div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Automated Texts</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Every ID scan = birthday on file. Auto-send promos that <strong style="color:var(--green);">bring them back.</strong></p></div>
+      <div class="g-card"><div style="font-size:22px;margin-bottom:8px;">💳</div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Pre-Authorized Cards</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Card saved at door = friction-free ordering. Higher average tabs.</p></div>
     </div>
   </div>
 </div>
 
-<!-- ===== 3. MONEY WE MAKE YOU — The upside ===== -->
-<div class="slide" data-slide="2">
-  <div class="mesh-bg">
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(52,199,89,0.25),transparent 70%);width:500px;height:500px;top:5%;right:5%;"></div>
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(0,122,255,0.12),transparent 70%);width:400px;height:400px;bottom:10%;left:15%;animation-delay:-8s;"></div>
-  </div>
-  <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:100%;">
-    <div class="slide-title reveal" style="font-size:clamp(36px,5vw,64px);">How we <span class="accent-text">make</span> you money.</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;max-width:880px;margin-top:48px;width:100%;">
-      <div class="glass-card reveal" style="padding:24px;text-align:left;">
-        <div style="font-size:24px;margin-bottom:10px;">🔁</div>
-        <h3 style="font-size:16px;font-weight:600;margin-bottom:4px;">Repeat guests spend 2-3x more</h3>
-        <p style="font-size:14px;color:var(--text-secondary);line-height:1.5;">Guest profiles let you recognize and reward regulars. VIP treatment = they come back and spend more every time.</p>
-      </div>
-      <div class="glass-card reveal" style="padding:24px;text-align:left;">
-        <div style="font-size:24px;margin-bottom:10px;">📲</div>
-        <h3 style="font-size:16px;font-weight:600;margin-bottom:4px;">Targeted SMS fills slow nights</h3>
-        <p style="font-size:14px;color:var(--text-secondary);line-height:1.5;">Blast your top spenders when Wednesday is dead. Segmented by spend, visit frequency, location. Not mass texts from your phone.</p>
-      </div>
-      <div class="glass-card reveal" style="padding:24px;text-align:left;">
-        <div style="font-size:24px;margin-bottom:10px;">🏆</div>
-        <h3 style="font-size:16px;font-weight:600;margin-bottom:4px;">Double down on your best promoters</h3>
-        <p style="font-size:14px;color:var(--text-secondary);line-height:1.5;">When you know who actually drives revenue, you invest in winners and cut the rest. Better ROI on every dollar you spend on promotion.</p>
-      </div>
-      <div class="glass-card reveal" style="padding:24px;text-align:left;">
-        <div style="font-size:24px;margin-bottom:10px;">🍾</div>
-        <h3 style="font-size:16px;font-weight:600;margin-bottom:4px;">Upsell with data</h3>
-        <p style="font-size:14px;color:var(--text-secondary);line-height:1.5;">Guest always orders Casamigos? Bartender sees it on their profile. "Your usual?" That's a bigger tab and a loyal customer.</p>
-      </div>
-      <div class="glass-card reveal" style="padding:24px;text-align:left;">
-        <div style="font-size:24px;margin-bottom:10px;">🎂</div>
-        <h3 style="font-size:16px;font-weight:600;margin-bottom:4px;">Automated Texts</h3>
-        <p style="font-size:14px;color:var(--text-secondary);line-height:1.5;">Every ID scanned = a birthday on file. Status auto-sends birthday promos, bringing guests back to <strong style="color:var(--green);">spend on their big night.</strong></p>
-      </div>
-      <div class="glass-card reveal" style="padding:24px;text-align:left;">
-        <div style="font-size:24px;margin-bottom:10px;">💳</div>
-        <h3 style="font-size:16px;font-weight:600;margin-bottom:4px;">Higher average tab with pre-authorized cards</h3>
-        <p style="font-size:14px;color:var(--text-secondary);line-height:1.5;">Card saved at the door = friction-free ordering at the bar. Guests spend more when they don't have to think about pulling out their wallet.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== 4. COST — Kill the objection ===== -->
+<!-- ===== 4. WHAT YOU PAY ===== -->
 <div class="slide" data-slide="3">
-  <div class="mesh-bg">
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(52,199,89,0.2),transparent 70%);width:500px;height:500px;top:10%;right:10%;"></div>
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(0,122,255,0.12),transparent 70%);width:400px;height:400px;bottom:10%;left:15%;animation-delay:-6s;"></div>
-  </div>
-  <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;">
-    <div class="slide-title reveal" style="font-size:clamp(36px,5vw,64px);">What you pay.</div>
-    <div class="reveal" style="font-size:clamp(100px,15vw,200px);font-weight:800;letter-spacing:-4px;margin-top:16px;"><span class="accent-text">$0</span></div>
-    <div class="slide-subtitle reveal" style="margin-top:20px;font-size:clamp(18px,2vw,22px);">No hardware. No monthly fees. No contracts.<br>Status is free for every venue. Forever.</div>
-    <div style="margin-top:40px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;" class="reveal">
-      <div class="glass-pill">💰 <strong>5% service fee</strong> on door payments — charged to the customer, not you</div>
-    </div>
-    <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;" class="reveal">
-      <div class="glass-pill">Your revenue stays <strong>exactly the same</strong></div>
+  <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1920&q=80');"></div>
+  <div class="glass-panel reveal" style="text-align:center;">
+    <div class="title">What you pay.</div>
+    <div style="font-size:clamp(100px,15vw,180px);font-weight:800;letter-spacing:-4px;margin:16px 0;"><span class="grad">$0</span></div>
+    <div class="subtitle" style="margin:0 auto;">No hardware. No monthly fees. No contracts.<br>Status is free for every venue. Forever.</div>
+    <div style="margin-top:32px;display:flex;flex-direction:column;gap:10px;align-items:center;">
+      <div class="pill">💰 <strong>5% service fee</strong> on door payments — charged to the customer, not you</div>
+      <div class="pill">Your revenue stays <strong>exactly the same</strong></div>
     </div>
   </div>
 </div>
 
-<!-- ===== 5. HOW IT WORKS — Visual walkthrough ===== -->
+<!-- ===== 5. HOW IT WORKS ===== -->
 <div class="slide" data-slide="4">
-  <div class="mesh-bg">
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(0,122,255,0.15),transparent 70%);width:450px;height:450px;top:20%;left:20%;"></div>
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(88,86,214,0.1),transparent 70%);width:350px;height:350px;bottom:20%;right:20%;animation-delay:-5s;"></div>
-  </div>
-  <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;">
-    <div class="slide-title reveal" style="font-size:clamp(36px,5vw,64px);">How it works.</div>
-    <div class="steps-row">
-      <div class="step glass-card reveal">
-        <div class="step-badge">1</div>
+  <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1574391884720-bbc3740c59d1?w=1920&q=80');"></div>
+  <div class="glass-panel reveal" style="text-align:center;">
+    <div class="title">How it works.</div>
+    <div class="steps">
+      <div class="step g-card">
+        <div class="step-num">1</div>
         <div class="step-icon">🚪</div>
         <h4>Door</h4>
-        <p>Guest arrives → ID scanned → cover charged → card saved. You know who walked in and how they paid.</p>
+        <p>ID scanned → cover charged → card saved. You know who walked in.</p>
       </div>
-      <div class="step-connector reveal">→</div>
-      <div class="step glass-card reveal">
-        <div class="step-badge">2</div>
+      <div class="step g-card">
+        <div class="step-num">2</div>
         <div class="step-icon">🍸</div>
         <h4>Bar</h4>
-        <p>Guest opens a tab → Status recognizes them. Every drink, every tip — attributed to a real person.</p>
+        <p>Guest opens tab → Status recognizes them. Every drink attributed.</p>
       </div>
-      <div class="step-connector reveal">→</div>
-      <div class="step glass-card reveal">
-        <div class="step-badge">3</div>
+      <div class="step g-card">
+        <div class="step-num">3</div>
         <div class="step-icon">📊</div>
         <h4>Dashboard</h4>
-        <p>See it all in real-time. Which promoters drive revenue. Which guests are VIPs. Which nights perform.</p>
+        <p>Real-time. Promoter ROI. Guest VIPs. Night performance.</p>
       </div>
     </div>
-    <div class="slide-subtitle reveal" style="margin-top:40px;font-size:15px;">
-      No app for guests. No workflow changes for bartenders. Status works invisibly.
-    </div>
+    <div class="subtitle" style="margin:32px auto 0;">No app for guests. No workflow changes for bartenders. Status works invisibly.</div>
   </div>
 </div>
 
-<!-- ===== 6. WHAT YOU GET — The dashboard ===== -->
+<!-- ===== 6. WHAT YOU SEE ===== -->
 <div class="slide" data-slide="5">
-  <div class="mesh-bg">
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(88,86,214,0.2),transparent 70%);width:550px;height:550px;top:5%;right:0%;"></div>
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(0,122,255,0.15),transparent 70%);width:400px;height:400px;bottom:5%;left:5%;animation-delay:-12s;"></div>
-  </div>
-  <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:100%;">
-    <div class="slide-title reveal" style="font-size:clamp(36px,5vw,64px);">What you see.</div>
-    <div class="feature-row">
-      <div class="feature-list">
-        <div class="feature reveal"><div class="sf-icon">💰</div><div><h4>Promoter ROI in Dollars</h4><p>Not headcount — actual revenue each promoter generates. See who's worth it and who's not.</p></div></div>
-        <div class="feature reveal"><div class="sf-icon">👤</div><div><h4>Guest Profiles Built Automatically</h4><p>Visit count, average spend, preferences. Your CRM builds itself every night you're open.</p></div></div>
-        <div class="feature reveal"><div class="sf-icon">🏷️</div><div><h4>VIP Tags at the Door</h4><p>Bouncer scans ID → "VIP, skip line, no cover" appears instantly. Blacklists enforced across all venues.</p></div></div>
-        <div class="feature reveal"><div class="sf-icon">📱</div><div><h4>SMS Blasts to Your Guests</h4><p>Segment by spend, visit frequency, or event. Not blasting from your personal phone anymore.</p></div></div>
-        <div class="feature reveal"><div class="sf-icon">🍸</div><div><h4>Bar Analytics</h4><p>What's selling, when the rush hits, bartender speed. Connect bar spend to the guest who walked in.</p></div></div>
+  <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1571266028243-e4733b0f0bb0?w=1920&q=80');"></div>
+  <div class="glass-panel reveal">
+    <div class="title" style="text-align:center;">What you see.</div>
+    <div style="display:flex;gap:40px;margin-top:36px;flex-wrap:wrap;justify-content:center;align-items:center;" class="feat-row">
+      <div style="flex:1;min-width:280px;">
+        <div class="feat"><div class="feat-icon">💰</div><div><h4>Promoter ROI in Dollars</h4><p>Not headcount — actual revenue per promoter.</p></div></div>
+        <div class="feat"><div class="feat-icon">👤</div><div><h4>Auto-Built Guest Profiles</h4><p>Visit count, avg spend, preferences. CRM builds itself.</p></div></div>
+        <div class="feat"><div class="feat-icon">🏷️</div><div><h4>VIP Tags at the Door</h4><p>Scan ID → "VIP, skip line" appears instantly.</p></div></div>
+        <div class="feat"><div class="feat-icon">📱</div><div><h4>SMS Blasts</h4><p>Segment by spend, frequency, event.</p></div></div>
+        <div class="feat"><div class="feat-icon">🍸</div><div><h4>Bar Analytics</h4><p>What's selling, rush timing, bartender speed.</p></div></div>
       </div>
-      <div class="device reveal">
+      <div class="device">
         <div class="device-screen">
-          <div style="font-size:20px;font-weight:700;text-align:center;letter-spacing:-0.03em;">STATUS</div>
-          <div style="margin-top:18px;font-size:11px;color:var(--text-tertiary);text-align:center;font-weight:600;letter-spacing:0.03em;">LIVE DASHBOARD</div>
-          <div style="margin-top:10px;font-size:38px;font-weight:800;color:var(--green);text-align:center;letter-spacing:-0.04em;">$14,280</div>
-          <div style="font-size:12px;color:var(--text-tertiary);text-align:center;margin-top:2px;">Tonight's Revenue</div>
-          <div style="margin-top:20px;display:flex;justify-content:center;gap:28px;">
-            <div style="text-align:center;"><div style="font-size:22px;font-weight:700;letter-spacing:-0.03em;">347</div><div style="font-size:10px;color:var(--text-tertiary);font-weight:500;">Inside</div></div>
-            <div style="text-align:center;"><div style="font-size:22px;font-weight:700;letter-spacing:-0.03em;">23</div><div style="font-size:10px;color:var(--text-tertiary);font-weight:500;">In Line</div></div>
-            <div style="text-align:center;"><div style="font-size:22px;font-weight:700;letter-spacing:-0.03em;">$41</div><div style="font-size:10px;color:var(--text-tertiary);font-weight:500;">Avg Spend</div></div>
+          <div style="font-size:18px;font-weight:700;text-align:center;color:var(--text);">STATUS</div>
+          <div style="margin-top:16px;font-size:10px;color:var(--text3);text-align:center;font-weight:600;letter-spacing:0.05em;">LIVE DASHBOARD</div>
+          <div style="margin-top:8px;font-size:34px;font-weight:800;color:var(--green);text-align:center;">$14,280</div>
+          <div style="font-size:11px;color:var(--text3);text-align:center;margin-top:2px;">Tonight's Revenue</div>
+          <div style="margin-top:18px;display:flex;justify-content:center;gap:24px;">
+            <div style="text-align:center;"><div style="font-size:20px;font-weight:700;">347</div><div style="font-size:9px;color:var(--text3);">Inside</div></div>
+            <div style="text-align:center;"><div style="font-size:20px;font-weight:700;">23</div><div style="font-size:9px;color:var(--text3);">In Line</div></div>
+            <div style="text-align:center;"><div style="font-size:20px;font-weight:700;">$41</div><div style="font-size:9px;color:var(--text3);">Avg Spend</div></div>
           </div>
-          <div style="margin-top:22px;text-align:left;">
-            <div style="font-size:10px;color:var(--text-tertiary);margin-bottom:8px;font-weight:600;letter-spacing:0.04em;">TOP PROMOTERS TONIGHT</div>
-            <div style="font-size:13px;padding:9px 0;border-bottom:0.5px solid rgba(0,0,0,0.06);display:flex;justify-content:space-between;"><span style="font-weight:500;">Marcus J.</span><span style="color:var(--green);font-weight:600;">$4,200</span></div>
-            <div style="font-size:13px;padding:9px 0;border-bottom:0.5px solid rgba(0,0,0,0.06);display:flex;justify-content:space-between;"><span style="font-weight:500;">Sophia C.</span><span style="color:var(--green);font-weight:600;">$2,790</span></div>
-            <div style="font-size:13px;padding:9px 0;display:flex;justify-content:space-between;"><span style="font-weight:500;">Tyler R.</span><span style="color:var(--orange);font-weight:600;">$380</span></div>
+          <div style="margin-top:20px;text-align:left;">
+            <div style="font-size:9px;color:var(--text3);margin-bottom:8px;font-weight:600;letter-spacing:0.05em;">TOP PROMOTERS</div>
+            <div style="font-size:12px;padding:8px 0;border-bottom:0.5px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;"><span>Marcus J.</span><span style="color:var(--green);font-weight:600;">$4,200</span></div>
+            <div style="font-size:12px;padding:8px 0;border-bottom:0.5px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;"><span>Sophia C.</span><span style="color:var(--green);font-weight:600;">$2,790</span></div>
+            <div style="font-size:12px;padding:8px 0;display:flex;justify-content:space-between;"><span>Tyler R.</span><span style="color:var(--orange);font-weight:600;">$380</span></div>
           </div>
         </div>
       </div>
@@ -440,45 +275,25 @@
   </div>
 </div>
 
-<!-- ===== 7. CTA — Simple ===== -->
-<div class="slide" data-slide="7" id="slide-cta">
-  <div class="mesh-bg">
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(0,122,255,0.22),transparent 70%);width:600px;height:600px;top:10%;left:20%;"></div>
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(175,82,222,0.15),transparent 70%);width:450px;height:450px;bottom:10%;right:15%;animation-delay:-6s;"></div>
-  </div>
-  <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;">
-    <div class="slide-title reveal" style="font-size:clamp(48px,8vw,100px);"><span class="accent-text">Let's talk.</span></div>
-    <div class="slide-subtitle reveal" style="margin-top:20px;">Free pilot. Zero risk. We set everything up.</div>
-    <div style="margin-top:16px;color:var(--text-tertiary);font-size:14px;" class="reveal">
+<!-- ===== 7. CTA ===== -->
+<div class="slide" data-slide="6">
+  <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1920&q=80');"></div>
+  <div class="glass-panel reveal" style="text-align:center;">
+    <div class="title" style="font-size:clamp(48px,8vw,100px);"><span class="grad">Let's talk.</span></div>
+    <div class="subtitle">Free pilot. Zero risk. We set everything up.</div>
+    <div style="margin-top:20px;font-size:14px;">
       <a href="mailto:admin@status.inc" style="color:var(--accent);text-decoration:none;font-weight:500;">admin@status.inc</a> · <a href="https://status.inc" style="color:var(--accent);text-decoration:none;font-weight:500;">status.inc</a>
     </div>
-    <div style="margin-top:48px;color:var(--text-tertiary);font-size:12px;" class="reveal">© 2026 Status Digital, Inc.</div>
+    <div style="margin-top:40px;color:var(--text3);font-size:12px;">© 2026 Status Digital, Inc.</div>
   </div>
 </div>
 
 <script>
-const slides = document.querySelectorAll('.slide');
-const dotsContainer = document.getElementById('navDots');
-slides.forEach((_,i) => {
-  const dot = document.createElement('button');
-  dot.className = 'nav-dot' + (i===0?' active':'');
-  dot.onclick = () => slides[i].scrollIntoView({behavior:'smooth'});
-  dotsContainer.appendChild(dot);
-});
-const dotObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) { const idx=parseInt(e.target.dataset.slide); document.querySelectorAll('.nav-dot').forEach((d,i) => d.classList.toggle('active',i===idx)); }});
-},{threshold:0.5});
-slides.forEach(s => dotObs.observe(s));
-
-const revObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.reveal').forEach((el,i) => {
-  const siblings = el.parentElement.querySelectorAll('.reveal');
-  const idx = Array.from(siblings).indexOf(el);
-  el.style.transitionDelay = (idx*0.07)+'s';
-  revObs.observe(el);
-});
+const slides=document.querySelectorAll('.slide'),dc=document.getElementById('navDots');
+slides.forEach((_,i)=>{const d=document.createElement('button');d.className='nav-dot'+(i===0?' active':'');d.onclick=()=>slides[i].scrollIntoView({behavior:'smooth'});dc.appendChild(d);});
+new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const i=[...slides].indexOf(e.target);document.querySelectorAll('.nav-dot').forEach((d,j)=>d.classList.toggle('active',j===i));}}),{threshold:0.5}).observe&&slides.forEach(s=>new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const i=[...slides].indexOf(e.target);document.querySelectorAll('.nav-dot').forEach((d,j)=>d.classList.toggle('active',j===i));}}),{threshold:0.5}).observe(s));
+const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 </script>
 </body>
 </html>
