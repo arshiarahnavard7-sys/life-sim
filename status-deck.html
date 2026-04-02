@@ -92,14 +92,18 @@
   .steps{display:flex;gap:16px;margin-top:40px;flex-wrap:wrap;justify-content:center;}
   .step{flex:1;min-width:200px;text-align:center;padding:28px 20px;}
   .step-num{width:28px;height:28px;border-radius:50%;background:var(--accent-grad);color:#fff;font-size:13px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;margin-bottom:14px;}
-  .step-icon{font-size:32px;margin-bottom:12px;}
+  .step-icon{margin-bottom:12px;display:flex;align-items:center;justify-content:center;}
+  .step-icon svg{width:32px;height:32px;stroke:url(#icon-grad);fill:none;}
   .step h4{font-size:16px;font-weight:600;margin-bottom:6px;}
   .step p{font-size:13px;color:var(--text2);line-height:1.5;}
 
   /* ---- Feature list ---- */
   .feat{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:0.5px solid rgba(255,255,255,0.06);}
   .feat:last-child{border:none;}
-  .feat-icon{width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+  .feat-icon{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,rgba(0,122,255,0.08),rgba(175,82,222,0.08));border:0.5px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .feat-icon svg{width:20px;height:20px;stroke:url(#icon-grad);fill:none;}
+  .card-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,rgba(0,122,255,0.1),rgba(175,82,222,0.1));border:0.5px solid rgba(255,255,255,0.06);display:inline-flex;align-items:center;justify-content:center;margin-bottom:12px;}
+  .card-icon svg{width:22px;height:22px;stroke:url(#icon-grad);fill:none;}
   .feat h4{font-size:15px;font-weight:600;margin-bottom:2px;}
   .feat p{font-size:13px;color:var(--text2);line-height:1.45;}
 
@@ -128,6 +132,8 @@
 </style>
 </head>
 <body>
+
+<svg style="position:absolute;width:0;height:0;" aria-hidden="true"><defs><linearGradient id="icon-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#007aff"/><stop offset="50%" stop-color="#5856d6"/><stop offset="100%" stop-color="#af52de"/></linearGradient></defs></svg>
 
 <div class="nav-dots" id="navDots"></div>
 
@@ -164,12 +170,12 @@
   <div class="glass-panel reveal">
     <div class="title" style="text-align:center;">Immediate <span class="grad">savings.</span></div>
     <div class="card-grid">
-      <div class="g-card"><div style="font-size:22px;margin-bottom:8px;">💳</div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">0% Processing Fees</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">That 2-3% you're eating on every swipe? <strong style="color:var(--green);">Gone. You keep 100%.</strong></p></div>
-      <div class="g-card"><div style="font-size:22px;margin-bottom:8px;">🛡️</div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">100% Chargeback Protection</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">ID scan + EMV + itemized receipt. <strong style="color:var(--green);">We handle it. You keep your money.</strong></p></div>
-      <div class="g-card"><div style="font-size:22px;margin-bottom:8px;">🤷</div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Dead-Weight Promoters</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">See revenue per promoter. <strong style="color:var(--green);">Cut the ones costing you money.</strong></p></div>
-      <div class="g-card"><div style="font-size:22px;margin-bottom:8px;">⛔</div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Cross-Venue Blacklist</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Banned at one venue? <strong style="color:var(--green);">Banned at all Status venues.</strong></p></div>
-      <div class="g-card"><div style="font-size:22px;margin-bottom:8px;">📉</div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Slow Nights</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Track <strong style="color:var(--green);">performance trends across every night</strong> — double down on winners.</p></div>
-      <div class="g-card"><div style="font-size:22px;margin-bottom:8px;">👻</div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Walkouts & Open Tabs</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Card on file from the door. <strong style="color:var(--green);">Every tab gets closed automatically.</strong></p></div>
+      <div class="g-card"><div class="card-icon"><i data-lucide="credit-card"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">0% Processing Fees</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">That 2-3% you're eating on every swipe? <strong style="color:var(--green);">Gone. You keep 100%.</strong></p></div>
+      <div class="g-card"><div class="card-icon"><i data-lucide="shield-check"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">100% Chargeback Protection</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">ID scan + EMV + itemized receipt. <strong style="color:var(--green);">We handle it. You keep your money.</strong></p></div>
+      <div class="g-card"><div class="card-icon"><i data-lucide="user-x"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Dead-Weight Promoters</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">See revenue per promoter. <strong style="color:var(--green);">Cut the ones costing you money.</strong></p></div>
+      <div class="g-card"><div class="card-icon"><i data-lucide="ban"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Cross-Venue Blacklist</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Banned at one venue? <strong style="color:var(--green);">Banned at all Status venues.</strong></p></div>
+      <div class="g-card"><div class="card-icon"><i data-lucide="trending-up"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Slow Nights</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Track <strong style="color:var(--green);">performance trends across every night</strong> — double down on winners.</p></div>
+      <div class="g-card"><div class="card-icon"><i data-lucide="lock"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Walkouts & Open Tabs</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Card on file from the door. <strong style="color:var(--green);">Every tab gets closed automatically.</strong></p></div>
     </div>
   </div>
 </div>
@@ -180,12 +186,12 @@
   <div class="glass-panel reveal">
     <div class="title" style="text-align:center;">Immediate <span class="grad">earnings.</span></div>
     <div class="card-grid">
-      <div class="g-card"><div style="font-size:22px;margin-bottom:8px;">🔁</div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Repeat Guests Spend 2-3x More</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Guest profiles = VIP treatment = they come back and spend more.</p></div>
-      <div class="g-card"><div style="font-size:22px;margin-bottom:8px;">📲</div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Targeted SMS Fills Slow Nights</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Blast top spenders. Segmented by spend, frequency, location.</p></div>
-      <div class="g-card"><div style="font-size:22px;margin-bottom:8px;">🏆</div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Double Down on Winners</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Know which promoters drive real revenue. Invest in the best.</p></div>
-      <div class="g-card"><div style="font-size:22px;margin-bottom:8px;">🍾</div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Upsell With Data</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">"Your usual?" — bigger tab, loyal customer.</p></div>
-      <div class="g-card"><div style="font-size:22px;margin-bottom:8px;">🎂</div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Automated Texts</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Every ID scan = birthday on file. Auto-send promos that <strong style="color:var(--green);">bring them back.</strong></p></div>
-      <div class="g-card"><div style="font-size:22px;margin-bottom:8px;">💳</div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Pre-Authorized Cards</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Card saved at door = friction-free ordering. Higher average tabs.</p></div>
+      <div class="g-card"><div class="card-icon"><i data-lucide="repeat"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Repeat Guests Spend 2-3x More</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Guest profiles = VIP treatment = they come back and spend more.</p></div>
+      <div class="g-card"><div class="card-icon"><i data-lucide="send"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Targeted SMS Fills Slow Nights</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Blast top spenders. Segmented by spend, frequency, location.</p></div>
+      <div class="g-card"><div class="card-icon"><i data-lucide="trophy"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Double Down on Winners</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Know which promoters drive real revenue. Invest in the best.</p></div>
+      <div class="g-card"><div class="card-icon"><i data-lucide="sparkles"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Upsell With Data</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">"Your usual?" — bigger tab, loyal customer.</p></div>
+      <div class="g-card"><div class="card-icon"><i data-lucide="cake"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Automated Texts</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Every ID scan = birthday on file. Auto-send promos that <strong style="color:var(--green);">bring them back.</strong></p></div>
+      <div class="g-card"><div class="card-icon"><i data-lucide="credit-card"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Pre-Authorized Cards</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Card saved at door = friction-free ordering. Higher average tabs.</p></div>
     </div>
   </div>
 </div>
@@ -211,19 +217,19 @@
     <div class="steps">
       <div class="step g-card">
         <div class="step-num">1</div>
-        <div class="step-icon">🚪</div>
+        <div class="step-icon"><i data-lucide="scan-line"></i></div>
         <h4>Door</h4>
         <p>ID scanned → cover charged → card saved. You know who walked in.</p>
       </div>
       <div class="step g-card">
         <div class="step-num">2</div>
-        <div class="step-icon">🍸</div>
+        <div class="step-icon"><i data-lucide="wine"></i></div>
         <h4>Bar</h4>
         <p>Guest opens tab → Status recognizes them. Every drink attributed.</p>
       </div>
       <div class="step g-card">
         <div class="step-num">3</div>
-        <div class="step-icon">📊</div>
+        <div class="step-icon"><i data-lucide="layout-dashboard"></i></div>
         <h4>Dashboard</h4>
         <p>Real-time. Promoter ROI. Guest VIPs. Night performance.</p>
       </div>
@@ -239,11 +245,11 @@
     <div class="title" style="text-align:center;">What you see.</div>
     <div style="display:flex;gap:40px;margin-top:36px;flex-wrap:wrap;justify-content:center;align-items:center;" class="feat-row">
       <div style="flex:1;min-width:280px;">
-        <div class="feat"><div class="feat-icon">💰</div><div><h4>Promoter ROI in Dollars</h4><p>Not headcount — actual revenue per promoter.</p></div></div>
-        <div class="feat"><div class="feat-icon">👤</div><div><h4>Auto-Built Guest Profiles</h4><p>Visit count, avg spend, preferences. CRM builds itself.</p></div></div>
-        <div class="feat"><div class="feat-icon">🏷️</div><div><h4>VIP Tags at the Door</h4><p>Scan ID → "VIP, skip line" appears instantly.</p></div></div>
-        <div class="feat"><div class="feat-icon">📱</div><div><h4>SMS Blasts</h4><p>Segment by spend, frequency, event.</p></div></div>
-        <div class="feat"><div class="feat-icon">🍸</div><div><h4>Bar Analytics</h4><p>What's selling, rush timing, bartender speed.</p></div></div>
+        <div class="feat"><div class="feat-icon"><i data-lucide="dollar-sign"></i></div><div><h4>Promoter ROI in Dollars</h4><p>Not headcount — actual revenue per promoter.</p></div></div>
+        <div class="feat"><div class="feat-icon"><i data-lucide="user"></i></div><div><h4>Auto-Built Guest Profiles</h4><p>Visit count, avg spend, preferences. CRM builds itself.</p></div></div>
+        <div class="feat"><div class="feat-icon"><i data-lucide="crown"></i></div><div><h4>VIP Tags at the Door</h4><p>Scan ID → "VIP, skip line" appears instantly.</p></div></div>
+        <div class="feat"><div class="feat-icon"><i data-lucide="smartphone"></i></div><div><h4>SMS Blasts</h4><p>Segment by spend, frequency, event.</p></div></div>
+        <div class="feat"><div class="feat-icon"><i data-lucide="wine"></i></div><div><h4>Bar Analytics</h4><p>What's selling, rush timing, bartender speed.</p></div></div>
       </div>
       <div class="device">
         <div class="device-screen">
@@ -288,5 +294,7 @@ new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const i=[...sli
 const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 </script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>lucide.createIcons();</script>
 </body>
 </html>
