@@ -59,36 +59,29 @@
   .nav-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.15);cursor:pointer;border:none;transition:all 0.4s;}
   .nav-dot.active{background:#fff;transform:scale(1.5);}
 
-  /* ---- Solar system ---- */
-  .solar{position:relative;width:500px;height:500px;margin:0 auto;}
-  @media(max-width:560px){.solar{width:85vw;height:85vw;}}
-  .sun{position:absolute;top:50%;left:50%;width:110px;height:110px;margin:-55px 0 0 -55px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#6e8efb,#5856d6 40%,#3a1c71);box-shadow:0 0 50px rgba(88,86,214,0.6),0 0 100px rgba(88,86,214,0.2);z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-  .track{position:absolute;top:50%;left:50%;border:1px solid rgba(255,255,255,0.06);border-radius:50%;transform:translate(-50%,-50%);}
-  .t1{width:220px;height:220px;}.t2{width:340px;height:340px;}.t3{width:460px;height:460px;}
-  .ring{position:absolute;top:50%;left:50%;width:0;height:0;}
-  .r1{animation:orb 28s linear infinite;}
-  .r2{animation:orb 42s linear infinite reverse;}
-  .r3{animation:orb 58s linear infinite;}
-  @keyframes orb{to{transform:rotate(360deg)}}
-  .planet{position:absolute;width:56px;height:56px;background:rgba(255,255,255,0.1);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:0.5px solid rgba(255,255,255,0.15);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.3);}
-  .planet img{width:20px;height:20px;border-radius:3px;margin-bottom:2px;object-fit:contain;}
-  .planet .pn{font-size:7px;font-weight:700;color:rgba(255,255,255,0.85);}
-  .planet .pr{font-size:6px;color:rgba(255,255,255,0.4);}
-  .r1 .planet{animation:corb 28s linear infinite;}
-  .r2 .planet{animation:corb 42s linear infinite reverse;}
-  .r3 .planet{animation:corb 58s linear infinite;}
-  @keyframes corb{to{transform:rotate(-360deg)}}
-  /* positions */
-  .r1 .a{top:-28px;left:-28px;margin-top:-110px;}
-  .r1 .b{top:-28px;left:-28px;margin-top:55px;margin-left:95px;}
-  .r1 .c{top:-28px;left:-28px;margin-top:55px;margin-left:-95px;}
-  .r2 .d{top:-28px;left:-28px;margin-top:-170px;}
-  .r2 .e{top:-28px;left:-28px;margin-left:170px;}
-  .r2 .f{top:-28px;left:-28px;margin-top:170px;}
-  .r2 .g{top:-28px;left:-28px;margin-left:-170px;}
-  .r3 .h{top:-28px;left:-28px;margin-top:-230px;}
-  .r3 .i{top:-28px;left:-28px;margin-left:199px;margin-top:115px;}
-  .r3 .j{top:-28px;left:-28px;margin-left:-199px;margin-top:115px;}
+  /* ---- Shattered Rectangle ---- */
+  .shatter{position:relative;width:min(90vw,700px);height:400px;margin:0 auto;}
+  .shard{position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:rgba(255,255,255,0.03);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:all 0.4s cubic-bezier(.23,1,.32,1);}
+  .shard:hover{background:rgba(255,255,255,0.06);}
+  .shard img{width:22px;height:22px;border-radius:4px;object-fit:contain;margin-bottom:5px;opacity:0.6;}
+  .shard .sn{font-size:10px;font-weight:600;color:rgba(255,255,255,0.6);}
+  .shard .sr{font-size:8px;color:rgba(255,255,255,0.3);margin-top:1px;}
+  /* Center — Status */
+  .shard-c{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10;width:150px;height:140px;border-radius:18px;background:rgba(88,86,214,0.15);border:1px solid rgba(255,255,255,0.15);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 60px rgba(88,86,214,0.4),0 0 120px rgba(0,122,255,0.12),0 16px 48px rgba(0,0,0,0.5);}
+  /* Crack borders between shards */
+  .crack-v{position:absolute;top:0;width:2px;height:100%;background:linear-gradient(180deg,transparent,rgba(255,255,255,0.06),transparent);}
+  .crack-h{position:absolute;left:0;height:2px;width:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent);}
+  /* 3x3 grid with gaps = cracks, center is Status */
+  .s1{top:0;left:0;width:calc(33.3% - 2px);height:calc(50% - 2px);border-radius:20px 0 0 0;border-top:0.5px solid rgba(255,255,255,0.08);border-left:0.5px solid rgba(255,255,255,0.08);}
+  .s2{top:0;left:33.3%;width:calc(33.4% - 2px);height:calc(50% - 2px);border-top:0.5px solid rgba(255,255,255,0.08);}
+  .s3{top:0;right:0;width:calc(33.3% - 2px);height:calc(50% - 2px);border-radius:0 20px 0 0;border-top:0.5px solid rgba(255,255,255,0.08);border-right:0.5px solid rgba(255,255,255,0.08);}
+  .s4{bottom:0;left:0;width:calc(33.3% - 2px);height:calc(50% - 2px);border-radius:0 0 0 20px;border-bottom:0.5px solid rgba(255,255,255,0.08);border-left:0.5px solid rgba(255,255,255,0.08);}
+  .s5{bottom:0;left:33.3%;width:calc(33.4% - 2px);height:calc(50% - 2px);border-bottom:0.5px solid rgba(255,255,255,0.08);}
+  .s6{bottom:0;right:0;width:calc(33.3% - 2px);height:calc(50% - 2px);border-radius:0 0 20px 0;border-bottom:0.5px solid rgba(255,255,255,0.08);border-right:0.5px solid rgba(255,255,255,0.08);}
+  /* Top-right and bottom-left diagonal shards */
+  .s7{top:0;left:0;width:100%;height:50%;pointer-events:none;} /* placeholder */
+  .s8{bottom:0;right:0;width:100%;height:50%;pointer-events:none;}
+  @media(max-width:500px){.shatter{height:340px;}.shard .sn{font-size:9px;}.shard-c{width:110px;height:100px;}}
 
   /* ---- Steps ---- */
   .steps{display:flex;gap:16px;margin-top:40px;flex-wrap:wrap;justify-content:center;}
@@ -133,31 +126,26 @@
 
 <div class="nav-dots" id="navDots"></div>
 
-<!-- ===== 1. HERO — Solar System ===== -->
+<!-- ===== 1. HERO — Shattered Rectangle ===== -->
 <div class="slide" data-slide="0">
   
   <div class="glass-panel reveal" style="text-align:center;">
-    <div class="solar">
-      <div class="track t1"></div><div class="track t2"></div><div class="track t3"></div>
-      <div class="sun">
-        <div style="font-size:20px;font-weight:800;color:#fff;">STATUS</div>
-        <div style="font-size:8px;font-weight:600;color:rgba(255,255,255,0.7);letter-spacing:0.1em;margin-top:2px;">ALL-IN-ONE</div>
-      </div>
-      <div class="ring r1">
-        <div class="planet a"><img src="https://www.google.com/s2/favicons?domain=toasttab.com&sz=64" alt=""><span class="pn">Toast</span><span class="pr">Bar POS</span></div>
-        <div class="planet b"><img src="https://www.google.com/s2/favicons?domain=posh.vip&sz=64" alt=""><span class="pn">Posh</span><span class="pr">Ticketing</span></div>
-        <div class="planet c"><img src="https://www.google.com/s2/favicons?domain=lineleap.com&sz=64" alt=""><span class="pn">LineLeap</span><span class="pr">Line Skip</span></div>
-      </div>
-      <div class="ring r2">
-        <div class="planet d"><img src="https://www.google.com/s2/favicons?domain=ncr.com&sz=64" alt=""><span class="pn">Aloha</span><span class="pr">Legacy POS</span></div>
-        <div class="planet e"><img src="https://www.google.com/s2/favicons?domain=discotech.me&sz=64" alt=""><span class="pn">Discotech</span><span class="pr">Guestlists</span></div>
-        <div class="planet f"><img src="https://www.google.com/s2/favicons?domain=eventbrite.com&sz=64" alt=""><span class="pn">Eventbrite</span><span class="pr">Events</span></div>
-        <div class="planet g"><img src="https://www.google.com/s2/favicons?domain=tablelistpro.com&sz=64" alt=""><span class="pn">TablelistPro</span><span class="pr">VIP</span></div>
-      </div>
-      <div class="ring r3">
-        <div class="planet h"><img src="https://www.google.com/s2/favicons?domain=sevenrooms.com&sz=64" alt=""><span class="pn">SevenRooms</span><span class="pr">Reservations</span></div>
-        <div class="planet i"><img src="https://www.google.com/s2/favicons?domain=mailchimp.com&sz=64" alt=""><span class="pn">Mailchimp</span><span class="pr">Blasts</span></div>
-        <div class="planet j"><img src="https://www.google.com/s2/favicons?domain=urvenue.com&sz=64" alt=""><span class="pn">UrVenue</span><span class="pr">VIP Booking</span></div>
+    <div class="shatter">
+      <!-- Crack lines -->
+      <div class="crack-v" style="left:33.3%;"></div>
+      <div class="crack-v" style="left:66.6%;"></div>
+      <div class="crack-h" style="top:50%;"></div>
+      <!-- 6 outer shards (3x2 grid minus center) -->
+      <div class="shard s1"><img src="https://www.google.com/s2/favicons?domain=toasttab.com&sz=64" alt=""><span class="sn">Toast</span><span class="sr">Bar POS</span></div>
+      <div class="shard s2"><img src="https://www.google.com/s2/favicons?domain=posh.vip&sz=64" alt=""><span class="sn">Posh</span><span class="sr">Ticketing</span></div>
+      <div class="shard s3"><img src="https://www.google.com/s2/favicons?domain=lineleap.com&sz=64" alt=""><span class="sn">LineLeap</span><span class="sr">Line Skip</span></div>
+      <div class="shard s4"><img src="https://www.google.com/s2/favicons?domain=eventbrite.com&sz=64" alt=""><span class="sn">Eventbrite</span><span class="sr">Events</span></div>
+      <div class="shard s5"><img src="https://www.google.com/s2/favicons?domain=sevenrooms.com&sz=64" alt=""><span class="sn">SevenRooms</span><span class="sr">Reservations</span></div>
+      <div class="shard s6"><img src="https://www.google.com/s2/favicons?domain=tablelistpro.com&sz=64" alt=""><span class="sn">TablelistPro</span><span class="sr">VIP & Tables</span></div>
+      <!-- Center — STATUS -->
+      <div class="shard-c">
+        <div style="font-size:22px;font-weight:800;color:#fff;letter-spacing:-0.02em;">STATUS</div>
+        <div style="font-size:8px;font-weight:600;color:rgba(255,255,255,0.6);letter-spacing:0.12em;margin-top:4px;">ALL-IN-ONE</div>
       </div>
     </div>
     <div class="title" style="margin-top:24px;">The all-in-one<br><span class="grad">nightlife platform.</span></div>
