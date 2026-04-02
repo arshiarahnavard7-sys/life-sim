@@ -64,29 +64,23 @@
   .nav-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.15);cursor:pointer;border:none;transition:all 0.4s;}
   .nav-dot.active{background:#fff;transform:scale(1.5);}
 
-  /* ---- Shattered Rectangle ---- */
-  .shatter{position:relative;width:min(90vw,700px);height:260px;margin:0 auto;}
-  .shard{position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:rgba(255,255,255,0.03);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:all 0.4s cubic-bezier(.23,1,.32,1);}
-  .shard:hover{background:rgba(255,255,255,0.06);}
-  .shard img{width:22px;height:22px;border-radius:4px;object-fit:contain;margin-bottom:5px;opacity:0.6;}
-  .shard .sn{font-size:10px;font-weight:600;color:rgba(255,255,255,0.6);}
-  .shard .sr{font-size:8px;color:rgba(255,255,255,0.3);margin-top:1px;}
-  /* Center — Status */
-  .shard-c{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10;width:120px;height:110px;border-radius:16px;background:rgba(88,86,214,0.15);border:1px solid rgba(255,255,255,0.15);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 60px rgba(88,86,214,0.4),0 0 120px rgba(0,122,255,0.12),0 16px 48px rgba(0,0,0,0.5);}
-  /* Crack borders between shards */
-  .crack-v{position:absolute;top:0;width:2px;height:100%;background:linear-gradient(180deg,transparent,rgba(255,255,255,0.06),transparent);}
-  .crack-h{position:absolute;left:0;height:2px;width:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent);}
-  /* 3x3 grid with gaps = cracks, center is Status */
-  .s1{top:0;left:0;width:calc(33.3% - 2px);height:calc(50% - 2px);border-radius:20px 0 0 0;border-top:0.5px solid rgba(255,255,255,0.08);border-left:0.5px solid rgba(255,255,255,0.08);}
-  .s2{top:0;left:33.3%;width:calc(33.4% - 2px);height:calc(50% - 2px);border-top:0.5px solid rgba(255,255,255,0.08);}
-  .s3{top:0;right:0;width:calc(33.3% - 2px);height:calc(50% - 2px);border-radius:0 20px 0 0;border-top:0.5px solid rgba(255,255,255,0.08);border-right:0.5px solid rgba(255,255,255,0.08);}
-  .s4{bottom:0;left:0;width:calc(33.3% - 2px);height:calc(50% - 2px);border-radius:0 0 0 20px;border-bottom:0.5px solid rgba(255,255,255,0.08);border-left:0.5px solid rgba(255,255,255,0.08);}
-  .s5{bottom:0;left:33.3%;width:calc(33.4% - 2px);height:calc(50% - 2px);border-bottom:0.5px solid rgba(255,255,255,0.08);}
-  .s6{bottom:0;right:0;width:calc(33.3% - 2px);height:calc(50% - 2px);border-radius:0 0 20px 0;border-bottom:0.5px solid rgba(255,255,255,0.08);border-right:0.5px solid rgba(255,255,255,0.08);}
-  /* Top-right and bottom-left diagonal shards */
-  .s7{top:0;left:0;width:100%;height:50%;pointer-events:none;} /* placeholder */
-  .s8{bottom:0;right:0;width:100%;height:50%;pointer-events:none;}
-  @media(max-width:500px){.shatter{height:200px;}.shard .sn{font-size:8px;}.shard-c{width:90px;height:80px;}}
+  /* ---- Competitor Grid ---- */
+  .comp-grid{display:grid;grid-template-columns:1fr auto 1fr;grid-template-rows:repeat(3,1fr);gap:3px;width:min(90vw,640px);height:260px;margin:0 auto;}
+  .comp-shard{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:rgba(255,255,255,0.04);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.08);padding:10px 8px;position:relative;opacity:0.85;transition:opacity 0.4s;}
+  .comp-shard:hover{opacity:1;}
+  .comp-shard img{width:24px;height:24px;border-radius:4px;object-fit:contain;opacity:0.35;filter:grayscale(100%);margin-bottom:4px;}
+  .comp-shard .sn{font-size:11px;font-weight:600;color:rgba(255,255,255,0.4);}
+  .comp-shard .sr{font-size:8px;color:rgba(255,255,255,0.25);margin-top:1px;}
+  /* Outer corners rounded, inner edges straight */
+  .comp-tl{border-radius:16px 0 0 0;}.comp-ml{border-radius:0;}.comp-bl{border-radius:0 0 0 16px;}
+  .comp-tr{border-radius:0 16px 0 0;}.comp-mr{border-radius:0;}.comp-br{border-radius:0 0 16px 0;}
+  /* Light bleed — inner edges facing STATUS */
+  .comp-l::after,.comp-r::after{content:'';position:absolute;top:8%;height:84%;width:28px;pointer-events:none;opacity:0.7;}
+  .comp-l::after{right:0;background:linear-gradient(90deg,transparent,rgba(99,220,255,0.07),rgba(139,92,246,0.04));}
+  .comp-r::after{left:0;background:linear-gradient(270deg,transparent,rgba(99,220,255,0.07),rgba(139,92,246,0.04));}
+  /* STATUS center hub */
+  .status-hub{grid-column:2;grid-row:1/span 3;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(#0f0f1a,#0f0f1a) padding-box,linear-gradient(135deg,#63dcff,#5856d6,#8b5cf6) border-box;border:2px solid transparent;border-radius:20px;padding:24px 32px;position:relative;z-index:10;margin:0 14px;box-shadow:0 0 60px 20px rgba(99,220,255,0.25),0 0 120px 40px rgba(139,92,246,0.15);min-width:130px;}
+  @media(max-width:500px){.comp-grid{height:200px;gap:2px;}.status-hub{min-width:80px;padding:16px;margin:0 6px;font-size:18px;}.comp-shard .sn{font-size:9px;}.comp-shard img{width:18px;height:18px;}}
 
   /* ---- Steps ---- */
   .steps{display:flex;gap:16px;margin-top:40px;flex-wrap:wrap;justify-content:center;}
@@ -141,23 +135,16 @@
 <div class="slide" data-slide="0">
   
   <div class="glass-panel reveal" style="text-align:center;">
-    <div class="shatter">
-      <!-- Crack lines -->
-      <div class="crack-v" style="left:33.3%;"></div>
-      <div class="crack-v" style="left:66.6%;"></div>
-      <div class="crack-h" style="top:50%;"></div>
-      <!-- 6 outer shards (3x2 grid minus center) -->
-      <div class="shard s1"><img src="https://www.google.com/s2/favicons?domain=toasttab.com&sz=64" alt=""><span class="sn">Toast</span><span class="sr">Bar POS</span></div>
-      <div class="shard s2"><img src="https://www.google.com/s2/favicons?domain=posh.vip&sz=64" alt=""><span class="sn">Posh</span><span class="sr">Ticketing</span></div>
-      <div class="shard s3"><img src="https://www.google.com/s2/favicons?domain=lineleap.com&sz=64" alt=""><span class="sn">LineLeap</span><span class="sr">Line Skip</span></div>
-      <div class="shard s4"><img src="https://www.google.com/s2/favicons?domain=eventbrite.com&sz=64" alt=""><span class="sn">Eventbrite</span><span class="sr">Events</span></div>
-      <div class="shard s5"><img src="https://www.google.com/s2/favicons?domain=sevenrooms.com&sz=64" alt=""><span class="sn">SevenRooms</span><span class="sr">Reservations</span></div>
-      <div class="shard s6"><img src="https://www.google.com/s2/favicons?domain=tablelistpro.com&sz=64" alt=""><span class="sn">TablelistPro</span><span class="sr">VIP & Tables</span></div>
-      <!-- Center — STATUS -->
-      <div class="shard-c">
-        <div style="font-size:22px;font-weight:800;color:#fff;letter-spacing:-0.02em;">STATUS</div>
-        <div style="font-size:8px;font-weight:600;color:rgba(255,255,255,0.6);letter-spacing:0.12em;margin-top:4px;">ALL-IN-ONE</div>
+    <div class="comp-grid">
+      <div class="comp-shard comp-l comp-tl" style="grid-column:1;grid-row:1;"><img src="https://www.google.com/s2/favicons?domain=toasttab.com&sz=64" alt=""><span class="sn">Toast</span><span class="sr">Bar POS</span></div>
+      <div class="comp-shard comp-l comp-ml" style="grid-column:1;grid-row:2;margin-top:3px;"><img src="https://www.google.com/s2/favicons?domain=lineleap.com&sz=64" alt=""><span class="sn">LineLeap</span><span class="sr">Line Skip</span></div>
+      <div class="comp-shard comp-l comp-bl" style="grid-column:1;grid-row:3;margin-bottom:4px;"><img src="https://www.google.com/s2/favicons?domain=eventbrite.com&sz=64" alt=""><span class="sn">Eventbrite</span><span class="sr">Events</span></div>
+      <div class="status-hub">
+        <div style="font-size:28px;font-weight:800;color:#fff;letter-spacing:-0.02em;">STATUS</div>
       </div>
+      <div class="comp-shard comp-r comp-tr" style="grid-column:3;grid-row:1;margin-top:5px;"><img src="https://www.google.com/s2/favicons?domain=posh.vip&sz=64" alt=""><span class="sn">Posh</span><span class="sr">Ticketing</span></div>
+      <div class="comp-shard comp-r comp-mr" style="grid-column:3;grid-row:2;margin-bottom:2px;"><img src="https://www.google.com/s2/favicons?domain=sevenrooms.com&sz=64" alt=""><span class="sn">SevenRooms</span><span class="sr">Reservations</span></div>
+      <div class="comp-shard comp-r comp-br" style="grid-column:3;grid-row:3;margin-top:4px;"><img src="https://www.google.com/s2/favicons?domain=tablelistpro.com&sz=64" alt=""><span class="sn">TablelistPro</span><span class="sr">VIP & Tables</span></div>
     </div>
     <div class="title" style="margin-top:24px;">The all-in-one<br><span class="grad">nightlife platform.</span></div>
     <div class="subtitle">Status connects your door, your bar, and your guest data — so you see exactly where every dollar comes from.</div>
