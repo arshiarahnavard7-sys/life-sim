@@ -7,10 +7,10 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
   :root {
-    --glass: rgba(20,20,22,0.72);
-    --glass-border: rgba(255,255,255,0.08);
-    --glass-highlight: inset 0 0.5px 0 0 rgba(255,255,255,0.12);
-    --glass-blur: blur(60px) saturate(180%);
+    --glass: rgba(255,255,255,0.08);
+    --glass-border: rgba(255,255,255,0.18);
+    --glass-highlight: inset 0 0.5px 0 0 rgba(255,255,255,0.2);
+    --glass-blur: blur(24px) saturate(140%);
     --text: #f5f5f7;
     --text2: rgba(255,255,255,0.55);
     --text3: rgba(255,255,255,0.3);
@@ -22,7 +22,8 @@
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;scroll-snap-type:y mandatory;}
-  body{background:#000 url('bg.jpg') center/cover fixed;color:var(--text);font-family:-apple-system,'SF Pro Display','Inter','Helvetica Neue',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+  body{background:#000 url('bg.jpg') center/cover fixed;filter:none;}
+  body::before{content:'';position:fixed;inset:0;background:url('bg.jpg') center/cover fixed;filter:blur(8px);z-index:-1;transform:scale(1.05);color:var(--text);font-family:-apple-system,'SF Pro Display','Inter','Helvetica Neue',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
 
   /* ---- Slide ---- */
   .slide{min-height:100vh;display:flex;justify-content:center;align-items:center;padding:60px 32px;position:relative;scroll-snap-align:start;overflow:hidden;}
@@ -41,11 +42,11 @@
 
   /* ---- Inner glass card ---- */
   .g-card{
-    background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.08);border-radius:16px;
+    background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.12);border-radius:16px;
     padding:24px;box-shadow:var(--glass-highlight);
     transition:transform 0.4s cubic-bezier(.23,1,.32,1),background 0.4s;
   }
-  .g-card:hover{transform:translateY(-4px);background:rgba(255,255,255,0.07);}
+  .g-card:hover{transform:translateY(-4px);background:rgba(255,255,255,0.1);}
 
   /* ---- Typography ---- */
   .title{font-size:clamp(36px,5vw,60px);font-weight:700;line-height:1.08;letter-spacing:-0.04em;color:var(--text);}
