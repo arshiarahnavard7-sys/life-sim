@@ -174,99 +174,64 @@
 
 <div class="nav-dots" id="navDots"></div>
 
-<!-- ===== 1. HOOK — The question they can't answer ===== -->
+<!-- ===== 1. HERO — Status at center, fragments orbiting ===== -->
 <div class="slide" data-slide="0">
   <div class="mesh-bg">
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(0,122,255,0.3),transparent 70%);width:600px;height:600px;top:-15%;left:10%;"></div>
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(175,82,222,0.25),transparent 70%);width:500px;height:500px;top:30%;right:-5%;animation-delay:-5s;animation-duration:18s;"></div>
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(88,86,214,0.2),transparent 70%);width:400px;height:400px;bottom:-10%;left:30%;animation-delay:-10s;animation-duration:25s;"></div>
+    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(0,122,255,0.25),transparent 70%);width:600px;height:600px;top:-15%;left:10%;"></div>
+    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(175,82,222,0.2),transparent 70%);width:500px;height:500px;top:30%;right:-5%;animation-delay:-5s;animation-duration:18s;"></div>
   </div>
   <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;">
-    <div class="slide-title reveal" style="line-height:1.12;">The all-in-one<br><span class="accent-text">nightlife platform.</span></div>
-    <div class="slide-subtitle reveal" style="margin-top:24px;">Status connects your door, your bar, and your guest data — so you see exactly where every dollar comes from.</div>
-  </div>
-</div>
-
-<!-- ===== 1.5 FRAGMENTED — The problem ===== -->
-<div class="slide" data-slide="1">
-  <div class="mesh-bg">
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(255,59,48,0.15),transparent 70%);width:500px;height:500px;top:5%;left:5%;"></div>
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(255,149,0,0.12),transparent 70%);width:400px;height:400px;bottom:10%;right:10%;animation-delay:-8s;"></div>
-  </div>
-  <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:100%;">
-    <div class="slide-title reveal" style="font-size:clamp(36px,5vw,64px);">Nightlife is <span style="color:var(--red);">fragmented.</span></div>
-    <div class="slide-subtitle reveal" style="margin-top:16px;margin-bottom:48px;">You're duct-taping 6 tools together. None of them talk to each other.</div>
-    <svg viewBox="0 0 800 500" style="max-width:820px;width:100%;" class="reveal">
-      <defs>
-        <filter id="glass-frag">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="0.5"/>
-        </filter>
-        <linearGradient id="frag-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style="stop-color:rgba(255,255,255,0.45)"/>
-          <stop offset="100%" style="stop-color:rgba(255,255,255,0.15)"/>
-        </linearGradient>
-      </defs>
-      <!-- Top row - 3 triangles pointing down -->
-      <g>
-        <polygon points="130,20 260,20 195,160" fill="url(#frag-grad)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
-        <text x="195" y="80" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-primary)">TablelistPro</text>
-        <text x="195" y="98" text-anchor="middle" font-size="10" fill="var(--text-tertiary)">VIP & Tables</text>
-      </g>
-      <g>
-        <polygon points="335,20 465,20 400,160" fill="url(#frag-grad)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
-        <text x="400" y="80" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-primary)">Toast</text>
-        <text x="400" y="98" text-anchor="middle" font-size="10" fill="var(--text-tertiary)">Bar POS</text>
-      </g>
-      <g>
-        <polygon points="540,20 670,20 605,160" fill="url(#frag-grad)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
-        <text x="605" y="80" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-primary)">LineLeap</text>
-        <text x="605" y="98" text-anchor="middle" font-size="10" fill="var(--text-tertiary)">Skip the Line</text>
-      </g>
-      <!-- Middle row - 4 triangles pointing up -->
-      <g>
-        <polygon points="60,170 195,170 128,310" fill="url(#frag-grad)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
-        <text x="128" y="240" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-primary)">Posh</text>
-        <text x="128" y="258" text-anchor="middle" font-size="10" fill="var(--text-tertiary)">Ticketing</text>
-      </g>
-      <g>
-        <polygon points="195,170 335,170 265,310" fill="url(#frag-grad)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
-        <text x="265" y="240" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-primary)">Eventbrite</text>
-        <text x="265" y="258" text-anchor="middle" font-size="10" fill="var(--text-tertiary)">Events</text>
-      </g>
-      <g>
-        <polygon points="465,170 605,170 535,310" fill="url(#frag-grad)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
-        <text x="535" y="240" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-primary)">Aloha</text>
-        <text x="535" y="258" text-anchor="middle" font-size="10" fill="var(--text-tertiary)">Legacy POS</text>
-      </g>
-      <g>
-        <polygon points="605,170 740,170 672,310" fill="url(#frag-grad)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
-        <text x="672" y="240" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-primary)">Discotech</text>
-        <text x="672" y="258" text-anchor="middle" font-size="10" fill="var(--text-tertiary)">Guestlists</text>
-      </g>
-      <!-- Bottom row - 3 triangles pointing down -->
-      <g>
-        <polygon points="130,320 260,320 195,460" fill="url(#frag-grad)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
-        <text x="195" y="380" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-primary)">SevenRooms</text>
-        <text x="195" y="398" text-anchor="middle" font-size="10" fill="var(--text-tertiary)">Reservations</text>
-      </g>
-      <g>
-        <polygon points="335,320 465,320 400,460" fill="url(#frag-grad)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
-        <text x="400" y="380" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-primary)">UrVenue</text>
-        <text x="400" y="398" text-anchor="middle" font-size="10" fill="var(--text-tertiary)">VIP Booking</text>
-      </g>
-      <g>
-        <polygon points="540,320 670,320 605,460" fill="url(#frag-grad)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
-        <text x="605" y="380" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-primary)">Mailchimp</text>
-        <text x="605" y="398" text-anchor="middle" font-size="10" fill="var(--text-tertiary)">Email Blasts</text>
-      </g>
-      <!-- Gap lines between fragments -->
-      <line x1="260" y1="20" x2="335" y2="20" stroke="var(--text-tertiary)" stroke-width="0.5" stroke-dasharray="4,4" opacity="0.3"/>
-      <line x1="465" y1="20" x2="540" y2="20" stroke="var(--text-tertiary)" stroke-width="0.5" stroke-dasharray="4,4" opacity="0.3"/>
-      <line x1="335" y1="170" x2="465" y2="170" stroke="var(--text-tertiary)" stroke-width="0.5" stroke-dasharray="4,4" opacity="0.3"/>
-      <line x1="260" y1="320" x2="335" y2="320" stroke="var(--text-tertiary)" stroke-width="0.5" stroke-dasharray="4,4" opacity="0.3"/>
-      <line x1="465" y1="320" x2="540" y2="320" stroke="var(--text-tertiary)" stroke-width="0.5" stroke-dasharray="4,4" opacity="0.3"/>
-    </svg>
-    <div class="slide-subtitle reveal" style="margin-top:40px;font-size:clamp(18px,2vw,22px);font-weight:600;color:var(--text-primary);">Status replaces all of them.</div>
+    <!-- Orbital diagram -->
+    <div style="position:relative;width:min(90vw,640px);height:min(90vw,640px);margin-bottom:32px;">
+      <!-- Center: Status -->
+      <div class="reveal" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10;text-align:center;">
+        <div style="width:160px;height:160px;border-radius:50%;background:linear-gradient(135deg,#007aff,#5856d6,#af52de);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 60px rgba(0,122,255,0.35),0 0 120px rgba(88,86,214,0.15);">
+          <div style="font-size:28px;font-weight:800;color:#fff;letter-spacing:-0.03em;">STATUS</div>
+          <div style="font-size:10px;font-weight:500;color:rgba(255,255,255,0.8);margin-top:4px;letter-spacing:0.08em;">ALL-IN-ONE</div>
+        </div>
+      </div>
+      <!-- Orbit ring -->
+      <div style="position:absolute;top:50%;left:50%;width:85%;height:85%;transform:translate(-50%,-50%);border:1px solid rgba(0,0,0,0.06);border-radius:50%;"></div>
+      <!-- Fragment chips — positioned around the circle -->
+      <div class="reveal" style="position:absolute;top:3%;left:50%;transform:translateX(-50%);background:rgba(255,255,255,0.55);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.7);border-radius:12px;padding:10px 18px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.04);">
+        <div style="font-size:13px;font-weight:700;color:var(--text-primary);">Toast</div>
+        <div style="font-size:10px;color:var(--text-tertiary);">Bar POS</div>
+      </div>
+      <div class="reveal" style="position:absolute;top:18%;right:3%;background:rgba(255,255,255,0.55);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.7);border-radius:12px;padding:10px 18px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.04);">
+        <div style="font-size:13px;font-weight:700;color:var(--text-primary);">LineLeap</div>
+        <div style="font-size:10px;color:var(--text-tertiary);">Skip the Line</div>
+      </div>
+      <div class="reveal" style="position:absolute;top:50%;right:0%;transform:translateY(-50%);background:rgba(255,255,255,0.55);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.7);border-radius:12px;padding:10px 18px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.04);">
+        <div style="font-size:13px;font-weight:700;color:var(--text-primary);">Discotech</div>
+        <div style="font-size:10px;color:var(--text-tertiary);">Guestlists</div>
+      </div>
+      <div class="reveal" style="position:absolute;bottom:18%;right:3%;background:rgba(255,255,255,0.55);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.7);border-radius:12px;padding:10px 18px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.04);">
+        <div style="font-size:13px;font-weight:700;color:var(--text-primary);">Eventbrite</div>
+        <div style="font-size:10px;color:var(--text-tertiary);">Events</div>
+      </div>
+      <div class="reveal" style="position:absolute;bottom:3%;left:50%;transform:translateX(-50%);background:rgba(255,255,255,0.55);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.7);border-radius:12px;padding:10px 18px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.04);">
+        <div style="font-size:13px;font-weight:700;color:var(--text-primary);">Mailchimp</div>
+        <div style="font-size:10px;color:var(--text-tertiary);">Email Blasts</div>
+      </div>
+      <div class="reveal" style="position:absolute;bottom:18%;left:3%;background:rgba(255,255,255,0.55);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.7);border-radius:12px;padding:10px 18px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.04);">
+        <div style="font-size:13px;font-weight:700;color:var(--text-primary);">SevenRooms</div>
+        <div style="font-size:10px;color:var(--text-tertiary);">Reservations</div>
+      </div>
+      <div class="reveal" style="position:absolute;top:50%;left:0%;transform:translateY(-50%);background:rgba(255,255,255,0.55);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.7);border-radius:12px;padding:10px 18px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.04);">
+        <div style="font-size:13px;font-weight:700;color:var(--text-primary);">Posh</div>
+        <div style="font-size:10px;color:var(--text-tertiary);">Ticketing</div>
+      </div>
+      <div class="reveal" style="position:absolute;top:18%;left:3%;background:rgba(255,255,255,0.55);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.7);border-radius:12px;padding:10px 18px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.04);">
+        <div style="font-size:13px;font-weight:700;color:var(--text-primary);">TablelistPro</div>
+        <div style="font-size:10px;color:var(--text-tertiary);">VIP & Tables</div>
+      </div>
+      <div class="reveal" style="position:absolute;top:10%;left:50%;transform:translateX(60%);background:rgba(255,255,255,0.55);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.7);border-radius:12px;padding:10px 18px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.04);">
+        <div style="font-size:13px;font-weight:700;color:var(--text-primary);">Aloha</div>
+        <div style="font-size:10px;color:var(--text-tertiary);">Legacy POS</div>
+      </div>
+    </div>
+    <div class="slide-title reveal" style="font-size:clamp(28px,4vw,48px);line-height:1.12;">The all-in-one<br><span class="accent-text">nightlife platform.</span></div>
+    <div class="slide-subtitle reveal" style="margin-top:16px;">Status connects your door, your bar, and your guest data — so you see exactly where every dollar comes from.</div>
   </div>
 </div>
 
