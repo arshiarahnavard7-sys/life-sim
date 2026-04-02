@@ -3,15 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta property="og:title" content="Status — The Nightlife Operating System" />
-<meta property="og:description" content="Events, guestlists, attribution, and analytics — unified for the first time." />
 <title>Status — Marketing Deck</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
   :root {
-    --glass-bg: rgba(255,255,255,0.35);
-    --glass-bg-strong: rgba(255,255,255,0.5);
+    --glass-bg: rgba(255,255,255,0.32);
     --glass-border: rgba(255,255,255,0.55);
     --glass-highlight: inset 0 0.5px 0 0 rgba(255,255,255,0.9), inset 0 -0.5px 0 0 rgba(255,255,255,0.3);
     --glass-shadow: 0 8px 40px rgba(0,0,0,0.06);
@@ -33,10 +30,9 @@
   body {
     background: var(--surface); color: var(--text-primary);
     font-family: -apple-system, 'SF Pro Display', 'SF Pro Text', 'Inter', 'Helvetica Neue', sans-serif;
-    overflow-x: hidden; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden; -webkit-font-smoothing: antialiased;
   }
 
-  /* ===== SLIDE CONTAINER ===== */
   .slide {
     min-height: 100vh; display: flex; flex-direction: column;
     justify-content: center; align-items: center;
@@ -44,340 +40,229 @@
     scroll-snap-align: start; overflow: hidden;
   }
 
-  /* ===== GLASS COMPONENTS ===== */
+  /* Glass */
   .glass {
     background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    border: 0.5px solid var(--glass-border);
-    border-radius: 20px;
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 0.5px solid var(--glass-border); border-radius: 20px;
     box-shadow: var(--glass-shadow), var(--glass-highlight);
   }
   .glass-card {
     background: rgba(255,255,255,0.28);
-    backdrop-filter: blur(32px) saturate(180%);
-    -webkit-backdrop-filter: blur(32px) saturate(180%);
-    border: 0.5px solid rgba(255,255,255,0.5);
-    border-radius: 18px;
+    backdrop-filter: blur(32px) saturate(180%); -webkit-backdrop-filter: blur(32px) saturate(180%);
+    border: 0.5px solid rgba(255,255,255,0.5); border-radius: 18px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.04), var(--glass-highlight);
-    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: transform 0.5s cubic-bezier(0.23,1,0.32,1), box-shadow 0.5s cubic-bezier(0.23,1,0.32,1);
   }
-  .glass-card:hover {
-    transform: translateY(-6px) scale(1.01);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.08), var(--glass-highlight);
-  }
+  .glass-card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 12px 40px rgba(0,0,0,0.08), var(--glass-highlight); }
   .glass-pill {
     display: inline-flex; align-items: center; gap: 6px;
     padding: 10px 22px; border-radius: 980px;
-    background: rgba(255,255,255,0.4);
-    backdrop-filter: blur(24px) saturate(160%);
-    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    background: rgba(255,255,255,0.4); backdrop-filter: blur(24px) saturate(160%); -webkit-backdrop-filter: blur(24px) saturate(160%);
     border: 0.5px solid rgba(255,255,255,0.6);
     box-shadow: 0 2px 8px rgba(0,0,0,0.03), var(--glass-highlight);
     font-size: 14px; font-weight: 500; color: var(--text-secondary);
   }
   .glass-pill strong { color: var(--text-primary); font-weight: 700; }
 
-  /* ===== NAV DOTS ===== */
+  /* Nav */
   .nav-dots {
     position: fixed; right: 24px; top: 50%; transform: translateY(-50%); z-index: 100;
     display: flex; flex-direction: column; gap: 8px;
     background: rgba(255,255,255,0.3); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     border: 0.5px solid rgba(255,255,255,0.5); border-radius: 980px; padding: 8px 6px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
   }
-  .nav-dot {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: rgba(0,0,0,0.12); cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); border: none;
-  }
+  .nav-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(0,0,0,0.12); cursor: pointer; transition: all 0.4s cubic-bezier(0.23,1,0.32,1); border: none; }
   .nav-dot.active { background: var(--text-primary); transform: scale(1.5); }
-  .nav-dot:hover { background: rgba(0,0,0,0.25); }
 
-  /* ===== TYPOGRAPHY — Apple Precision ===== */
-  .slide-tag {
-    font-size: 14px; font-weight: 600; color: var(--accent);
-    margin-bottom: 12px; letter-spacing: -0.01em;
-  }
-  .slide-title {
-    font-size: clamp(40px, 5.5vw, 68px); font-weight: 700;
-    line-height: 1.06; letter-spacing: -0.04em;
-    max-width: 820px; text-align: center; color: var(--text-primary);
-  }
-  .slide-subtitle {
-    font-size: clamp(17px, 1.8vw, 21px); font-weight: 400;
-    color: var(--text-secondary); max-width: 520px;
-    text-align: center; margin-top: 16px; line-height: 1.5;
-    letter-spacing: -0.01em;
-  }
-  .accent-text {
-    background: var(--accent-gradient);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
+  /* Typography */
+  .slide-tag { font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 12px; letter-spacing: -0.01em; }
+  .slide-title { font-size: clamp(40px,5.5vw,68px); font-weight: 700; line-height: 1.06; letter-spacing: -0.04em; max-width: 820px; text-align: center; }
+  .slide-subtitle { font-size: clamp(17px,1.8vw,21px); font-weight: 400; color: var(--text-secondary); max-width: 520px; text-align: center; margin-top: 16px; line-height: 1.5; letter-spacing: -0.01em; }
+  .accent-text { background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-  /* ===== ANIMATED MESH GRADIENT (Apple-style) ===== */
-  .mesh-bg {
-    position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; z-index: 0;
-  }
-  .mesh-blob {
-    position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4;
-    animation: meshFloat 20s ease-in-out infinite;
-  }
-  .mesh-blob:nth-child(1) {
-    width: 600px; height: 600px; top: -20%; left: 10%;
-    background: radial-gradient(circle, rgba(0,122,255,0.35), transparent 70%);
-    animation-delay: 0s; animation-duration: 22s;
-  }
-  .mesh-blob:nth-child(2) {
-    width: 500px; height: 500px; top: 30%; right: -5%;
-    background: radial-gradient(circle, rgba(175,82,222,0.3), transparent 70%);
-    animation-delay: -5s; animation-duration: 18s;
-  }
-  .mesh-blob:nth-child(3) {
-    width: 400px; height: 400px; bottom: -10%; left: 30%;
-    background: radial-gradient(circle, rgba(88,86,214,0.25), transparent 70%);
-    animation-delay: -10s; animation-duration: 25s;
-  }
-  .mesh-blob:nth-child(4) {
-    width: 350px; height: 350px; top: 10%; right: 25%;
-    background: radial-gradient(circle, rgba(52,199,89,0.15), transparent 70%);
-    animation-delay: -7s; animation-duration: 20s;
-  }
+  /* Mesh */
+  .mesh-bg { position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+  .mesh-blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4; animation: meshFloat 20s ease-in-out infinite; }
   @keyframes meshFloat {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    25% { transform: translate(30px, -40px) scale(1.05); }
-    50% { transform: translate(-20px, 20px) scale(0.95); }
-    75% { transform: translate(40px, 30px) scale(1.03); }
+    0%,100% { transform: translate(0,0) scale(1); }
+    25% { transform: translate(30px,-40px) scale(1.05); }
+    50% { transform: translate(-20px,20px) scale(0.95); }
+    75% { transform: translate(40px,30px) scale(1.03); }
   }
 
-  /* ===== ICON (SF Symbols style) ===== */
+  /* Icon */
   .sf-icon {
     width: 44px; height: 44px; border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px; flex-shrink: 0;
-    background: rgba(255,255,255,0.35);
-    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;
+    background: rgba(255,255,255,0.35); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
     border: 0.5px solid rgba(255,255,255,0.5);
     box-shadow: 0 2px 6px rgba(0,0,0,0.03), var(--glass-highlight);
   }
 
-  /* ===== GRIDS ===== */
-  .card-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 14px; max-width: 880px; margin-top: 52px; width: 100%;
-  }
-  .card-grid .glass-card { padding: 28px; text-align: left; }
-  .card-grid .glass-card .icon { font-size: 26px; margin-bottom: 14px; }
-  .card-grid .glass-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 5px; letter-spacing: -0.02em; }
-  .card-grid .glass-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.5; letter-spacing: -0.01em; }
-
-  /* ===== FEATURE ROW ===== */
-  .feature-row {
-    display: flex; gap: 52px; max-width: 1000px; margin-top: 52px;
-    align-items: center; flex-wrap: wrap; justify-content: center;
-  }
+  /* Feature */
+  .feature-row { display: flex; gap: 52px; max-width: 1000px; margin-top: 52px; align-items: center; flex-wrap: wrap; justify-content: center; }
   .feature-list { display: flex; flex-direction: column; gap: 28px; max-width: 400px; }
   .feature { display: flex; gap: 16px; align-items: flex-start; }
   .feature h4 { font-size: 16px; font-weight: 600; margin-bottom: 2px; letter-spacing: -0.02em; }
   .feature p { font-size: 14px; color: var(--text-secondary); line-height: 1.45; letter-spacing: -0.01em; }
 
-  /* ===== PHONE MOCKUP ===== */
+  /* Device */
   .device {
     width: 280px; height: 570px; border-radius: 48px; flex-shrink: 0;
     position: relative; overflow: hidden;
     background: rgba(255,255,255,0.25);
-    backdrop-filter: blur(60px) saturate(220%);
-    -webkit-backdrop-filter: blur(60px) saturate(220%);
+    backdrop-filter: blur(60px) saturate(220%); -webkit-backdrop-filter: blur(60px) saturate(220%);
     border: 0.5px solid rgba(255,255,255,0.6);
-    box-shadow:
-      0 24px 60px rgba(0,0,0,0.1),
-      0 4px 16px rgba(0,0,0,0.05),
-      inset 0 0.5px 0 rgba(255,255,255,0.95),
-      inset 0 -0.5px 0 rgba(255,255,255,0.4);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.1), 0 4px 16px rgba(0,0,0,0.05), inset 0 0.5px 0 rgba(255,255,255,0.95), inset 0 -0.5px 0 rgba(255,255,255,0.4);
   }
-  .device::before {
-    content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-    width: 120px; height: 34px; background: rgba(0,0,0,0.85); border-radius: 0 0 22px 22px; z-index: 2;
-  }
-  .device::after {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 50%;
-    background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 100%);
-    pointer-events: none; border-radius: 48px 48px 0 0;
-  }
-  .device-screen { width: 100%; height: 100%; padding: 54px 20px 20px; position: relative; z-index: 1; }
-  .device-screen .app-title { font-size: 20px; font-weight: 700; text-align: center; letter-spacing: -0.03em; }
+  .device::before { content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:120px; height:34px; background:rgba(0,0,0,0.85); border-radius:0 0 22px 22px; z-index:2; }
+  .device::after { content:''; position:absolute; top:0; left:0; right:0; height:50%; background:linear-gradient(180deg,rgba(255,255,255,0.15) 0%,transparent 100%); pointer-events:none; border-radius:48px 48px 0 0; }
+  .device-screen { width:100%; height:100%; padding:54px 20px 20px; position:relative; z-index:1; }
 
-  /* ===== STEPS ===== */
-  .steps-row { display: flex; gap: 16px; max-width: 920px; margin-top: 52px; flex-wrap: wrap; justify-content: center; align-items: stretch; }
-  .step {
-    padding: 36px 28px; text-align: center; width: 250px; position: relative;
-  }
-  .step-badge {
-    position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
-    width: 24px; height: 24px; border-radius: 50%;
-    background: var(--accent-gradient); color: #fff;
-    font-size: 12px; font-weight: 700;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 4px 12px rgba(0,122,255,0.25);
-  }
-  .step .step-icon { font-size: 36px; margin-bottom: 16px; }
-  .step h4 { font-size: 17px; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.02em; }
-  .step p { font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
-  .step-connector { color: var(--text-tertiary); font-size: 18px; display: flex; align-items: center; }
-
-  /* ===== METRICS ===== */
-  .metrics-row {
-    display: flex; gap: 16px; max-width: 800px; margin-top: 52px;
-    flex-wrap: wrap; justify-content: center;
-  }
-  .metric-card { padding: 36px 28px; text-align: center; flex: 1; min-width: 200px; }
-  .metric-card .val {
-    font-size: clamp(44px, 5vw, 56px); font-weight: 800; letter-spacing: -0.04em;
-    background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .metric-card .label { font-size: 15px; color: var(--text-secondary); margin-top: 4px; font-weight: 500; }
-  .metric-card .sub { font-size: 12px; color: var(--text-tertiary); margin-top: 2px; }
-
-  /* ===== COMPARISON TABLE ===== */
-  .compare-wrap {
-    max-width: 800px; margin-top: 52px; width: 100%;
-    padding: 2px; overflow: hidden;
-  }
-  .compare-row { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; }
-  .compare-header {
-    padding: 14px 20px; font-size: 11px; font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.05em;
-    color: var(--text-tertiary); background: rgba(255,255,255,0.35);
-    border-bottom: 0.5px solid rgba(0,0,0,0.05);
-  }
-  .compare-header.hl { color: var(--accent); font-weight: 700; }
-  .compare-cell {
-    padding: 13px 20px; font-size: 14px; letter-spacing: -0.01em;
-    background: rgba(255,255,255,0.2);
-    border-bottom: 0.5px solid rgba(0,0,0,0.03);
-  }
-  .compare-cell.feat { color: var(--text-primary); font-weight: 500; }
-  .ck { color: var(--green); font-weight: 700; }
-  .cx { color: rgba(0,0,0,0.12); }
-  .pt { color: var(--orange); }
-
-  /* ===== PRICING ===== */
-  .pricing-row { display: flex; gap: 14px; max-width: 840px; margin-top: 52px; flex-wrap: wrap; justify-content: center; }
-  .price-card { padding: 36px 28px; text-align: center; flex: 1; min-width: 230px; }
-  .price-card .badge {
-    display: inline-block; padding: 5px 14px; border-radius: 980px;
-    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 10px;
-  }
-  .price-card .amount { font-size: 44px; font-weight: 800; margin: 8px 0 4px; letter-spacing: -0.04em; }
-  .price-card .per { font-size: 14px; color: var(--text-secondary); font-weight: 500; }
-  .price-card .desc { font-size: 13px; color: var(--text-tertiary); margin-top: 12px; line-height: 1.55; }
-  .price-card.featured {
-    background: rgba(255,255,255,0.5);
-    border-color: rgba(0,122,255,0.15);
-    box-shadow: 0 8px 40px rgba(0,122,255,0.06), var(--glass-highlight);
-  }
-
-  /* ===== CTA ===== */
+  /* CTA */
   .cta-btn-big {
     margin-top: 36px; padding: 18px 52px; border-radius: 980px;
     font-size: 17px; font-weight: 600; letter-spacing: -0.01em;
     background: var(--accent); color: #fff; border: none;
     cursor: pointer; text-decoration: none; display: inline-block;
     box-shadow: 0 4px 16px rgba(0,113,227,0.3);
-    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: all 0.4s cubic-bezier(0.23,1,0.32,1);
   }
   .cta-btn-big:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 8px 28px rgba(0,113,227,0.35); }
-  .contact-links { margin-top: 16px; color: var(--text-tertiary); font-size: 14px; }
-  .contact-links a { color: var(--accent); text-decoration: none; font-weight: 500; }
 
-  /* ===== SCROLL REVEAL ===== */
-  .reveal {
-    opacity: 0; transform: translateY(24px);
-    transition: opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1), transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+  /* Reveal */
+  .reveal { opacity:0; transform:translateY(24px); transition: opacity 0.7s cubic-bezier(0.23,1,0.32,1), transform 0.7s cubic-bezier(0.23,1,0.32,1); }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  /* One-liner callout */
+  .callout {
+    font-size: clamp(20px,3vw,32px); font-weight: 600; letter-spacing: -0.03em;
+    text-align: center; max-width: 700px; line-height: 1.35; color: var(--text-primary);
   }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* ===== RESPONSIVE ===== */
-  @media (max-width: 768px) {
-    .slide { padding: 60px 20px; }
-    .feature-row { flex-direction: column-reverse; gap: 32px; }
-    .device { width: 240px; height: 480px; border-radius: 40px; }
-    .device::before { width: 100px; height: 28px; border-radius: 0 0 18px 18px; }
-    .steps-row { flex-direction: column; align-items: center; }
-    .step-connector { transform: rotate(90deg); }
-    .nav-dots { right: 10px; padding: 6px 4px; }
-    .nav-dot { width: 6px; height: 6px; }
-    .compare-row { grid-template-columns: 1.3fr 0.7fr 0.7fr 0.7fr; }
-    .compare-cell, .compare-header { padding: 10px 10px; font-size: 11px; }
-    .card-grid { gap: 10px; }
-    .glass-pill { padding: 8px 16px; font-size: 13px; }
+  /* Pricing row */
+  .pricing-row { display: flex; gap: 14px; max-width: 840px; margin-top: 44px; flex-wrap: wrap; justify-content: center; }
+  .price-card { padding: 36px 28px; text-align: center; flex: 1; min-width: 230px; }
+  .price-card .badge { display:inline-block; padding:5px 14px; border-radius:980px; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.03em; margin-bottom:10px; }
+  .price-card .amount { font-size:44px; font-weight:800; margin:8px 0 4px; letter-spacing:-0.04em; }
+  .price-card .per { font-size:14px; color:var(--text-secondary); font-weight:500; }
+  .price-card .desc { font-size:13px; color:var(--text-tertiary); margin-top:12px; line-height:1.55; }
+  .price-card.featured { background:rgba(255,255,255,0.5); border-color:rgba(0,122,255,0.15); box-shadow:0 8px 40px rgba(0,122,255,0.06), var(--glass-highlight); }
+
+  /* Steps */
+  .steps-row { display:flex; gap:16px; max-width:920px; margin-top:52px; flex-wrap:wrap; justify-content:center; align-items:stretch; }
+  .step { padding:36px 28px; text-align:center; width:250px; position:relative; }
+  .step-badge { position:absolute; top:-10px; left:50%; transform:translateX(-50%); width:24px; height:24px; border-radius:50%; background:var(--accent-gradient); color:#fff; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,122,255,0.25); }
+  .step .step-icon { font-size:36px; margin-bottom:16px; }
+  .step h4 { font-size:17px; font-weight:600; margin-bottom:8px; letter-spacing:-0.02em; }
+  .step p { font-size:13px; color:var(--text-secondary); line-height:1.55; }
+  .step-connector { color:var(--text-tertiary); font-size:18px; display:flex; align-items:center; }
+
+  @media (max-width:768px) {
+    .slide { padding:60px 20px; }
+    .feature-row { flex-direction:column-reverse; gap:32px; }
+    .device { width:240px; height:480px; border-radius:40px; }
+    .steps-row { flex-direction:column; align-items:center; }
+    .step-connector { transform:rotate(90deg); }
+    .nav-dots { right:10px; }
+    .pricing-row { flex-direction:column; align-items:center; }
   }
 </style>
 </head>
 <body>
 
-<!-- ===== NAV DOTS ===== -->
 <div class="nav-dots" id="navDots"></div>
 
-<!-- ===== SLIDE 1: HERO ===== -->
+<!-- ===== 1. HOOK — The question they can't answer ===== -->
 <div class="slide" data-slide="0">
   <div class="mesh-bg">
-    <div class="mesh-blob"></div>
-    <div class="mesh-blob"></div>
-    <div class="mesh-blob"></div>
-    <div class="mesh-blob"></div>
+    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(0,122,255,0.3),transparent 70%);width:600px;height:600px;top:-15%;left:10%;"></div>
+    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(175,82,222,0.25),transparent 70%);width:500px;height:500px;top:30%;right:-5%;animation-delay:-5s;animation-duration:18s;"></div>
+    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(88,86,214,0.2),transparent 70%);width:400px;height:400px;bottom:-10%;left:30%;animation-delay:-10s;animation-duration:25s;"></div>
   </div>
   <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;">
-    <div class="slide-title reveal">Know Every Guest.<br>Own Every Night.</div>
-    <div class="slide-subtitle reveal" style="transition-delay:0.1s;">The first platform that connects your door, your bar, and your guest data into one system — so you finally know who's spending, who's coming back, and who's worth the table.</div>
-    <div style="margin-top:36px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;" class="reveal" data-delay="0.2">
-      <div class="glass-pill"><strong>12+</strong> POS integrations</div>
-      <div class="glass-pill"><strong>100%</strong> guest attribution</div>
-      <div class="glass-pill"><strong>$0</strong> to venues</div>
-    </div>
+    <div class="slide-title reveal" style="line-height:1.12;">Your best promoter brought in<br><span class="accent-text">$47K last month.</span><br>Your worst cost you $3K.</div>
+    <div class="slide-subtitle reveal" style="margin-top:24px;font-size:clamp(19px,2vw,24px);font-weight:500;color:var(--text-primary);">Do you know which is which?</div>
+    <div class="slide-subtitle reveal" style="margin-top:12px;">Status connects your door, your bar, and your guest data — so you see exactly where every dollar comes from.</div>
   </div>
 </div>
 
-<!-- ===== SLIDE 2: PROBLEM ===== -->
+<!-- ===== 2. COST — Kill the #1 objection immediately ===== -->
 <div class="slide" data-slide="1">
   <div class="mesh-bg">
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(255,59,48,0.2),transparent 70%);width:500px;height:500px;top:20%;left:-5%;"></div>
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(255,149,0,0.15),transparent 70%);width:400px;height:400px;bottom:10%;right:10%;animation-delay:-8s;"></div>
+    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(52,199,89,0.25),transparent 70%);width:500px;height:500px;top:10%;right:10%;"></div>
+    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(0,122,255,0.12),transparent 70%);width:400px;height:400px;bottom:10%;left:15%;animation-delay:-6s;"></div>
   </div>
-  <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:100%;">
-    <div class="slide-tag reveal">The Problem</div>
-    <div class="slide-title reveal" style="font-size:clamp(30px,4vw,50px);">Venues run on six systems<br>that don't talk to each other.</div>
-    <div class="card-grid">
-      <div class="glass-card reveal"><div class="icon">📋</div><h3>Guestlists in spreadsheets</h3><p>Promoters text names to managers. Names get lost. No accountability.</p></div>
-      <div class="glass-card reveal"><div class="icon">🎫</div><h3>Tickets on one platform</h3><p>Eventbrite or Posh handles tickets but has zero integration with what happens inside.</p></div>
-      <div class="glass-card reveal"><div class="icon">🍸</div><h3>Bar POS is a black box</h3><p>You can't connect a $200 bar tab to the promoter who brought that guest.</p></div>
-      <div class="glass-card reveal"><div class="icon">📊</div><h3>No real analytics</h3><p>You know total revenue. You don't know which nights or promoters drive your business.</p></div>
-      <div class="glass-card reveal"><div class="icon">💬</div><h3>Marketing is manual</h3><p>SMS blasts from personal phones. No segmentation. No tracking.</p></div>
-      <div class="glass-card reveal"><div class="icon">🔌</div><h3>Nothing connects</h3><p>Door count ≠ bar sales ≠ ticket sales ≠ promoter performance. You're flying blind.</p></div>
+  <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;">
+    <div class="slide-title reveal" style="font-size:clamp(48px,6vw,80px);"><span class="accent-text">$0</span> for you.</div>
+    <div class="slide-subtitle reveal" style="margin-top:20px;font-size:clamp(18px,2vw,22px);">No hardware. No monthly fees. No contracts.<br>Status is free for every venue. Forever.</div>
+    <div style="margin-top:40px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;" class="reveal">
+      <div class="glass-pill">💰 <strong>5% service fee</strong> on door payments — charged to the customer, not you</div>
+    </div>
+    <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;" class="reveal">
+      <div class="glass-pill">Your revenue stays <strong>exactly the same</strong></div>
     </div>
   </div>
 </div>
 
-<!-- ===== SLIDE 3: SOLUTION ===== -->
+<!-- ===== 3. HOW IT WORKS — Visual walkthrough ===== -->
 <div class="slide" data-slide="2">
+  <div class="mesh-bg">
+    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(0,122,255,0.15),transparent 70%);width:450px;height:450px;top:20%;left:20%;"></div>
+    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(88,86,214,0.1),transparent 70%);width:350px;height:350px;bottom:20%;right:20%;animation-delay:-5s;"></div>
+  </div>
+  <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;">
+    <div class="slide-tag reveal">How It Works</div>
+    <div class="slide-title reveal" style="font-size:clamp(30px,4vw,50px);">Three touchpoints. Total visibility.</div>
+    <div class="steps-row">
+      <div class="step glass-card reveal">
+        <div class="step-badge">1</div>
+        <div class="step-icon">🚪</div>
+        <h4>Door</h4>
+        <p>Guest arrives → ID scanned → cover charged → card saved. You know who walked in and how they paid.</p>
+      </div>
+      <div class="step-connector reveal">→</div>
+      <div class="step glass-card reveal">
+        <div class="step-badge">2</div>
+        <div class="step-icon">🍸</div>
+        <h4>Bar</h4>
+        <p>Guest opens a tab → Status recognizes them. Every drink, every tip — attributed to a real person.</p>
+      </div>
+      <div class="step-connector reveal">→</div>
+      <div class="step glass-card reveal">
+        <div class="step-badge">3</div>
+        <div class="step-icon">📊</div>
+        <h4>Dashboard</h4>
+        <p>See it all in real-time. Which promoters drive revenue. Which guests are VIPs. Which nights perform.</p>
+      </div>
+    </div>
+    <div class="slide-subtitle reveal" style="margin-top:40px;font-size:15px;">
+      No app for guests. No workflow changes for bartenders. Status works invisibly.
+    </div>
+  </div>
+</div>
+
+<!-- ===== 4. WHAT YOU GET — The dashboard ===== -->
+<div class="slide" data-slide="3">
   <div class="mesh-bg">
     <div class="mesh-blob" style="background:radial-gradient(circle,rgba(88,86,214,0.2),transparent 70%);width:550px;height:550px;top:5%;right:0%;"></div>
     <div class="mesh-blob" style="background:radial-gradient(circle,rgba(0,122,255,0.15),transparent 70%);width:400px;height:400px;bottom:5%;left:5%;animation-delay:-12s;"></div>
   </div>
   <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:100%;">
-    <div class="slide-tag reveal">The Solution</div>
-    <div class="slide-title reveal" style="font-size:clamp(30px,4vw,50px);">One platform. Every touchpoint.<br><span class="accent-text">Connected.</span></div>
+    <div class="slide-tag reveal">What You See</div>
+    <div class="slide-title reveal" style="font-size:clamp(30px,4vw,50px);">Every number that matters.<br><span class="accent-text">In real time.</span></div>
     <div class="feature-row">
       <div class="feature-list">
-        <div class="feature reveal"><div class="sf-icon">🎫</div><div><h4>Events & Ticketing</h4><p>Create events, sell tickets, manage guestlists — all in one place.</p></div></div>
-        <div class="feature reveal"><div class="sf-icon">🚪</div><div><h4>Door Operations</h4><p>ID scanning, cover charges, guestlist check-in, real-time capacity.</p></div></div>
-        <div class="feature reveal"><div class="sf-icon">🍹</div><div><h4>Bar Analytics</h4><p>What's selling, when the rush hits, which bartenders perform. Attribution connects spend to the guest.</p></div></div>
-        <div class="feature reveal"><div class="sf-icon">👤</div><div><h4>Guest Profiles</h4><p>Visit frequency, average spend, preferences. Your CRM, built automatically.</p></div></div>
-        <div class="feature reveal"><div class="sf-icon">📱</div><div><h4>Marketing & Blasts</h4><p>SMS and push to your guest database. Segment by spend, frequency, or event history.</p></div></div>
+        <div class="feature reveal"><div class="sf-icon">💰</div><div><h4>Promoter ROI in Dollars</h4><p>Not headcount — actual revenue each promoter generates. See who's worth it and who's not.</p></div></div>
+        <div class="feature reveal"><div class="sf-icon">👤</div><div><h4>Guest Profiles Built Automatically</h4><p>Visit count, average spend, preferences. Your CRM builds itself every night you're open.</p></div></div>
+        <div class="feature reveal"><div class="sf-icon">🏷️</div><div><h4>VIP Tags at the Door</h4><p>Bouncer scans ID → "VIP, skip line, no cover" appears instantly. Blacklists enforced across all venues.</p></div></div>
+        <div class="feature reveal"><div class="sf-icon">📱</div><div><h4>SMS Blasts to Your Guests</h4><p>Segment by spend, visit frequency, or event. Not blasting from your personal phone anymore.</p></div></div>
+        <div class="feature reveal"><div class="sf-icon">🍸</div><div><h4>Bar Analytics</h4><p>What's selling, when the rush hits, bartender speed. Connect bar spend to the guest who walked in.</p></div></div>
       </div>
       <div class="device reveal">
         <div class="device-screen">
-          <div class="app-title">STATUS</div>
+          <div style="font-size:20px;font-weight:700;text-align:center;letter-spacing:-0.03em;">STATUS</div>
           <div style="margin-top:18px;font-size:11px;color:var(--text-tertiary);text-align:center;font-weight:600;letter-spacing:0.03em;">LIVE DASHBOARD</div>
           <div style="margin-top:10px;font-size:38px;font-weight:800;color:var(--green);text-align:center;letter-spacing:-0.04em;">$14,280</div>
           <div style="font-size:12px;color:var(--text-tertiary);text-align:center;margin-top:2px;">Tonight's Revenue</div>
@@ -388,9 +273,9 @@
           </div>
           <div style="margin-top:22px;text-align:left;">
             <div style="font-size:10px;color:var(--text-tertiary);margin-bottom:8px;font-weight:600;letter-spacing:0.04em;">TOP PROMOTERS TONIGHT</div>
-            <div style="font-size:13px;padding:9px 0;border-bottom:0.5px solid rgba(0,0,0,0.06);display:flex;justify-content:space-between;"><span style="font-weight:500;">Marcus J.</span><span style="color:var(--green);font-weight:600;">42 guests</span></div>
-            <div style="font-size:13px;padding:9px 0;border-bottom:0.5px solid rgba(0,0,0,0.06);display:flex;justify-content:space-between;"><span style="font-weight:500;">Sophia C.</span><span style="color:var(--green);font-weight:600;">31 guests</span></div>
-            <div style="font-size:13px;padding:9px 0;display:flex;justify-content:space-between;"><span style="font-weight:500;">Tyler R.</span><span style="color:var(--green);font-weight:600;">28 guests</span></div>
+            <div style="font-size:13px;padding:9px 0;border-bottom:0.5px solid rgba(0,0,0,0.06);display:flex;justify-content:space-between;"><span style="font-weight:500;">Marcus J.</span><span style="color:var(--green);font-weight:600;">$4,200</span></div>
+            <div style="font-size:13px;padding:9px 0;border-bottom:0.5px solid rgba(0,0,0,0.06);display:flex;justify-content:space-between;"><span style="font-weight:500;">Sophia C.</span><span style="color:var(--green);font-weight:600;">$2,790</span></div>
+            <div style="font-size:13px;padding:9px 0;display:flex;justify-content:space-between;"><span style="font-weight:500;">Tyler R.</span><span style="color:var(--orange);font-weight:600;">$380</span></div>
           </div>
         </div>
       </div>
@@ -398,272 +283,58 @@
   </div>
 </div>
 
-<!-- ===== SLIDE 4: PROMOTER ROI ===== -->
-<div class="slide" data-slide="3">
-  <div class="mesh-bg">
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(52,199,89,0.2),transparent 70%);width:500px;height:500px;top:10%;left:5%;"></div>
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(0,199,190,0.12),transparent 70%);width:380px;height:380px;bottom:15%;right:5%;animation-delay:-6s;"></div>
-  </div>
-  <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:100%;">
-    <div class="slide-tag reveal">Promoter Intelligence</div>
-    <div class="slide-title reveal" style="font-size:clamp(30px,4vw,50px);">Know exactly what each<br>promoter is worth. <span class="accent-text">In dollars.</span></div>
-    <div class="slide-subtitle reveal">Not just headcount — total revenue attributed to every promoter, every night.</div>
-    <div class="card-grid" style="margin-top:40px;">
-      <div class="glass-card reveal"><div class="icon">👥</div><h3>Headcount Tracking</h3><p>See exactly how many guests each promoter brings. No more guessing.</p></div>
-      <div class="glass-card reveal"><div class="icon">💰</div><h3>Revenue Attribution</h3><p>Every bar dollar traced back to the promoter who brought that guest.</p></div>
-      <div class="glass-card reveal"><div class="icon">📈</div><h3>Performance Over Time</h3><p>Leaderboards show who's growing and who's declining. Pay based on data.</p></div>
-      <div class="glass-card reveal"><div class="icon">🏆</div><h3>Avg Spend Per Guest</h3><p>Promoter A: 50 guests × $20. Promoter B: 20 guests × $150. Now you know.</p></div>
-      <div class="glass-card reveal"><div class="icon">🔄</div><h3>Return Rate</h3><p>Which promoters bring one-timers vs repeat guests. Build your regulars.</p></div>
-      <div class="glass-card reveal"><div class="icon">💸</div><h3>Commission Automation</h3><p>Set pay rules — per head, per dollar, tiered. Status calculates automatically.</p></div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== SLIDE 5: GUEST TAGS ===== -->
+<!-- ===== 5. THE ONE-LINER — Posh/Toast killer line ===== -->
 <div class="slide" data-slide="4">
   <div class="mesh-bg">
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(175,82,222,0.2),transparent 70%);width:500px;height:500px;top:0%;right:10%;"></div>
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(255,45,85,0.12),transparent 70%);width:350px;height:350px;bottom:10%;left:10%;animation-delay:-9s;"></div>
-  </div>
-  <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:100%;">
-    <div class="slide-tag reveal">Guest Tags & VIP</div>
-    <div class="slide-title reveal" style="font-size:clamp(30px,4vw,50px);">Tag. Prioritize. Reward.<br><span class="accent-text">Your door, your rules.</span></div>
-    <div class="feature-row" style="margin-top:40px;">
-      <div class="feature-list">
-        <div class="feature reveal"><div class="sf-icon">🏷️</div><div><h4>Custom Guest Tags</h4><p>VIP, Industry, Model, Regular, Blacklist. Tags follow the guest across every visit.</p></div></div>
-        <div class="feature reveal"><div class="sf-icon">⭐</div><div><h4>Priority Entry & Comps</h4><p>Skip the line, waive cover — set in advance, enforced automatically at the door.</p></div></div>
-        <div class="feature reveal"><div class="sf-icon">🚪</div><div><h4>Real-Time Door Tags</h4><p>Bouncer scans ID → tag appears. "VIP — skip line." No radio calls, no confusion.</p></div></div>
-        <div class="feature reveal"><div class="sf-icon">📊</div><div><h4>Tag Analytics</h4><p>VIPs average $180/visit? Models bring friends who spend $60 each? Now you know.</p></div></div>
-        <div class="feature reveal"><div class="sf-icon">🔒</div><div><h4>Cross-Venue Blacklist</h4><p>Flag once — every door team at every event sees the warning. Protect your operation.</p></div></div>
-      </div>
-      <div class="device reveal">
-        <div class="device-screen">
-          <div class="app-title" style="font-size:17px;">DOOR VIEW</div>
-          <div style="margin-top:16px;text-align:left;">
-            <div class="glass-card" style="padding:14px;margin-bottom:10px;border-radius:16px;">
-              <div style="display:flex;justify-content:space-between;align-items:center;">
-                <span style="font-size:15px;font-weight:600;">Jessica M.</span>
-                <span style="font-size:10px;background:rgba(175,82,222,0.12);color:var(--purple);padding:3px 10px;border-radius:980px;font-weight:600;">VIP</span>
-              </div>
-              <div style="font-size:12px;color:var(--text-tertiary);margin-top:4px;">12 visits · Avg $142</div>
-              <div style="font-size:12px;color:var(--green);margin-top:3px;font-weight:500;">→ Skip line · No cover</div>
-            </div>
-            <div class="glass-card" style="padding:14px;margin-bottom:10px;border-radius:16px;">
-              <div style="display:flex;justify-content:space-between;align-items:center;">
-                <span style="font-size:15px;font-weight:600;">Marcus T.</span>
-                <span style="font-size:10px;background:rgba(0,122,255,0.1);color:var(--accent);padding:3px 10px;border-radius:980px;font-weight:600;">REGULAR</span>
-              </div>
-              <div style="font-size:12px;color:var(--text-tertiary);margin-top:4px;">8 visits · Avg $67</div>
-              <div style="font-size:12px;color:var(--text-secondary);margin-top:3px;">→ $20 cover</div>
-            </div>
-            <div style="padding:14px;border-radius:16px;background:rgba(255,59,48,0.05);border:0.5px solid rgba(255,59,48,0.12);">
-              <div style="display:flex;justify-content:space-between;align-items:center;">
-                <span style="font-size:15px;font-weight:600;">Derek W.</span>
-                <span style="font-size:10px;background:rgba(255,59,48,0.1);color:var(--red);padding:3px 10px;border-radius:980px;font-weight:600;">BANNED</span>
-              </div>
-              <div style="font-size:12px;color:rgba(255,59,48,0.6);margin-top:4px;">Chargeback · Banned 2/14</div>
-              <div style="font-size:12px;color:var(--red);margin-top:3px;font-weight:500;">⛔ Do not admit</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== SLIDE 6: MOBILE POS ===== -->
-<div class="slide" data-slide="5">
-  <div class="mesh-bg">
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(0,199,190,0.18),transparent 70%);width:480px;height:480px;top:15%;left:5%;"></div>
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(0,122,255,0.12),transparent 70%);width:400px;height:400px;bottom:5%;right:15%;animation-delay:-4s;"></div>
-  </div>
-  <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:100%;">
-    <div class="slide-tag reveal">Mobile POS</div>
-    <div class="slide-title reveal" style="font-size:clamp(30px,4vw,50px);">Your bar POS. On any iPhone.<br><span class="accent-text">Tap and go.</span></div>
-    <div class="feature-row" style="margin-top:40px;">
-      <div class="device reveal">
-        <div class="device-screen">
-          <div class="app-title" style="font-size:17px;">BAR POS</div>
-          <div style="margin-top:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
-            <div class="glass-card" style="border-radius:14px;padding:12px 4px;text-align:center;"><div style="font-size:20px;">🍺</div><div style="font-size:11px;margin-top:3px;color:var(--text-secondary);">Draft</div><div style="font-size:12px;color:var(--green);font-weight:700;">$8</div></div>
-            <div class="glass-card" style="border-radius:14px;padding:12px 4px;text-align:center;"><div style="font-size:20px;">🥃</div><div style="font-size:11px;margin-top:3px;color:var(--text-secondary);">Well</div><div style="font-size:12px;color:var(--green);font-weight:700;">$12</div></div>
-            <div class="glass-card" style="border-radius:14px;padding:12px 4px;text-align:center;"><div style="font-size:20px;">🍸</div><div style="font-size:11px;margin-top:3px;color:var(--text-secondary);">Premium</div><div style="font-size:12px;color:var(--green);font-weight:700;">$16</div></div>
-            <div class="glass-card" style="border-radius:14px;padding:12px 4px;text-align:center;"><div style="font-size:20px;">🍾</div><div style="font-size:11px;margin-top:3px;color:var(--text-secondary);">Bottle</div><div style="font-size:12px;color:var(--green);font-weight:700;">$350</div></div>
-            <div class="glass-card" style="border-radius:14px;padding:12px 4px;text-align:center;"><div style="font-size:20px;">🧊</div><div style="font-size:11px;margin-top:3px;color:var(--text-secondary);">Shots</div><div style="font-size:12px;color:var(--green);font-weight:700;">$10</div></div>
-            <div class="glass-card" style="border-radius:14px;padding:12px 4px;text-align:center;"><div style="font-size:20px;">💧</div><div style="font-size:11px;margin-top:3px;color:var(--text-secondary);">Water</div><div style="font-size:12px;color:var(--green);font-weight:700;">$5</div></div>
-          </div>
-          <div style="margin-top:14px;background:linear-gradient(135deg,rgba(0,122,255,0.08),rgba(88,86,214,0.08));border:0.5px solid rgba(0,122,255,0.12);border-radius:16px;padding:16px;text-align:center;">
-            <div style="font-size:11px;color:var(--text-tertiary);font-weight:600;letter-spacing:0.04em;">TAP TO PAY</div>
-            <div style="font-size:24px;font-weight:700;margin-top:4px;letter-spacing:-0.03em;">Ready</div>
-            <div style="font-size:11px;color:var(--text-tertiary);margin-top:2px;">Apple Pay · Card · Tap</div>
-          </div>
-        </div>
-      </div>
-      <div class="feature-list">
-        <div class="feature reveal"><div class="sf-icon">📱</div><div><h4>Any iPhone is a Terminal</h4><p>No bulky hardware. Bartenders tap drinks, customers tap their card on the iPhone.</p></div></div>
-        <div class="feature reveal"><div class="sf-icon">⚡</div><div><h4>2-Tap Ordering</h4><p>Tap the drink. Tap to charge. Built for speed at 1 AM when the bar is 3-deep.</p></div></div>
-        <div class="feature reveal"><div class="sf-icon">🔗</div><div><h4>Auto-Attribution</h4><p>Guest taps card → Status recognizes them from door. Every drink linked to their profile.</p></div></div>
-        <div class="feature reveal"><div class="sf-icon">📊</div><div><h4>Real-Time Dashboard</h4><p>Live sales, top items, bartender speed, tab totals. Know your bar at any moment.</p></div></div>
-        <div class="feature reveal"><div class="sf-icon">💳</div><div><h4>Tabs Follow the Guest</h4><p>Open at the door, order at the bar — same tab. One card, one profile.</p></div></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== SLIDE 7: HOW IT WORKS ===== -->
-<div class="slide" data-slide="6" id="slide-how">
-  <div class="mesh-bg">
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(0,122,255,0.15),transparent 70%);width:450px;height:450px;top:20%;left:20%;"></div>
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(88,86,214,0.1),transparent 70%);width:350px;height:350px;bottom:20%;right:20%;animation-delay:-5s;"></div>
+    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(175,82,222,0.2),transparent 70%);width:500px;height:500px;top:15%;left:10%;"></div>
+    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(0,122,255,0.15),transparent 70%);width:400px;height:400px;bottom:15%;right:15%;animation-delay:-7s;"></div>
   </div>
   <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;">
-    <div class="slide-tag reveal">How It Works</div>
-    <div class="slide-title reveal" style="font-size:clamp(30px,4vw,50px);">Three touchpoints.<br>Total visibility.</div>
-    <div class="steps-row">
-      <div class="step glass-card reveal">
-        <div class="step-badge">1</div>
-        <div class="step-icon">🚪</div>
-        <h4>Door</h4>
-        <p>ID scanned → cover charged → card saved. Status captures who they are and how they paid.</p>
-      </div>
-      <div class="step-connector reveal">→</div>
-      <div class="step glass-card reveal">
-        <div class="step-badge">2</div>
-        <div class="step-icon">🍸</div>
-        <h4>Bar</h4>
-        <p>Guest opens a tab → Status recognizes them. Every drink attributed to a real person.</p>
-      </div>
-      <div class="step-connector reveal">→</div>
-      <div class="step glass-card reveal">
-        <div class="step-badge">3</div>
-        <div class="step-icon">📊</div>
-        <h4>Dashboard</h4>
-        <p>Real-time. Which promoters drive revenue. Which guests are VIPs. All connected.</p>
-      </div>
-    </div>
-    <div class="slide-subtitle reveal" style="margin-top:40px;font-size:15px;">
-      The guest never downloads an app. The bartender never changes their workflow.<br>Status works invisibly — you just see the data.
-    </div>
+    <div class="callout reveal">Posh stops at the door.<br>Toast stops at the bar.</div>
+    <div class="callout reveal" style="margin-top:24px;"><span class="accent-text">Status connects both.</span></div>
+    <div class="slide-subtitle reveal" style="margin-top:24px;">Events, guestlists, door ops, bar POS, guest CRM, marketing — one platform. Nobody else does this.</div>
   </div>
 </div>
 
-<!-- ===== SLIDE 8: COMPARISON ===== -->
-<div class="slide" data-slide="7">
-  <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:100%;">
-    <div class="slide-tag reveal">Why Status</div>
-    <div class="slide-title reveal" style="font-size:clamp(26px,3.5vw,42px);">Built for nightlife.<br>Not adapted from restaurants.</div>
-    <div class="compare-wrap glass reveal">
-      <div class="compare-row">
-        <div class="compare-header">Feature</div>
-        <div class="compare-header hl">Status</div>
-        <div class="compare-header">Posh</div>
-        <div class="compare-header">Toast</div>
-      </div>
-      <div class="compare-row"><div class="compare-cell feat">Events & ticketing</div><div class="compare-cell"><span class="ck">✓</span></div><div class="compare-cell"><span class="ck">✓</span></div><div class="compare-cell"><span class="cx">✕</span></div></div>
-      <div class="compare-row"><div class="compare-cell feat">Guestlist management</div><div class="compare-cell"><span class="ck">✓</span></div><div class="compare-cell"><span class="ck">✓</span></div><div class="compare-cell"><span class="cx">✕</span></div></div>
-      <div class="compare-row"><div class="compare-cell feat">Door ops (ID scan + cover)</div><div class="compare-cell"><span class="ck">✓</span></div><div class="compare-cell"><span class="pt">~</span></div><div class="compare-cell"><span class="cx">✕</span></div></div>
-      <div class="compare-row"><div class="compare-cell feat">Bar POS + tabs</div><div class="compare-cell"><span class="ck">✓</span></div><div class="compare-cell"><span class="cx">✕</span></div><div class="compare-cell"><span class="ck">✓</span></div></div>
-      <div class="compare-row"><div class="compare-cell feat">Guest spend attribution</div><div class="compare-cell"><span class="ck">✓</span></div><div class="compare-cell"><span class="cx">✕</span></div><div class="compare-cell"><span class="cx">✕</span></div></div>
-      <div class="compare-row"><div class="compare-cell feat">Promoter tracking</div><div class="compare-cell"><span class="ck">✓</span></div><div class="compare-cell"><span class="cx">✕</span></div><div class="compare-cell"><span class="cx">✕</span></div></div>
-      <div class="compare-row"><div class="compare-cell feat">Real-time analytics</div><div class="compare-cell"><span class="ck">✓</span></div><div class="compare-cell"><span class="cx">✕</span></div><div class="compare-cell"><span class="pt">~</span></div></div>
-      <div class="compare-row"><div class="compare-cell feat">Auto-built guest CRM</div><div class="compare-cell"><span class="ck">✓</span></div><div class="compare-cell"><span class="cx">✕</span></div><div class="compare-cell"><span class="cx">✕</span></div></div>
-      <div class="compare-row"><div class="compare-cell feat">VIP tags + blacklists</div><div class="compare-cell"><span class="ck">✓</span></div><div class="compare-cell"><span class="cx">✕</span></div><div class="compare-cell"><span class="cx">✕</span></div></div>
-      <div class="compare-row"><div class="compare-cell feat">iPhone tap-to-pay POS</div><div class="compare-cell"><span class="ck">✓</span></div><div class="compare-cell"><span class="cx">✕</span></div><div class="compare-cell"><span class="pt">~ hw</span></div></div>
-      <div class="compare-row"><div class="compare-cell feat">SMS / push marketing</div><div class="compare-cell"><span class="ck">✓</span></div><div class="compare-cell"><span class="pt">~</span></div><div class="compare-cell"><span class="pt">~</span></div></div>
-      <div class="compare-row"><div class="compare-cell feat">Zero venue cost</div><div class="compare-cell"><span class="ck">✓ Free</span></div><div class="compare-cell"><span class="ck">✓</span></div><div class="compare-cell"><span class="cx">$165+/mo</span></div></div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== SLIDE 10: PRICING ===== -->
-<div class="slide" data-slide="8">
+<!-- ===== 6. CTA — Simple ===== -->
+<div class="slide" data-slide="5" id="slide-cta">
   <div class="mesh-bg">
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(88,86,214,0.15),transparent 70%);width:450px;height:450px;top:5%;left:15%;"></div>
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(52,199,89,0.1),transparent 70%);width:380px;height:380px;bottom:10%;right:10%;animation-delay:-8s;"></div>
-  </div>
-  <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;">
-    <div class="slide-tag reveal">Pricing</div>
-    <div class="slide-title reveal" style="font-size:clamp(30px,4vw,50px);">Free for venues.<br>We make money when you do.</div>
-    <div class="pricing-row">
-      <div class="price-card glass-card featured reveal">
-        <div class="badge" style="background:rgba(0,122,255,0.08);color:var(--accent);">Core Platform</div>
-        <div class="amount" style="background:var(--accent-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$0</div>
-        <div class="per">per month</div>
-        <div class="desc">Events, guestlists, door ops, analytics, guest CRM, marketing. All included. No monthly fees. Ever.</div>
-      </div>
-      <div class="price-card glass-card reveal">
-        <div class="badge" style="background:rgba(52,199,89,0.08);color:var(--green);">Revenue Share</div>
-        <div class="amount" style="color:var(--green);">5%</div>
-        <div class="per">service fee on door payments</div>
-        <div class="desc">Charged to the customer, not the venue. Your take stays exactly the same.</div>
-      </div>
-      <div class="price-card glass-card reveal">
-        <div class="badge" style="background:rgba(0,122,255,0.08);color:var(--accent);">Ticketing</div>
-        <div class="amount" style="color:var(--accent);">$0.99</div>
-        <div class="per">per ticket + 3%</div>
-        <div class="desc">Industry-standard fees, passed to the buyer. Lower than Eventbrite.</div>
-      </div>
-    </div>
-    <div class="slide-subtitle reveal" style="margin-top:32px;font-size:14px;">
-      No hardware costs. No setup fees. No contracts. Cancel anytime.
-    </div>
-  </div>
-</div>
-
-<!-- ===== SLIDE 11: CTA ===== -->
-<div class="slide" data-slide="9" id="slide-cta">
-  <div class="mesh-bg">
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(0,122,255,0.18),transparent 70%);width:600px;height:600px;top:10%;left:20%;"></div>
-    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(175,82,222,0.12),transparent 70%);width:450px;height:450px;bottom:10%;right:15%;animation-delay:-6s;"></div>
+    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(0,122,255,0.22),transparent 70%);width:600px;height:600px;top:10%;left:20%;"></div>
+    <div class="mesh-blob" style="background:radial-gradient(circle,rgba(175,82,222,0.15),transparent 70%);width:450px;height:450px;bottom:10%;right:15%;animation-delay:-6s;"></div>
   </div>
   <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;">
-    <div class="slide-title reveal" style="font-size:clamp(30px,5vw,56px);">Ready to see<br>what you've been missing?</div>
-    <div class="slide-subtitle reveal">We'll set you up with a free pilot — see Status in action at your venue with zero risk.</div>
+    <div class="slide-title reveal" style="font-size:clamp(32px,5vw,56px);">See what your venue<br>is actually doing tonight.</div>
+    <div class="slide-subtitle reveal">Free pilot. Zero risk. We set everything up.</div>
     <a class="cta-btn-big reveal" href="mailto:admin@status.inc?subject=Status%20Pilot%20Interest">Let's Talk →</a>
-    <div class="contact-links reveal" style="transition-delay:0.15s;">
-      <a href="mailto:admin@status.inc">admin@status.inc</a> · <a href="https://status.inc">status.inc</a>
+    <div style="margin-top:16px;color:var(--text-tertiary);font-size:14px;" class="reveal">
+      <a href="mailto:admin@status.inc" style="color:var(--accent);text-decoration:none;font-weight:500;">admin@status.inc</a> · <a href="https://status.inc" style="color:var(--accent);text-decoration:none;font-weight:500;">status.inc</a>
     </div>
     <div style="margin-top:48px;color:var(--text-tertiary);font-size:12px;" class="reveal">© 2026 Status Digital, Inc.</div>
   </div>
 </div>
 
 <script>
-// Nav dots
 const slides = document.querySelectorAll('.slide');
 const dotsContainer = document.getElementById('navDots');
-slides.forEach((_, i) => {
+slides.forEach((_,i) => {
   const dot = document.createElement('button');
-  dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
-  dot.onclick = () => slides[i].scrollIntoView({ behavior: 'smooth' });
+  dot.className = 'nav-dot' + (i===0?' active':'');
+  dot.onclick = () => slides[i].scrollIntoView({behavior:'smooth'});
   dotsContainer.appendChild(dot);
 });
+const dotObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) { const idx=parseInt(e.target.dataset.slide); document.querySelectorAll('.nav-dot').forEach((d,i) => d.classList.toggle('active',i===idx)); }});
+},{threshold:0.5});
+slides.forEach(s => dotObs.observe(s));
 
-// Active dot tracking
-const dotObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const idx = parseInt(entry.target.dataset.slide);
-      document.querySelectorAll('.nav-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
-    }
-  });
-}, { threshold: 0.5 });
-slides.forEach(s => dotObserver.observe(s));
-
-// Scroll reveal with stagger
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-document.querySelectorAll('.reveal').forEach((el, i) => {
-  // Stagger siblings within same parent
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach((el,i) => {
   const siblings = el.parentElement.querySelectorAll('.reveal');
   const idx = Array.from(siblings).indexOf(el);
-  el.style.transitionDelay = (idx * 0.07) + 's';
-  revealObserver.observe(el);
+  el.style.transitionDelay = (idx*0.07)+'s';
+  revObs.observe(el);
 });
 </script>
 </body>
