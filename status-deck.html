@@ -22,34 +22,59 @@
     --accent: #007aff;
     --accent-grad: linear-gradient(135deg, #007aff, #5856d6, #af52de);
     --green: #30d158;
+    --red: #ff453a;
+    --orange: #ff9f0a;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;scroll-snap-type:y mandatory;}
   body{background:#050510;color:var(--text);font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Helvetica Neue','Inter',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
   body::before{content:'';position:fixed;inset:0;z-index:-1;background:url('bg4.jpg') center/cover fixed;}
 
-  .slide{min-height:100vh;display:flex;justify-content:center;align-items:center;padding:60px 32px;position:relative;scroll-snap-align:start;}
+  /* ---- Slide ---- */
+  .slide{min-height:100vh;display:flex;justify-content:center;align-items:center;padding:60px 32px;position:relative;scroll-snap-align:start;overflow:hidden;}
+  .slide-bg{position:absolute;inset:0;background-size:cover;background-position:center;z-index:0;}
+  .slide-bg::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.35);}
+
+  /* ---- Dark Glass Panel ---- */
   .glass-panel{
     position:relative;z-index:2;
     background:var(--glass);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
     border:0.5px solid var(--glass-border);border-radius:28px;
     box-shadow:0 32px 80px rgba(0,0,0,0.6),0 8px 24px rgba(0,0,0,0.4),var(--glass-highlight);
-    padding:56px 48px;max-width:900px;width:100%;
+    padding:56px 48px;max-width:900px;width:100%;margin:0 auto;display:flex;flex-direction:column;justify-content:center;overflow:hidden;
   }
+  .glass-panel-sm{padding:36px 32px;border-radius:20px;}
+
+  /* ---- Inner glass card ---- */
   .g-card{
     background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.12);border-radius:16px;
     padding:24px;box-shadow:var(--glass-highlight);
     transition:transform 0.4s cubic-bezier(.23,1,.32,1),background 0.4s;
   }
   .g-card:hover{transform:translateY(-4px);background:rgba(255,255,255,0.1);}
+
+  /* ---- Typography ---- */
   .title{font-size:clamp(36px,5vw,60px);font-weight:700;line-height:1.08;letter-spacing:-0.04em;color:var(--text);}
   .subtitle{font-size:clamp(16px,1.6vw,20px);font-weight:400;color:var(--text2);line-height:1.5;margin-top:16px;letter-spacing:-0.01em;}
+  .tag{font-size:13px;font-weight:600;letter-spacing:0.02em;margin-bottom:12px;text-transform:uppercase;}
   .grad{background:var(--accent-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-  .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:36px;}
-  .card-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,rgba(0,122,255,0.1),rgba(175,82,222,0.1));border:0.5px solid rgba(255,255,255,0.06);display:inline-flex;align-items:center;justify-content:center;margin-bottom:12px;}
-  .card-icon svg{width:22px;height:22px;stroke:url(#icon-grad);fill:none;}
-  .pill{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:980px;background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.08);font-size:14px;font-weight:500;color:var(--text2);}
-  .pill strong{color:var(--text);font-weight:700;}
+
+  /* ---- Nav dots ---- */
+  .nav-dots{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:8px;background:rgba(20,20,22,0.5);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:0.5px solid rgba(255,255,255,0.06);border-radius:980px;padding:8px 6px;}
+  .nav-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.15);cursor:pointer;border:none;transition:all 0.4s;}
+  .nav-dot.active{background:#fff;transform:scale(1.5);}
+
+  /* ---- Competitor Grid ---- */
+  .comp-grid{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:16px;width:min(90vw,560px);height:240px;margin:0 auto;}
+  .comp-shard{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:rgba(255,255,255,0.06);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:16px 12px;opacity:0.5;}
+  .comp-shard img{width:32px;height:32px;border-radius:6px;object-fit:contain;opacity:0.5;filter:grayscale(100%);margin-bottom:6px;}
+  .comp-shard .sn{font-size:13px;font-weight:600;color:rgba(255,255,255,0.55);}
+  .comp-shard .sr{font-size:11px;color:rgba(255,255,255,0.3);margin-top:2px;}
+  /* STATUS center hub */
+  .status-hub{grid-column:2;grid-row:1/span 2;display:flex;align-items:center;justify-content:center;background:#0d0d1f;border:2px solid transparent;background-clip:padding-box;border-radius:20px;position:relative;z-index:10;box-shadow:0 0 0 2px rgba(99,220,255,0.6),0 0 40px 10px rgba(99,220,255,0.3),0 0 80px 30px rgba(139,92,246,0.2);}
+  @media(max-width:500px){.comp-grid{height:180px;gap:10px;}.comp-shard .sn{font-size:11px;}.comp-shard img{width:24px;height:24px;}}
+
+  /* ---- Steps ---- */
   .steps{display:flex;gap:16px;margin-top:40px;flex-wrap:wrap;justify-content:center;}
   .step{flex:1;min-width:200px;text-align:center;padding:28px 20px;}
   .step-num{width:28px;height:28px;border-radius:50%;background:var(--accent-grad);color:#fff;font-size:13px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;margin-bottom:14px;}
@@ -57,15 +82,38 @@
   .step-icon svg{width:32px;height:32px;stroke:url(#icon-grad);fill:none;}
   .step h4{font-size:16px;font-weight:600;margin-bottom:6px;}
   .step p{font-size:13px;color:var(--text2);line-height:1.5;}
-  .nav-dots{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:8px;background:rgba(20,20,22,0.5);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:0.5px solid rgba(255,255,255,0.06);border-radius:980px;padding:8px 6px;}
-  .nav-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.15);cursor:pointer;border:none;transition:all 0.4s;}
-  .nav-dot.active{background:#fff;transform:scale(1.5);}
+
+  /* ---- Feature list ---- */
+  .feat{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:0.5px solid rgba(255,255,255,0.06);}
+  .feat:last-child{border:none;}
+  .feat-icon{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,rgba(0,122,255,0.08),rgba(175,82,222,0.08));border:0.5px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .feat-icon svg{width:20px;height:20px;stroke:url(#icon-grad);fill:none;}
+  .card-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,rgba(0,122,255,0.1),rgba(175,82,222,0.1));border:0.5px solid rgba(255,255,255,0.06);display:inline-flex;align-items:center;justify-content:center;margin-bottom:12px;}
+  .card-icon svg{width:22px;height:22px;stroke:url(#icon-grad);fill:none;}
+  .feat h4{font-size:15px;font-weight:600;margin-bottom:2px;}
+  .feat p{font-size:13px;color:var(--text2);line-height:1.45;}
+
+  /* ---- Device ---- */
+  .device{width:200px;height:360px;border-radius:36px;flex-shrink:0;position:relative;overflow:hidden;background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);box-shadow:0 20px 60px rgba(0,0,0,0.4);}
+  .device::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:110px;height:30px;background:#000;border-radius:0 0 20px 20px;z-index:2;}
+  .device-screen{width:100%;height:100%;padding:40px 14px 14px;position:relative;z-index:1;}
+
+  /* ---- Grid ---- */
+  .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:36px;}
+
+  /* ---- Pill ---- */
+  .pill{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:980px;background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.08);font-size:14px;font-weight:500;color:var(--text2);}
+  .pill strong{color:var(--text);font-weight:700;}
+
+  /* ---- Reveal ---- */
   .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.6s cubic-bezier(.23,1,.32,1),transform 0.6s cubic-bezier(.23,1,.32,1);}
   .reveal.visible{opacity:1;transform:translateY(0);}
+
   @media(max-width:768px){
     .slide{padding:40px 16px;}
     .glass-panel{padding:36px 20px;border-radius:20px;}
     .steps{flex-direction:column;align-items:center;}
+    .feat-row{flex-direction:column-reverse;}
   }
 </style>
 </head>
@@ -75,32 +123,72 @@
 
 <div class="nav-dots" id="navDots"></div>
 
-<!-- ===== 1. HERO ===== -->
+<!-- ===== 1. HERO — Shattered Rectangle ===== -->
 <div class="slide" data-slide="0">
+  
   <div class="glass-panel reveal" style="text-align:center;">
-    <div style="font-size:clamp(48px,8vw,80px);font-weight:800;letter-spacing:-0.03em;">STATUS</div>
-    <div class="title" style="margin-top:16px;">The all-in-one<br><span class="grad">nightlife platform.</span></div>
-    <div class="subtitle">Door. Bar. Guest data. One system that shows you exactly where every dollar comes from.</div>
+    <div class="comp-grid">
+      <div class="comp-shard" style="grid-column:1;grid-row:1;"><img src="https://www.google.com/s2/favicons?domain=toasttab.com&sz=64" alt=""><span class="sn">Toast</span><span class="sr">Bar POS</span></div>
+      <div class="status-hub">
+        <div style="font-size:28px;font-weight:800;color:#fff;letter-spacing:-0.02em;">STATUS</div>
+      </div>
+      <div class="comp-shard" style="grid-column:3;grid-row:1;"><img src="https://www.google.com/s2/favicons?domain=posh.vip&sz=64" alt=""><span class="sn">Posh</span><span class="sr">Ticketing</span></div>
+      <div class="comp-shard" style="grid-column:1;grid-row:2;"><img src="https://www.google.com/s2/favicons?domain=eventbrite.com&sz=64" alt=""><span class="sn">Eventbrite</span><span class="sr">Events</span></div>
+      <div class="comp-shard" style="grid-column:3;grid-row:2;"><img src="https://www.google.com/s2/favicons?domain=sevenrooms.com&sz=64" alt=""><span class="sn">SevenRooms</span><span class="sr">Reservations</span></div>
+    </div>
+    <div class="title" style="margin-top:32px;">The all-in-one<br><span class="grad">nightlife platform.</span></div>
+    <div class="subtitle">Status connects your door, your bar, and your guest data — so you see exactly where every dollar comes from.</div>
   </div>
 </div>
 
-<!-- ===== 2. WHY STATUS ===== -->
+<!-- ===== 2. HOW WE SAVE YOU MONEY ===== -->
 <div class="slide" data-slide="1">
+  
   <div class="glass-panel reveal">
-    <div class="title" style="text-align:center;">Why <span class="grad">Status.</span></div>
+    <div class="title" style="text-align:center;">Immediate <span class="grad">savings.</span></div>
     <div class="card-grid">
-      <div class="g-card"><div class="card-icon"><i data-lucide="credit-card"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">0% Processing Fees</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">You keep <strong style="color:var(--green);">100%</strong> on every card transaction.</p></div>
-      <div class="g-card"><div class="card-icon"><i data-lucide="shield-check"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Chargeback Protection</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">ID scan + EMV + itemized receipt. <strong style="color:var(--green);">We handle it.</strong></p></div>
-      <div class="g-card"><div class="card-icon"><i data-lucide="lock"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">No More Walkouts</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Card on file from the door. <strong style="color:var(--green);">Every tab closes automatically.</strong></p></div>
-      <div class="g-card"><div class="card-icon"><i data-lucide="trophy"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Promoter ROI</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">See actual revenue per promoter. Cut the dead weight.</p></div>
-      <div class="g-card"><div class="card-icon"><i data-lucide="repeat"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Guests Come Back</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">VIP recognition + auto birthday promos = <strong style="color:var(--green);">2-3x more spend.</strong></p></div>
-      <div class="g-card"><div class="card-icon"><i data-lucide="send"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Targeted SMS</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Blast top spenders on slow nights. Segmented by spend and frequency.</p></div>
+      <div class="g-card"><div class="card-icon"><i data-lucide="credit-card"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">0% Processing Fees</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">That 2-3% you're eating on every swipe? <strong style="color:var(--green);">Gone. You keep 100%.</strong></p></div>
+      <div class="g-card"><div class="card-icon"><i data-lucide="shield-check"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">100% Chargeback Protection</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">ID scan + EMV + itemized receipt. <strong style="color:var(--green);">We handle it. You keep your money.</strong></p></div>
+      <div class="g-card"><div class="card-icon"><i data-lucide="user-x"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Dead-Weight Promoters</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">See revenue per promoter. <strong style="color:var(--green);">Cut the ones costing you money.</strong></p></div>
+      <div class="g-card"><div class="card-icon"><i data-lucide="ban"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Cross-Venue Blacklist</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Banned at one venue? <strong style="color:var(--green);">Banned at all Status venues.</strong></p></div>
+      <div class="g-card"><div class="card-icon"><i data-lucide="trending-up"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Slow Nights</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Track <strong style="color:var(--green);">performance trends across every night</strong> — double down on winners.</p></div>
+      <div class="g-card"><div class="card-icon"><i data-lucide="lock"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Walkouts & Open Tabs</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Card on file from the door. <strong style="color:var(--green);">Every tab gets closed automatically.</strong></p></div>
     </div>
   </div>
 </div>
 
-<!-- ===== 3. HOW IT WORKS ===== -->
+<!-- ===== 3. HOW WE MAKE YOU MONEY ===== -->
 <div class="slide" data-slide="2">
+  
+  <div class="glass-panel reveal">
+    <div class="title" style="text-align:center;">Immediate <span class="grad">earnings.</span></div>
+    <div class="card-grid">
+      <div class="g-card"><div class="card-icon"><i data-lucide="repeat"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Repeat Guests Spend 2-3x More</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Guest profiles = VIP treatment = they come back and spend more.</p></div>
+      <div class="g-card"><div class="card-icon"><i data-lucide="send"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Targeted SMS Fills Slow Nights</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Blast top spenders. Segmented by spend, frequency, location.</p></div>
+      <div class="g-card"><div class="card-icon"><i data-lucide="trophy"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Double Down on Winners</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Know which promoters drive real revenue. Invest in the best.</p></div>
+      <div class="g-card"><div class="card-icon"><i data-lucide="sparkles"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Upsell With Data</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">"Your usual?" — bigger tab, loyal customer.</p></div>
+      <div class="g-card"><div class="card-icon"><i data-lucide="cake"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Automated Texts</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Every ID scan = birthday on file. Auto-send promos that <strong style="color:var(--green);">bring them back.</strong></p></div>
+      <div class="g-card"><div class="card-icon"><i data-lucide="credit-card"></i></div><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">Pre-Authorized Cards</h3><p style="font-size:13px;color:var(--text2);line-height:1.5;">Card saved at door = friction-free ordering. Higher average tabs.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 4. WHAT YOU PAY ===== -->
+<div class="slide" data-slide="3">
+  
+  <div class="glass-panel reveal" style="text-align:center;">
+    <div class="title">What you pay.</div>
+    <div style="font-size:clamp(100px,15vw,180px);font-weight:800;letter-spacing:-4px;margin:16px 0;"><span class="grad">$0</span></div>
+    <div class="subtitle" style="margin:0 auto;">No hardware. No monthly fees. No contracts.<br>Status is free for every venue. Forever.</div>
+    <div style="margin-top:32px;display:flex;flex-direction:column;gap:10px;align-items:center;">
+      <div class="pill">💰 <strong>5% service fee</strong> on payments — charged to the customer, not you</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 5. HOW IT WORKS ===== -->
+<div class="slide" data-slide="4">
+  
   <div class="glass-panel reveal" style="text-align:center;">
     <div class="title">How it works.</div>
     <div class="steps">
@@ -108,57 +196,89 @@
         <div class="step-num">1</div>
         <div class="step-icon"><i data-lucide="scan-line"></i></div>
         <h4>Door</h4>
-        <p>ID scanned. Cover charged. Card saved. You know who walked in.</p>
+        <p>ID scanned → cover charged → card saved. You know who walked in.</p>
       </div>
       <div class="step g-card">
         <div class="step-num">2</div>
         <div class="step-icon"><i data-lucide="wine"></i></div>
         <h4>Bar</h4>
-        <p>Guest opens tab. Status recognizes them. Every drink attributed.</p>
+        <p>Guest opens tab → Status recognizes them. Every drink attributed.</p>
       </div>
       <div class="step g-card">
         <div class="step-num">3</div>
         <div class="step-icon"><i data-lucide="layout-dashboard"></i></div>
         <h4>Dashboard</h4>
-        <p>Real-time revenue, promoter ROI, guest profiles, night performance.</p>
+        <p>Real-time. Promoter ROI. Guest VIPs. Night performance.</p>
       </div>
     </div>
     <div class="subtitle" style="margin:32px auto 0;">No app for guests. No workflow changes for bartenders. Status works invisibly.</div>
   </div>
 </div>
 
-<!-- ===== 4. PRICING ===== -->
-<div class="slide" data-slide="3">
-  <div class="glass-panel reveal" style="text-align:center;">
-    <div class="title">What you pay.</div>
-    <div style="font-size:clamp(100px,15vw,180px);font-weight:800;letter-spacing:-4px;margin:16px 0;"><span class="grad">$0</span></div>
-    <div class="subtitle" style="margin:0 auto;">No hardware. No monthly fees. No contracts.<br>Free for every venue. Forever.</div>
-    <div style="margin-top:32px;display:flex;justify-content:center;">
-      <div class="pill"><strong>5% service fee</strong> on payments — charged to the customer, not you</div>
+<!-- ===== 6. WHAT YOU SEE ===== -->
+<div class="slide" data-slide="5">
+  
+  <div class="glass-panel reveal">
+    <div class="title" style="text-align:center;">What you see.</div>
+    <div style="display:flex;gap:40px;margin-top:36px;flex-wrap:wrap;justify-content:center;align-items:center;" class="feat-row">
+      <div style="flex:1;min-width:280px;">
+        <div class="feat"><div class="feat-icon"><i data-lucide="dollar-sign"></i></div><div><h4>Promoter ROI in Dollars</h4><p>Not headcount — actual revenue per promoter.</p></div></div>
+        <div class="feat"><div class="feat-icon"><i data-lucide="user"></i></div><div><h4>Auto-Built Guest Profiles</h4><p>Visit count, avg spend, preferences. CRM builds itself.</p></div></div>
+        <div class="feat"><div class="feat-icon"><i data-lucide="crown"></i></div><div><h4>VIP Tags at the Door</h4><p>Scan ID → "VIP, skip line" appears instantly.</p></div></div>
+        <div class="feat"><div class="feat-icon"><i data-lucide="smartphone"></i></div><div><h4>SMS Blasts</h4><p>Segment by spend, frequency, event.</p></div></div>
+        <div class="feat"><div class="feat-icon"><i data-lucide="wine"></i></div><div><h4>Bar Analytics</h4><p>What's selling, rush timing, bartender speed.</p></div></div>
+      </div>
+      <div class="device">
+        <div class="device-screen">
+          <div style="font-size:18px;font-weight:700;text-align:center;color:var(--text);">STATUS</div>
+          <div style="margin-top:16px;font-size:10px;color:var(--text3);text-align:center;font-weight:600;letter-spacing:0.05em;">LIVE DASHBOARD</div>
+          <div style="margin-top:8px;font-size:34px;font-weight:800;color:var(--green);text-align:center;">$14,280</div>
+          <div style="font-size:11px;color:var(--text3);text-align:center;margin-top:2px;">Tonight's Revenue</div>
+          <div style="margin-top:18px;display:flex;justify-content:center;gap:24px;">
+            <div style="text-align:center;"><div style="font-size:20px;font-weight:700;">347</div><div style="font-size:9px;color:var(--text3);">Inside</div></div>
+            <div style="text-align:center;"><div style="font-size:20px;font-weight:700;">23</div><div style="font-size:9px;color:var(--text3);">In Line</div></div>
+            <div style="text-align:center;"><div style="font-size:20px;font-weight:700;">$41</div><div style="font-size:9px;color:var(--text3);">Avg Spend</div></div>
+          </div>
+          <div style="margin-top:20px;text-align:left;">
+            <div style="font-size:9px;color:var(--text3);margin-bottom:8px;font-weight:600;letter-spacing:0.05em;">TOP PROMOTERS</div>
+            <div style="font-size:12px;padding:8px 0;border-bottom:0.5px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;"><span>Marcus J.</span><span style="color:var(--green);font-weight:600;">$4,200</span></div>
+            <div style="font-size:12px;padding:8px 0;border-bottom:0.5px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;"><span>Sophia C.</span><span style="color:var(--green);font-weight:600;">$2,790</span></div>
+            <div style="font-size:12px;padding:8px 0;display:flex;justify-content:space-between;"><span>Tyler R.</span><span style="color:var(--orange);font-weight:600;">$380</span></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- ===== 5. CTA ===== -->
-<div class="slide" data-slide="4">
+<!-- ===== 7. CTA ===== -->
+<div class="slide" data-slide="6">
+  
   <div class="glass-panel reveal" style="text-align:center;">
     <div class="title" style="font-size:clamp(48px,8vw,100px);"><span class="grad">Let's talk.</span></div>
     <div class="subtitle">Free pilot. Zero risk. We set everything up.</div>
     <div style="margin-top:20px;font-size:14px;">
       <a href="mailto:admin@status.inc" style="color:var(--accent);text-decoration:none;font-weight:500;">admin@status.inc</a> · <a href="https://status.inc" style="color:var(--accent);text-decoration:none;font-weight:500;">status.inc</a>
     </div>
-    <div style="margin-top:40px;color:var(--text3);font-size:12px;">&copy; 2026 Status Digital, Inc.</div>
+    <div style="margin-top:40px;color:var(--text3);font-size:12px;">© 2026 Status Digital, Inc.</div>
   </div>
 </div>
 
 <script>
 const slides=document.querySelectorAll('.slide'),dc=document.getElementById('navDots');
 slides.forEach((_,i)=>{const d=document.createElement('button');d.className='nav-dot'+(i===0?' active':'');d.onclick=()=>slides[i].scrollIntoView({behavior:'smooth'});dc.appendChild(d);});
-slides.forEach(s=>new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const i=[...slides].indexOf(e.target);document.querySelectorAll('.nav-dot').forEach((d,j)=>d.classList.toggle('active',j===i));}}),{threshold:0.5}).observe(s));
+new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const i=[...slides].indexOf(e.target);document.querySelectorAll('.nav-dot').forEach((d,j)=>d.classList.toggle('active',j===i));}}),{threshold:0.5}).observe&&slides.forEach(s=>new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const i=[...slides].indexOf(e.target);document.querySelectorAll('.nav-dot').forEach((d,j)=>d.classList.toggle('active',j===i));}}),{threshold:0.5}).observe(s));
 const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 </script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>lucide.createIcons();</script>
+<script>
+window.addEventListener('load',()=>{
+  const ref=document.querySelector('[data-slide="2"] .glass-panel');
+  const h=ref.offsetHeight;
+  document.querySelectorAll('.glass-panel').forEach(p=>{p.style.height=h+'px';});
+});
+</script>
 </body>
 </html>
