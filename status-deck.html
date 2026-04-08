@@ -225,22 +225,52 @@
         <div class="feat"><div class="feat-icon"><i data-lucide="smartphone"></i></div><div><h4>SMS Blasts</h4><p>Segment by spend, frequency, event.</p></div></div>
         <div class="feat"><div class="feat-icon"><i data-lucide="wine"></i></div><div><h4>Bar Analytics</h4><p>What's selling, rush timing, bartender speed.</p></div></div>
       </div>
-      <div class="device">
-        <div class="device-screen">
-          <div style="font-size:18px;font-weight:700;text-align:center;color:var(--text);">STATUS</div>
-          <div style="margin-top:16px;font-size:10px;color:var(--text3);text-align:center;font-weight:600;letter-spacing:0.05em;">LIVE DASHBOARD</div>
-          <div style="margin-top:8px;font-size:34px;font-weight:800;color:var(--green);text-align:center;">$14,280</div>
-          <div style="font-size:11px;color:var(--text3);text-align:center;margin-top:2px;">Tonight's Revenue</div>
-          <div style="margin-top:18px;display:flex;justify-content:center;gap:24px;">
-            <div style="text-align:center;"><div style="font-size:20px;font-weight:700;">347</div><div style="font-size:9px;color:var(--text3);">Inside</div></div>
-            <div style="text-align:center;"><div style="font-size:20px;font-weight:700;">23</div><div style="font-size:9px;color:var(--text3);">In Line</div></div>
-            <div style="text-align:center;"><div style="font-size:20px;font-weight:700;">$41</div><div style="font-size:9px;color:var(--text3);">Avg Spend</div></div>
+      <div class="device" style="height:420px;">
+        <div class="device-screen" style="padding:40px 10px 10px;background:#0a0a0a;">
+          <!-- Top metrics bar -->
+          <div style="display:flex;justify-content:space-between;padding:0 2px;margin-bottom:10px;">
+            <div style="text-align:center;"><div style="font-size:8px;font-weight:700;color:var(--text);">Uniq V.</div><div style="font-size:10px;font-weight:700;">3</div><div style="font-size:7px;color:var(--red);">-21.4%</div></div>
+            <div style="text-align:center;"><div style="font-size:8px;font-weight:700;color:var(--text);">RSVPs</div><div style="font-size:10px;font-weight:700;">3</div><div style="font-size:7px;color:var(--red);">-100.0%</div></div>
+            <div style="text-align:center;"><div style="font-size:8px;font-weight:700;color:var(--text);">Chk-In</div><div style="font-size:10px;font-weight:700;">0</div><div style="font-size:7px;color:var(--green);">+0.0%</div></div>
           </div>
-          <div style="margin-top:20px;text-align:left;">
-            <div style="font-size:9px;color:var(--text3);margin-bottom:8px;font-weight:600;letter-spacing:0.05em;">TOP PROMOTERS</div>
-            <div style="font-size:12px;padding:8px 0;border-bottom:0.5px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;"><span>Marcus J.</span><span style="color:var(--green);font-weight:600;">$4,200</span></div>
-            <div style="font-size:12px;padding:8px 0;border-bottom:0.5px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;"><span>Sophia C.</span><span style="color:var(--green);font-weight:600;">$2,790</span></div>
-            <div style="font-size:12px;padding:8px 0;display:flex;justify-content:space-between;"><span>Tyler R.</span><span style="color:var(--orange);font-weight:600;">$380</span></div>
+          <!-- Bottom sheet -->
+          <div style="background:#1a1a1a;border-radius:14px 14px 0 0;padding:10px 10px 8px;flex:1;">
+            <div style="width:24px;height:3px;background:rgba(255,255,255,0.2);border-radius:2px;margin:0 auto 8px;"></div>
+            <div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:2px;">RSVPs</div>
+            <div style="border-top:0.5px solid rgba(255,255,255,0.1);padding-top:6px;margin-top:4px;">
+              <span style="font-size:16px;font-weight:800;color:var(--text);">3</span>
+              <span style="font-size:9px;color:var(--red);margin-left:4px;font-weight:600;">-100.0%</span>
+              <div style="font-size:8px;color:var(--text3);margin-top:1px;">Past Month</div>
+            </div>
+            <!-- Time period pills -->
+            <div style="display:flex;gap:4px;margin-top:6px;">
+              <div style="font-size:7px;color:var(--text3);padding:2px 6px;">1D</div>
+              <div style="font-size:7px;color:var(--text3);padding:2px 6px;">1W</div>
+              <div style="font-size:7px;color:var(--text);padding:2px 6px;background:rgba(255,255,255,0.12);border-radius:8px;font-weight:600;">1M</div>
+              <div style="font-size:7px;color:var(--text3);padding:2px 6px;">3M</div>
+              <div style="font-size:7px;color:var(--text3);padding:2px 6px;">1Y</div>
+              <div style="font-size:7px;color:var(--text3);padding:2px 6px;">All</div>
+            </div>
+            <!-- Chart area -->
+            <div style="margin-top:6px;height:70px;position:relative;">
+              <svg viewBox="0 0 160 60" style="width:100%;height:100%;" preserveAspectRatio="none">
+                <defs><linearGradient id="chart-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff453a" stop-opacity="0.5"/><stop offset="100%" stop-color="#ff453a" stop-opacity="0.02"/></linearGradient></defs>
+                <path d="M0,58 L25,58 C30,58 32,10 40,10 C48,10 50,58 55,58 L65,58 C70,58 72,10 80,10 C88,10 90,58 95,58 L160,58" fill="url(#chart-fill)" stroke="none"/>
+                <path d="M0,58 L25,58 C30,58 32,10 40,10 C48,10 50,58 55,58 L65,58 C70,58 72,10 80,10 C88,10 90,58 95,58 L160,58" fill="none" stroke="#ff453a" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <!-- Stats grid -->
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px 8px;margin-top:6px;font-size:7px;">
+              <div style="display:flex;justify-content:space-between;"><span style="color:var(--text3);">Open</span><span style="color:var(--text);">0</span></div>
+              <div style="display:flex;justify-content:space-between;"><span style="color:var(--text3);">Total</span><span style="color:var(--text);">3</span></div>
+              <div style="display:flex;justify-content:space-between;"><span style="color:var(--text3);">30D High</span><span style="color:var(--text);">1</span></div>
+              <div style="display:flex;justify-content:space-between;"><span style="color:var(--text3);">High</span><span style="color:var(--text);">1</span></div>
+              <div style="display:flex;justify-content:space-between;"><span style="color:var(--text3);">Average</span><span style="color:var(--text);">0.2</span></div>
+              <div style="display:flex;justify-content:space-between;"><span style="color:var(--text3);">30D Low</span><span style="color:var(--text);">0</span></div>
+              <div style="display:flex;justify-content:space-between;"><span style="color:var(--text3);">Low</span><span style="color:var(--text);">0</span></div>
+              <div style="display:flex;justify-content:space-between;"><span style="color:var(--text3);">Daily Avg</span><span style="color:var(--text);">0</span></div>
+              <div style="display:flex;justify-content:space-between;"><span style="color:var(--text3);">Avg Vol</span><span style="color:var(--text);">0</span></div>
+            </div>
           </div>
         </div>
       </div>
