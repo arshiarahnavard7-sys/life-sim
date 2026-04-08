@@ -28,7 +28,8 @@
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;scroll-snap-type:y mandatory;}
   body{background:#050510;color:var(--text);font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Helvetica Neue','Inter',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
-  body::before{content:'';position:fixed;inset:0;z-index:-1;background:url('bg4.jpg') center/cover fixed;}
+  .spline-bg{position:fixed;inset:0;z-index:-1;width:100%;height:100%;overflow:hidden;}
+  .spline-bg spline-viewer{width:100%;height:100%;display:block;}
 
   /* ---- Slide ---- */
   .slide{min-height:100vh;display:flex;justify-content:center;align-items:center;padding:60px 32px;position:relative;scroll-snap-align:start;overflow:hidden;}
@@ -118,6 +119,10 @@
 </style>
 </head>
 <body>
+
+<div class="spline-bg">
+  <spline-viewer url="https://prod.spline.design/Q8xMMJUq96bwJD0l/scene.splinecode" loading="lazy"></spline-viewer>
+</div>
 
 <svg style="position:absolute;width:0;height:0;" aria-hidden="true"><defs><linearGradient id="icon-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#007aff"/><stop offset="50%" stop-color="#5856d6"/><stop offset="100%" stop-color="#af52de"/></linearGradient></defs></svg>
 
@@ -263,6 +268,7 @@ new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const i=[...sli
 const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 </script>
+<script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>lucide.createIcons();</script>
 <script>
